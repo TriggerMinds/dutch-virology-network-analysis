@@ -1,3 +1,11 @@
+[![Pipeline](https://img.shields.io/badge/Pipeline-Passing-brightgreen)](https://github.com/TriggerMinds/dutch-virology-network-analysis/actions)
+[![Nodes](https://img.shields.io/badge/Nodes-5401-blue)](https://triggerminds.github.io/dutch-virology-network-analysis/)
+[![Edges](https://img.shields.io/badge/Edges-6530-blue)](https://triggerminds.github.io/dutch-virology-network-analysis/)
+[![SHA-256](https://img.shields.io/badge/SHA--256-Verified-success)](https://github.com/TriggerMinds/dutch-virology-network-analysis/blob/main/data/checksums.sha256)
+[![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/TriggerMinds/dutch-virology-network-analysis/blob/main/LICENSE)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.XXXXXXX-blue)](https://zenodo.org/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-success)](https://triggerminds.github.io/dutch-virology-network-analysis/)
+
 # Dutch Pandemic Governance & Virology Network Analysis Toolkit (Knowledge Graph)
 
 > **Automated entity extraction, multiplex network analysis, and blind-spot mapping**

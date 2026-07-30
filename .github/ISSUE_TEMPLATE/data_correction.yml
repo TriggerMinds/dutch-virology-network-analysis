@@ -1,0 +1,48 @@
+name: Data Correctie / Wederhoor
+description: Meld een feitelijke onjuistheid in de dataset of het dossier
+title: "[DATACORRECTIE] "
+labels: ["data-correction", "wederhoor"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Data Correctie Verzoek
+
+        Dit formulier is voor het melden van feitelijke onjuistheden in de kennisgraph of het onderzoeksdossier.
+
+  - type: input
+    id: contact-email
+    attributes:
+      label: Uw e-mailadres (voor verificatie)
+      description: Wordt niet openbaar gemaakt
+      placeholder: u@voorbeeld.nl
+    validations:
+      required: true
+  - type: input
+    id: disputed-node
+    attributes:
+      label: Betwist knooppunt (node name)
+      description: Welke persoon, organisatie of relatie in de graaf is onjuist?
+      placeholder: "Bijv. 'Marion Koopmans' of 'VEO (GA#874735)'"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Wat is onjuist?
+      description: Beschrijf de feitelijke fout zo exact mogelijk
+    validations:
+      required: true
+  - type: input
+    id: evidence-url
+    attributes:
+      label: Bewijsstuk URL
+      description: Link naar openbaar document, publicatie of register dat de correctie onderbouwt
+      placeholder: https://...
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-correction
+    attributes:
+      label: Voorgestelde correctie
+      description: Wat moet er veranderen?

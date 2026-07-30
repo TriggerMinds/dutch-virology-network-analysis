@@ -1,0 +1,51 @@
+name: Woo/FOIA Document Inzending
+description: Dien een nieuw openbaar document in voor verwerking in de kennisgraph
+title: "[WOO/FOIA] "
+labels: ["woo", "new-evidence"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Woo/FOIA Document Inzending
+
+        Gebruik dit formulier om nieuw openbaar gemaakte documenten aan te dragen voor verwerking.
+
+  - type: input
+    id: document-title
+    attributes:
+      label: Documenttitel
+      description: Officiële titel van het document
+    validations:
+      required: true
+  - type: input
+    id: woo-number
+    attributes:
+      label: Woo/FOIA-nummer
+      description: Bijv. Woo/3661708, Woo/VWS-2023-0042 of FOIA-case-nummer
+    validations:
+      required: true
+  - type: input
+    id: source-url
+    attributes:
+      label: Download URL
+      description: Directe link naar het openbare document
+    validations:
+      required: true
+  - type: dropdown
+    id: document-type
+    attributes:
+      label: Type document
+      options:
+        - Woo-besluit (NL)
+        - FOIA-release (US)
+        - OMT-notulen
+        - Subsidiebesluit
+        - E-mailcorrespondentie
+        - Ander
+    validations:
+      required: true
+  - type: textarea
+    id: relevance
+    attributes:
+      label: Relevantie voor dit onderzoek
+      description: Hoe verhoudt dit document zich tot de Nederlandse virologietop of de Feb 1 call?
