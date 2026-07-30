@@ -22,6 +22,7 @@ This repository contains a **multiplex knowledge graph**, a **multi-lingual docu
 
 | Document | Description & Key Findings |
 |----------|----------------------------|
+| **[NEW_SMOKING_GUNS_INVESTIGATIVE_TASKS.md](docs/NEW_SMOKING_GUNS_INVESTIGATIVE_TASKS.md)** | **5 New Smoking Gun Execution Directives**: Targeted AI prompts auditing BSL-3 lab incidents (Erasmus MC/RIVM), EudraVigilance MedDRA recoding, Pfizer/Moderna secret state indemnities, 2019 pre-pandemic grant commitments, and Sywert-Plus €5.1B procurement. |
 | **[HARDCORE_SMOKING_GUNS_DOSSIER.md](docs/HARDCORE_SMOKING_GUNS_DOSSIER.md)** | **The 6 Uncompromising Smoking Guns**: Analyzes BsmBI/BsaI patent-to-DEFUSE genetic fingerprint overlap (US6849435B2), 72h Feb 1-4 2020 pivot, Corman-Drosten PCR fast-track <48h without Wuhan sample, Viroscience B.V. €67,6M+ loop, AIVD circular loop, and 20,800+ excess mortality blackout. |
 | **[OPERATIONAL_INVESTIGATIVE_MANUAL.md](docs/OPERATIONAL_INVESTIGATIVE_MANUAL.md)** | **Operational Manual & Promptbook**: Complete hands-on guide with terminal commands, SQLite FTS5 queries, redaction delta scripts, and AI research prompts for truth-seeking. |
 | **[EU_MEMBER_STATES_FORENSIC_DOSSIER.md](docs/EU_MEMBER_STATES_FORENSIC_DOSSIER.md)** | **Cross-Border EU Forensic Audit**: Analyzes Germany (RKI-Protokolle leaks), Italy (Procura di Bergamo inchiesta #3274/2020 WG), France (Sénat Rapport n° 199 mask dissimulation), Spain (Caso Koldo procurement corruption), Belgium (Chambre des représentants), and EU Parliament (COVI Committee & Von der Leyen SMS audit). |
