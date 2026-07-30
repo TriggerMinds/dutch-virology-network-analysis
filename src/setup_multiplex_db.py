@@ -129,6 +129,27 @@ def setup_db():
             publication_evidence TEXT,
             method_type TEXT
         );
+        CREATE TABLE regulatory_trial_data (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            trial_id TEXT,
+            sponsor TEXT,
+            document_type TEXT,
+            phmpt_file_url TEXT,
+            sha256_hash TEXT,
+            key_findings TEXT
+        );
+        CREATE TABLE oversterfte_studies (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            author TEXT,
+            title TEXT,
+            date TEXT,
+            data_source TEXT,
+            methodology TEXT,
+            key_conclusion TEXT,
+            estimated_excess_deaths INTEGER,
+            period TEXT,
+            source_url TEXT
+        );
     """)
     return conn
 

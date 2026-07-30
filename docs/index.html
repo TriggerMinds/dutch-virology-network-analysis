@@ -330,6 +330,10 @@
     <div id="sidebar-header">
       <h1>Dutch Virology Network <small>Multiplex Knowledge Graph</small></h1>
     </div>
+    <div id="pillar-tabs" style="display:flex;border-bottom:1px solid var(--border-color);background:var(--bg-main);flex-shrink:0">
+      <button class="pillar-btn active" data-pillar="1" onclick="window.switchPillar(1)" style="flex:1;padding:7px 8px;border:none;background:transparent;color:var(--accent);font-size:10px;font-weight:600;cursor:pointer;border-bottom:2px solid var(--accent);transition:all .2s">🧬 P1: Origins</button>
+      <button class="pillar-btn" data-pillar="2" onclick="window.switchPillar(2)" style="flex:1;padding:7px 8px;border:none;background:transparent;color:var(--text-secondary);font-size:10px;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s">💉 P2: Regulering</button>
+    </div>
     <div id="search-section">
       <input type="text" id="search-input" placeholder="Search 5,401 nodes..." autocomplete="off">
       <div id="search-results"></div>
@@ -625,7 +629,32 @@
 
     network.on('click', function(params) { 
       if (params.nodes.length > 0) showNodeInfo(params.nodes[0]); 
-      else showDefaultInfo(); 
+      else showDefaultInfo();
+
+  // ── Dual-Pillar switching ──────────────────────────────────────────
+  window.switchPillar = function(pillar) {
+    document.querySelectorAll('.pillar-btn').forEach(function(b) {
+      b.style.borderBottomColor = 'transparent';
+      b.style.color = 'var(--text-secondary)';
+      b.style.fontWeight = '400';
+    });
+    var btn = document.querySelector('.pillar-btn[data-pillar="' + pillar + '"]');
+    if (btn) {
+      btn.style.borderBottomColor = 'var(--accent)';
+      btn.style.color = 'var(--accent)';
+      btn.style.fontWeight = '600';
+    }
+    // Update stats to reflect pillar-specific context
+    var statEl = document.getElementById('stat-nodes');
+    if (statEl) {
+      var prefix = pillar === 1 ? 'P1' : 'P2';
+      var nodes = typeof VIS_DATA !== 'undefined' && VIS_DATA.visible ? VIS_DATA.visible.nodes.length : 0;
+      statEl.textContent = prefix + ' | ' + nodes + ' nodes';
+    }
+    // Could reload different data subsets here in future
+    console.log('[pillar] Switched to Pillar ' + pillar);
+  };
+ 
     });
     network.on('hoverNode', function() { document.body.style.cursor = 'pointer'; });
     network.on('blurNode', function() { document.body.style.cursor = 'default'; });
@@ -852,6 +881,31 @@
   buildInitialGraph();
   renderGraph();
   showDefaultInfo();
+
+  // ── Dual-Pillar switching ──────────────────────────────────────────
+  window.switchPillar = function(pillar) {
+    document.querySelectorAll('.pillar-btn').forEach(function(b) {
+      b.style.borderBottomColor = 'transparent';
+      b.style.color = 'var(--text-secondary)';
+      b.style.fontWeight = '400';
+    });
+    var btn = document.querySelector('.pillar-btn[data-pillar="' + pillar + '"]');
+    if (btn) {
+      btn.style.borderBottomColor = 'var(--accent)';
+      btn.style.color = 'var(--accent)';
+      btn.style.fontWeight = '600';
+    }
+    // Update stats to reflect pillar-specific context
+    var statEl = document.getElementById('stat-nodes');
+    if (statEl) {
+      var prefix = pillar === 1 ? 'P1' : 'P2';
+      var nodes = typeof VIS_DATA !== 'undefined' && VIS_DATA.visible ? VIS_DATA.visible.nodes.length : 0;
+      statEl.textContent = prefix + ' | ' + nodes + ' nodes';
+    }
+    // Could reload different data subsets here in future
+    console.log('[pillar] Switched to Pillar ' + pillar);
+  };
+
 
   // ── Quick View Presets ────────────────────────────────────────────
   window.applyPreset = function(preset) {

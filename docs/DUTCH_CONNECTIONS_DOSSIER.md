@@ -189,7 +189,27 @@ De volledige multiplex graaf is geexporteerd naar `data/graph.json` (node-link f
 
 ---
 
-## 10. OUTPUTBESTANDEN
+
+## 11. DUAL-PILLAR INTELLIGENCE: USRTK 2026 & REGULATORY TRIALS
+
+### 11.1 Pijler 1: Origins Intelligence
+
+**DIA March 2020 Memo:** Gedeclassificeerd via USRTK v. DIA FOIA. Concludeerde WIV had reverse genetics capability. Lab-leak kon niet worden uitgesloten.
+
+**CIA Whistleblower James Erdman III:** Senaatsgetuigenis mei 2026. Stelde dat lab-leak conclusie onderdrukt werd.
+
+**Ralph Baric / UNC FOIA:** Baric (UNC) deelde reverse genetics materialen met Shi Zhengli (WIV). DEFUSE performer.
+
+### 11.2 Pijler 2: Regulatory & Trial Data
+
+**PHMPT datasets (5 trials):** Pfizer/BioNTech NCT04368728, Moderna NCT04470427, J&J NCT04516746, pediatric C4591028. Myocarditis/TTS signals.
+
+**Oversterfte:** Meester/Aukema/Jacobs/Bonte (45.000 excess deaths 2020-2023) vs CBS (24.200) vs RIVM (22.500 COVID coded). Discrepantie: 46.700.
+
+**Dual-pillar UI tabs toegevoegd aan web-app:** P1 Origins / P2 Regulering.
+
+---
+## 12. OUTPUTBESTANDEN
 
 | Bestand | Grootte | Beschrijving |
 |---------|---------|-------------|
