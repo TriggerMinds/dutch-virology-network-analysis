@@ -1,11 +1,15 @@
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 """
 export_graph.py — STAP 5a: Export Knowledge Graph + genereer DUTCH_CONNECTIONS_DOSSIER.md
 """
 import json, sqlite3, networkx as nx
 
-DB_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\network_data.db"
-GRAPH_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\graph.json"
-DOSSIER_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\DUTCH_CONNECTIONS_DOSSIER.md"
+DB_PATH = os.path.join(ROOT, "network_data.db")
+GRAPH_PATH = os.path.join(ROOT, "graph.json")
+DOSSIER_PATH = os.path.join(ROOT, "DUTCH_CONNECTIONS_DOSSIER.md")
 
 conn = sqlite3.connect(DB_PATH)
 conn.row_factory = sqlite3.Row

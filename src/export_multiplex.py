@@ -1,13 +1,17 @@
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 """
 export_multiplex.py — STAP 5: Export multiplex graph + generate master dossier.
 """
 import json, os, sqlite3, networkx as nx
 from collections import defaultdict
 
-DB_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\data\network_data.db"
-GRAPH_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\data\graph.json"
-DOSSIER_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\docs\DUTCH_CONNECTIONS_DOSSIER.md"
-CENTRALITY_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\data\centrality_results.json"
+DB_PATH = os.path.join(ROOT, "data", "network_data.db")
+GRAPH_PATH = os.path.join(ROOT, "data", "graph.json")
+DOSSIER_PATH = os.path.join(ROOT, "docs", "DUTCH_CONNECTIONS_DOSSIER.md")
+CENTRALITY_PATH = os.path.join(ROOT, "data", "centrality_results.json")
 
 conn = sqlite3.connect(DB_PATH)
 conn.row_factory = sqlite3.Row

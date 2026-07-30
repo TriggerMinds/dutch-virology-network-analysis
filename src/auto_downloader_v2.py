@@ -1,3 +1,7 @@
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 """
 auto_downloader_v2.py — Multiplex-ingestie voor ALLE Tier 1-2-3 nodes + consortia.
 Bronnen: OpenAlex (co-auteurschappen), NIH RePORTER (grants),
@@ -6,7 +10,7 @@ Bronnen: OpenAlex (co-auteurschappen), NIH RePORTER (grants),
 import json, os, time, urllib.request, ssl, re
 
 ssl_ctx = ssl._create_unverified_context()
-OUTDIR = r"C:\Users\gewoo\Desktop\New folder (4)\data\downloads"
+OUTDIR = os.path.join(ROOT, "data", "downloads")
 os.makedirs(OUTDIR, exist_ok=True)
 
 # ── GEBEGRENSE TIER NODES ────────────────────────────────────────────────

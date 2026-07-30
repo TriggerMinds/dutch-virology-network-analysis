@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software in published research, please cite it."
+title: "Dutch Pandemic Governance & Virology Network Analysis Toolkit (Multiplex Knowledge Graph)"
+type: software
+authors:
+  - name: "Kilo OSINT Research Team"
+    email: "research@kilo.ai"
+    affiliation: "Kilo"
+date-released: 2026-07-30
+version: 1.0.0
+doi: 10.5281/zenodo.XXXXXXX
+license: MIT
+repository-code: "https://github.com/TriggerMinds/dutch-virology-network-analysis"
+keywords:
+  - "knowledge-graph"
+  - "network-analysis"
+  - "covid-19"
+  - "virology"
+  - "netherlands"
+  - "fauci"
+  - "osint"
+  - "data-engineering"
+abstract: "A multiplex knowledge graph pipeline extracting, structuring, and analyzing Dutch virology network connections (Fouchier, Koopmans, Erasmus MC) in the COVID-19 lab-origin discourse from Tony's Diary (Fauci, 1,141pp), OpenAlex, and NIH RePORTER. Contains 5,400+ nodes across CO_AUTHOR, POLICY_ADVISORY, and MEDIA_NARRATIVE layers with Louvain community detection and betweenness centrality analysis."

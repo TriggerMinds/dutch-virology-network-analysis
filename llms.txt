@@ -1,0 +1,35 @@
+# Dutch Virology Network Analysis Toolkit
+## Multiplex Knowledge Graph Pipeline
+
+### Repository Structure
+- `src/` — Python pipeline scripts
+- `data/` — Input/output data (gitignored; reproducible)
+- `docs/` — Reports and analysis dossiers
+- `Dockerfile` — Containerized execution
+- `requirements.txt` — Python dependencies
+
+### Key Files
+- `src/setup_multiplex_db.py` — Main DB builder
+- `src/analyze_multiplex.py` — NetworkX centrality & Louvain
+- `src/export_multiplex.py` — Graph export + dossier
+- `docs/DUTCH_CONNECTIONS_DOSSIER.md` — Master report
+- `docs/BLIND_SPOT_MAPPING.md` — Epistemological audit
+
+### Pipeline (sequential)
+1. `src/auto_downloader_v2.py` — Fetch OpenAlex + NIH data
+2. `src/setup_multiplex_db.py` — Build SQLite multiplex DB
+3. `src/analyze_multiplex.py` — Network centrality analysis
+4. `src/export_multiplex.py` — Export graph.json + dossier
+
+### Data Sources
+- **Tony's Diary** (Fauci): 1,141pp Congressional release (PDF required separately)
+- **OpenAlex**: 16 author profiles, top-20 works each (co-authorship network)
+- **NIH RePORTER**: 23 grant queries targeting Dutch virologists + consortia
+
+### Key Metrics
+- 5,401 nodes, 6,530 edges across 3 layers
+- Betweenness centrality: Feb 1 call (0.70), Arfan Ikram (0.48)
+- Louvain communities: Erasmus MC cluster (708 nodes), RIVM cluster (1,077 nodes)
+
+### License
+MIT — see LICENSE

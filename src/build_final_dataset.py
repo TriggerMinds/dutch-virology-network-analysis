@@ -1,12 +1,16 @@
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 """
 build_final_dataset.py — Compileert de complete Nederlandse/lab-origin dataset
 uit alle ruwe pagina's. Produceert schone JSON en een leesbaar eindrapport.
 """
 import json, re, os
 
-RAW_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\raw_data.json"
-OUT_JSON = r"C:\Users\gewoo\Desktop\New folder (4)\nl_connections_dataset_v2.json"
-OUT_TXT  = r"C:\Users\gewoo\Desktop\New folder (4)\NL_EXTRACTIE_RAPPORT.md"
+RAW_PATH = os.path.join(ROOT, "raw_data.json")
+OUT_JSON = os.path.join(ROOT, "nl_connections_dataset_v2.json")
+OUT_TXT  = os.path.join(ROOT, "NL_EXTRACTIE_RAPPORT.md")
 
 with open(RAW_PATH, "r", encoding="utf-8") as f:
     pages = json.load(f)

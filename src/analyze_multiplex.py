@@ -1,3 +1,7 @@
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 """
 analyze_multiplex.py — STAP 4: Netwerkanalyse van de multiplex graaf.
 Centraliteitsmaten: Betweenness, Eigenvector, Degree.
@@ -7,8 +11,8 @@ import json, sqlite3, networkx as nx
 import community as community_louvain
 from collections import defaultdict
 
-DB_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\data\network_data.db"
-OUT_STATS = r"C:\Users\gewoo\Desktop\New folder (4)\data\centrality_results.json"
+DB_PATH = os.path.join(ROOT, "data", "network_data.db")
+OUT_STATS = os.path.join(ROOT, "data", "centrality_results.json")
 
 conn = sqlite3.connect(DB_PATH)
 conn.row_factory = sqlite3.Row

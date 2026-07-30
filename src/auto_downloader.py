@@ -1,3 +1,7 @@
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 """
 auto_downloader.py — Haalt externe data op voor waarheidsvinding:
 A. NIH RePORTER API → NIH grants met Nederlandse connecties
@@ -11,7 +15,7 @@ import json, os, time, urllib.request, urllib.error, ssl
 # Bypass SSL verification for corporate proxy environments
 ssl_ctx = ssl._create_unverified_context()
 
-OUTDIR = r"C:\Users\gewoo\Desktop\New folder (4)\downloads"
+OUTDIR = os.path.join(ROOT, "downloads")
 os.makedirs(OUTDIR, exist_ok=True)
 
 def fetch_json(url, retries=3, data=None):

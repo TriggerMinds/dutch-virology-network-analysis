@@ -1,3 +1,7 @@
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 """
 setup_multiplex_db.py — STAP 3: Multiplex SQLite database.
 Layers: CO_AUTHOR, POLICY_ADVISORY, CONSORTIUM_FUNDING, MEDIA_NARRATIVE.
@@ -5,11 +9,11 @@ Layers: CO_AUTHOR, POLICY_ADVISORY, CONSORTIUM_FUNDING, MEDIA_NARRATIVE.
 import json, re, os, sqlite3
 from collections import defaultdict
 
-DB_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\data\network_data.db"
-RAW_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\data\raw_data.json"
-OA_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\data\downloads\openalex_multiplex.json"
-NIH_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\data\downloads\nih_grants_multiplex.json"
-FOIA_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\data\downloads\foia_references.json"
+DB_PATH = os.path.join(ROOT, "data", "network_data.db")
+RAW_PATH = os.path.join(ROOT, "data", "raw_data.json")
+OA_PATH = os.path.join(ROOT, "data", "downloads", "openalex_multiplex.json")
+NIH_PATH = os.path.join(ROOT, "data", "downloads", "nih_grants_multiplex.json")
+FOIA_PATH = os.path.join(ROOT, "data", "downloads", "foia_references.json")
 
 # ── TIER DEFINITIES ───────────────────────────────────────────────────────
 TIERS = {

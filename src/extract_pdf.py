@@ -1,3 +1,7 @@
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 """
 extract_pdf.py — Stage 1: Full-text extraction from PDF with page-level metadata.
 Output: raw_data.json (list of {page, text, tables, has_text} per page)
@@ -5,8 +9,8 @@ Output: raw_data.json (list of {page, text, tables, has_text} per page)
 import json, os, sys
 import pdfplumber
 
-PDF_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\2026.07.24_Tonys-Diary-Package.pdf"
-OUT_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\raw_data.json"
+PDF_PATH = os.path.join(ROOT, "2026.07.24_Tonys-Diary-Package.pdf")
+OUT_PATH = os.path.join(ROOT, "raw_data.json")
 
 def extract_all():
     pages_data = []

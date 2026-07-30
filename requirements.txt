@@ -1,12 +1,7 @@
-# Core pipeline
-pdfplumber>=0.11.0
-pandas>=2.0.0
 networkx>=3.0
-pypdf>=4.0
-
-# Optional: improved text extraction
-pymupdf>=1.23.0
-
-# Optional: advanced NLP / NER
-# spacy>=3.7
-# scispacy
+pandas>=2.0.0
+pdfplumber>=0.11.0
+pypdf>=4.0.0
+python-louvain>=0.16
+requests>=2.31.0
+numpy>=1.26.0

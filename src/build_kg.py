@@ -1,3 +1,7 @@
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 """
 build_kg.py — Stage 2: Entity & Relationship extraction, SQLite DB, network graph.
 Input:  raw_data.json
@@ -7,9 +11,9 @@ import json, re, os, sqlite3
 from collections import defaultdict
 import networkx as nx
 
-RAW_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\raw_data.json"
-DB_PATH  = r"C:\Users\gewoo\Desktop\New folder (4)\network_data.db"
-GRAPH_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\graph.json"
+RAW_PATH = os.path.join(ROOT, "raw_data.json")
+DB_PATH  = os.path.join(ROOT, "network_data.db")
+GRAPH_PATH = os.path.join(ROOT, "graph.json")
 
 # ── Load extracted text ──────────────────────────────────────────────────
 with open(RAW_PATH, "r", encoding="utf-8") as f:

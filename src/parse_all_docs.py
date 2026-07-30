@@ -1,3 +1,7 @@
+import os
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 """
 parse_all_docs.py — Geïntegreerde database + extractie (STAP 2+3+4)
 - Maakt SQLite database met schema: nodes, edges, evidence_quotes, financial_grants, timeline
@@ -7,11 +11,11 @@ parse_all_docs.py — Geïntegreerde database + extractie (STAP 2+3+4)
 """
 import json, re, os, sqlite3
 
-DB_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\network_data.db"
-RAW_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\raw_data.json"
-NIH_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\downloads\nih_funding_netherlands.json"
-OPENALEX_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\downloads\openalex_coauthorships.json"
-FOIA_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\downloads\foia_references.json"
+DB_PATH = os.path.join(ROOT, "network_data.db")
+RAW_PATH = os.path.join(ROOT, "raw_data.json")
+NIH_PATH = os.path.join(ROOT, "downloads", "nih_funding_netherlands.json")
+OPENALEX_PATH = os.path.join(ROOT, "downloads", "openalex_coauthorships.json")
+FOIA_PATH = os.path.join(ROOT, "downloads", "foia_references.json")
 
 # ── TARGET ENTITIES (alleen deze worden geëxtraheerd) ──────────────────────
 TARGET_PERSONS = [

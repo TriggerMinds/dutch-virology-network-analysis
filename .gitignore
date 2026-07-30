@@ -1,28 +1,58 @@
-# Source data — PDF is large and must be obtained separately
+# ── Source PDF — must be obtained separately ──────────────────────────────
 data/2026.07.24_Tonys-Diary-Package.pdf
 
-# Generated data artifacts (reproducible from raw_data.json)
+# ── Generated data artifacts (reproducible via pipeline) ─────────────────
 data/raw_data.json
 data/network_data.db
 data/graph.json
+data/centrality_results.json
 data/nl_*.json
+data/downloads/
 
-# OS metadata
+# ── Environment ──────────────────────────────────────────────────────────
+.env
+*.env.local
+*.env.production
+
+# ── OS metadata ──────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
+Desktop.ini
+ehthumbs.db
 
-# Python cache
+# ── Python ───────────────────────────────────────────────────────────────
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# Virtual environments
+# ── Virtual environments ──────────────────────────────────────────────────
 .venv/
 venv/
 env/
+.conda/
 
-# IDE
+# ── IDE ──────────────────────────────────────────────────────────────────
 .idea/
 .vscode/
 *.swp
 *.swo
+*~
+.project
+.classpath
+
+# ── Docker ────────────────────────────────────────────────────────────────
+.docker/
+docker-compose.override.yml
+
+# ── Jupyter Notebook checkpoints ─────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── Logs ──────────────────────────────────────────────────────────────────
+*.log
