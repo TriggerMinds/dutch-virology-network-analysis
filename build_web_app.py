@@ -242,9 +242,22 @@ for nid, attrs in all_nodes:
         "evidence": evidence_map.get(nid, [])
     })
 
+# Load vw_forensic_grants
+forensic_grants = []
+try:
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    for r in c.execute("SELECT * FROM vw_forensic_grants").fetchall():
+        forensic_grants.append(dict(r))
+    conn.close()
+except Exception as e:
+    print("Grants error:", e)
+
 data_out = {
     "visible": {"nodes": nodes_out, "edges": edges_out},
     "fullIndex": full_index,
+    "forensic_grants": forensic_grants,
     "meta": {
         "totalNodes": G.number_of_nodes(),
         "totalEdges": G.number_of_edges(),

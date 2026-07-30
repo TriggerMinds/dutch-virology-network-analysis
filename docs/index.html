@@ -234,6 +234,51 @@
   }
   #graph-container canvas { outline: none; }
 
+  /* Multi-View Switcher Bar */
+  #top-view-bar {
+    position: absolute; top: 20px; left: 24px; z-index: 50;
+    display: flex; gap: 6px; background: rgba(22, 27, 34, 0.85);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    padding: 6px; border-radius: 10px; border: 1px solid var(--border-color);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  }
+  .view-tab {
+    padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500;
+    color: var(--text-secondary); background: transparent; border: none;
+    cursor: pointer; transition: all 0.2s ease;
+  }
+  .view-tab:hover { color: #fff; background: rgba(255,255,255,0.06); }
+  .view-tab.active { background: var(--accent); color: #fff; font-weight: 600; box-shadow: 0 2px 10px rgba(88,166,255,0.4); }
+
+  /* Matrix & Flow Containers */
+  #matrix-view, #flow-view {
+    display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-main); z-index: 20; padding: 75px 28px 28px; overflow-y: auto;
+  }
+  .matrix-table {
+    width: 100%; border-collapse: collapse; font-size: 12px; text-align: left;
+    background: var(--bg-panel-solid); border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+  .matrix-table th {
+    background: rgba(255,255,255,0.05); padding: 12px 14px; color: var(--accent);
+    font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-color); position: sticky; top: 0;
+  }
+  .matrix-table td {
+    padding: 10px 14px; border-bottom: 1px solid var(--border-color); color: var(--text-primary);
+  }
+  .matrix-table tr:hover { background: rgba(88,166,255,0.08); cursor: pointer; }
+  
+  .grant-card {
+    background: rgba(22, 27, 34, 0.8); border: 1px solid var(--border-color);
+    border-radius: 10px; padding: 18px; transition: transform 0.2s, border-color 0.2s;
+    cursor: pointer; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .grant-card:hover { transform: translateY(-2px); border-color: var(--accent); background: rgba(22, 27, 34, 0.95); }
+  .grant-amount { font-size: 18px; font-weight: 700; color: var(--success); margin-top: 8px; }
+  .grant-funder { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+
   /* Floating Legend */
   #legend {
     position: absolute; bottom: 32px; right: 32px;
@@ -262,6 +307,7 @@
     #sidebar { width: 100%; height: 50vh; min-height: 300px; border-right: none; border-bottom: 1px solid var(--border-color); }
     #graph-container { height: 50vh; }
     #legend { bottom: 16px; right: 16px; padding: 12px; }
+    #top-view-bar { top: 10px; left: 10px; flex-wrap: wrap; }
   }
 </style>
 </head>
@@ -309,12 +355,55 @@
   </div>
   
   <div id="graph-container">
+    <div id="top-view-bar">
+      <button class="view-tab active" data-view="graph" onclick="switchView('graph')">🕸️ Graaf Netwerk</button>
+      <button class="view-tab" data-view="focus" onclick="switchView('focus')">🎯 Focus Mode (Ego-Netwerk)</button>
+      <button class="view-tab" data-view="matrix" onclick="switchView('matrix')">📋 Forensische Matrix Grid</button>
+      <button class="view-tab" data-view="flow" onclick="switchView('flow')">💶 Geld- & Besluitstroom</button>
+    </div>
+
     <div id="legend">
       <h3>Node Types</h3>
       <div class="legend-item"><span class="legend-dot" style="background:var(--danger); color:var(--danger)"></span> Tier 1 Core</div>
       <div class="legend-item"><span class="legend-dot" style="background:var(--accent); color:var(--accent)"></span> Tier 2 Bridge</div>
       <div class="legend-item"><span class="legend-dot" style="background:var(--success); color:var(--success)"></span> Tier 3 Media</div>
       <div class="legend-item"><span class="legend-dot" style="background:var(--warning); color:var(--warning)"></span> Key Event</div>
+    </div>
+
+    <div id="matrix-view">
+      <div style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <div>
+          <h2 style="font-size:20px;color:#fff;">Forensische Matrix Grid</h2>
+          <p style="font-size:12px;color:var(--text-secondary);">Filterbare tabel met alle entiteiten, BIG-status, subsidies, Woo-dossiers en DOI's.</p>
+        </div>
+        <input type="text" id="matrix-search" placeholder="Filter entiteiten..." oninput="filterMatrixTable(this.value)" style="padding:8px 14px;border:1px solid var(--border-color);border-radius:6px;background:rgba(0,0,0,0.3);color:#fff;font-size:13px;width:260px;outline:none;">
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Entiteit / Naam</th>
+              <th>Tier</th>
+              <th>Organisatie</th>
+              <th>Functie / Rol</th>
+              <th>Subsidies & Grants</th>
+              <th>BIG-Register</th>
+              <th>Woo Dossiers</th>
+              <th>DOI Link</th>
+              <th>Betweenness</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="flow-view">
+      <div style="margin-bottom:20px;">
+        <h2 style="font-size:20px;color:#fff;">Geld- & Besluitstroom (>€66 Million Tracked)</h2>
+        <p style="font-size:12px;color:var(--text-secondary);">Grootste subsidie- en financieringsstromen (EU CORDIS, NIH RePORTER, ZonMw) en hun hoofdonderzoekers.</p>
+      </div>
+      <div id="flow-grid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:16px;"></div>
     </div>
   </div>
 </div>
@@ -781,6 +870,219 @@
       window.selectNode(foundId);
     }
   };
+
+  // ── Multi-View Switcher Logic (v2.4) ─────────────────────────────
+  var currentViewMode = 'graph';
+  var selectedEntityId = 'Marion Koopmans';
+
+  window.switchView = function(mode) {
+    currentViewMode = mode;
+    document.querySelectorAll('.view-tab').forEach(function(tab) {
+      tab.classList.toggle('active', tab.dataset.view === mode);
+    });
+
+    var matrixEl = document.getElementById('matrix-view');
+    var flowEl = document.getElementById('flow-view');
+    var legendEl = document.getElementById('legend');
+
+    if (mode === 'matrix') {
+      matrixEl.style.display = 'block';
+      flowEl.style.display = 'none';
+      legendEl.style.display = 'none';
+      renderMatrixTable();
+    } else if (mode === 'flow') {
+      matrixEl.style.display = 'none';
+      flowEl.style.display = 'block';
+      legendEl.style.display = 'none';
+      renderFlowView();
+    } else if (mode === 'focus') {
+      matrixEl.style.display = 'none';
+      flowEl.style.display = 'none';
+      legendEl.style.display = 'block';
+      renderFocusGraph(selectedEntityId || 'Marion Koopmans');
+    } else {
+      matrixEl.style.display = 'none';
+      flowEl.style.display = 'none';
+      legendEl.style.display = 'block';
+      renderGraph();
+    }
+  };
+
+  function renderFocusGraph(centerId) {
+    if (!centerId) centerId = 'Marion Koopmans';
+    selectedEntityId = centerId;
+    
+    var neighborIds = new Set();
+    neighborIds.add(centerId);
+    
+    (edgeIndex[centerId] || []).forEach(function(e) {
+      neighborIds.add(e.target);
+    });
+
+    var focusNodes = [];
+    var focusNodeIdMap = {};
+
+    fullNodeList.forEach(function(node) {
+      if (neighborIds.has(node.id)) {
+        var nid = focusNodes.length;
+        focusNodes.push({
+          id: nid, label: node.label, title: node.title,
+          group: node.group, value: node.id === centerId ? 30 : (node.value || 15),
+          color: node.id === centerId ? { background: '#F85149', border: '#FFF' } : node.color,
+          physics: true, full_data: node
+        });
+        focusNodeIdMap[node.id] = nid;
+      }
+    });
+
+    var focusEdges = [];
+    fullEdgeList.forEach(function(e) {
+      var src = fullNodeList[e.source !== undefined ? e.source : e.from];
+      var tgt = fullNodeList[e.target !== undefined ? e.target : e.to];
+      if (!src || !tgt) return;
+      if (neighborIds.has(src.id) && neighborIds.has(tgt.id)) {
+        var si = focusNodeIdMap[src.id], ti = focusNodeIdMap[tgt.id];
+        if (si !== undefined && ti !== undefined) {
+          focusEdges.push({ from: si, to: ti, color: e.color, dashes: e.dashes, title: e.title, layer: e.layer });
+        }
+      }
+    });
+
+    if (network) network.destroy();
+    var nodesDs = new vis.DataSet(focusNodes);
+    var edgesDs = new vis.DataSet(focusEdges);
+
+    statNodes.textContent = focusNodes.length + ' nodes (Focus)';
+    statEdges.textContent = focusEdges.length + ' edges (Focus)';
+
+    var options = {
+      physics: {
+        enabled: true,
+        stabilization: { iterations: 100, fit: true },
+        solver: 'forceAtlas2Based',
+        forceAtlas2Based: { gravitationalConstant: -50, centralGravity: 0.01, springLength: 120, springConstant: 0.04 }
+      },
+      interaction: { hover: true, tooltipDelay: 200, zoomView: true, dragView: true, dragNodes: true },
+      edges: { smooth: { type: 'continuous' }, width: 2 },
+      nodes: {
+        shape: 'dot', borderWidth: 2,
+        font: { size: 13, color: '#C9D1D9', face: 'Inter' },
+        scaling: { min: 10, max: 35 }
+      }
+    };
+
+    network = new vis.Network(container, { nodes: nodesDs, edges: edgesDs }, options);
+
+    const freezeFocus = () => {
+      if (network) network.setOptions({ physics: { enabled: false } });
+    };
+    network.once("stabilizationIterationsDone", freezeFocus);
+    network.once("stabilized", freezeFocus);
+    setTimeout(freezeFocus, 1800);
+
+    network.on('click', function(params) {
+      if (params.nodes.length > 0) {
+        var clickedNode = focusNodes.filter(function(n) { return n.id === params.nodes[0]; })[0];
+        if (clickedNode && clickedNode.full_data) {
+          showNodeInfo(params.nodes[0]);
+          if (clickedNode.full_data.id !== selectedEntityId) {
+            renderFocusGraph(clickedNode.full_data.id);
+          }
+        }
+      }
+    });
+  }
+
+  function renderMatrixTable() {
+    var tbody = document.getElementById('matrix-tbody');
+    if (!tbody) return;
+
+    var nodesData = VIS_DATA.visible ? VIS_DATA.visible.nodes : (VIS_DATA.fullIndex || []);
+    var html = '';
+
+    nodesData.slice(0, 150).forEach(function(n) {
+      var d = n.full_data || n;
+      var tierBadge = '<span class="sr-tier" style="float:none;display:inline-block;padding:2px 8px;">T' + (d.tier || 0) + '</span>';
+      var doiLink = d.doi ? '<a href="' + d.doi + '" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">DOI ↗</a>' : '-';
+
+      html += '<tr onclick="window.selectSearch(\'' + (d.id || '').replace(/'/g, "\\'") + '\')">';
+      html += '<td><strong style="color:#fff;">' + d.id + '</strong></td>';
+      html += '<td>' + tierBadge + '</td>';
+      html += '<td>' + (d.org || '-') + '</td>';
+      html += '<td>' + (d.role || '-') + '</td>';
+      html += '<td style="color:#e6edf3;">' + (d.grants || '-') + '</td>';
+      html += '<td style="color:#2ea043;">' + (d.big_registration || '-') + '</td>';
+      html += '<td style="color:#d29922;">' + (d.woo_refs || '-') + '</td>';
+      html += '<td>' + doiLink + '</td>';
+      html += '<td><strong>' + (d.betweenness !== undefined ? d.betweenness : '-') + '</strong></td>';
+      html += '</tr>';
+    });
+
+    tbody.innerHTML = html;
+  }
+
+  window.filterMatrixTable = function(q) {
+    q = (q || '').toLowerCase().trim();
+    var tbody = document.getElementById('matrix-tbody');
+    if (!tbody) return;
+
+    var nodesData = VIS_DATA.fullIndex || [];
+    var filtered = nodesData.filter(function(n) {
+      return (n.id && n.id.toLowerCase().includes(q)) ||
+             (n.org && n.org.toLowerCase().includes(q)) ||
+             (n.role && n.role.toLowerCase().includes(q)) ||
+             (n.grants && n.grants.toLowerCase().includes(q)) ||
+             (n.woo_refs && n.woo_refs.toLowerCase().includes(q));
+    }).slice(0, 150);
+
+    var html = '';
+    filtered.forEach(function(d) {
+      var tierBadge = '<span class="sr-tier" style="float:none;display:inline-block;padding:2px 8px;">T' + (d.tier || 0) + '</span>';
+      var doiLink = d.doi ? '<a href="' + d.doi + '" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">DOI ↗</a>' : '-';
+
+      html += '<tr onclick="window.selectSearch(\'' + (d.id || '').replace(/'/g, "\\'") + '\')">';
+      html += '<td><strong style="color:#fff;">' + d.id + '</strong></td>';
+      html += '<td>' + tierBadge + '</td>';
+      html += '<td>' + (d.org || '-') + '</td>';
+      html += '<td>' + (d.role || '-') + '</td>';
+      html += '<td style="color:#e6edf3;">' + (d.grants || '-') + '</td>';
+      html += '<td style="color:#2ea043;">' + (d.big_registration || '-') + '</td>';
+      html += '<td style="color:#d29922;">' + (d.woo_refs || '-') + '</td>';
+      html += '<td>' + doiLink + '</td>';
+      html += '<td><strong>' + (d.betweenness !== undefined ? d.betweenness : '-') + '</strong></td>';
+      html += '</tr>';
+    });
+
+    tbody.innerHTML = html;
+  };
+
+  function renderFlowView() {
+    var grid = document.getElementById('flow-grid');
+    if (!grid) return;
+
+    var grants = VIS_DATA.forensic_grants || [];
+    if (grants.length === 0) {
+      grid.innerHTML = '<div style="color:var(--text-secondary);">Geen subsidiedata gevonden.</div>';
+      return;
+    }
+
+    var html = '';
+    grants.forEach(function(g) {
+      var amt = typeof g.amount_euro === 'number' ? '€' + g.amount_euro.toLocaleString() : (g.amount_euro || '-');
+      html += '<div class="grant-card" onclick="window.selectSearch(\'' + (g.pi_name || g.recipient || '').replace(/'/g, "\\'") + '\')">';
+      html += '<div class="grant-funder">' + (g.funder || '') + ' • ' + (g.grant_id || '') + '</div>';
+      html += '<h3 style="font-size:15px;color:#fff;margin:6px 0;">' + (g.project_name || '') + '</h3>';
+      html += '<div class="grant-amount">' + amt + '</div>';
+      html += '<div style="font-size:12px;color:var(--text-secondary);margin-top:10px;">';
+      html += '<strong>PI:</strong> ' + (g.pi_name || '-') + '<br>';
+      html += '<strong>Ontvanger:</strong> ' + (g.recipient || '-') + '<br>';
+      html += '<strong>Bron:</strong> ' + (g.source_doc || '-') + ' (' + (g.fiscal_year || '') + ')';
+      html += '</div>';
+      html += '</div>';
+    });
+
+    grid.innerHTML = html;
+  }
 
   // ── Export functions ──────────────────────────────────────────────
   window.exportSubgraphCSV = function(name) {
