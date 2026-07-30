@@ -7,9 +7,9 @@ export_graph.py — STAP 5a: Export Knowledge Graph + genereer DUTCH_CONNECTIONS
 """
 import json, sqlite3, networkx as nx
 
-DB_PATH = os.path.join(ROOT, "network_data.db")
-GRAPH_PATH = os.path.join(ROOT, "graph.json")
-DOSSIER_PATH = os.path.join(ROOT, "DUTCH_CONNECTIONS_DOSSIER.md")
+DB_PATH = os.path.join(ROOT, "data", "network_data.db")
+GRAPH_PATH = os.path.join(ROOT, "data", "graph.json")
+DOSSIER_PATH = os.path.join(ROOT, "docs", "DUTCH_CONNECTIONS_DOSSIER.md")
 
 conn = sqlite3.connect(DB_PATH)
 conn.row_factory = sqlite3.Row
