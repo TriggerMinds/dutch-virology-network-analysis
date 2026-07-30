@@ -9,11 +9,12 @@ Layers: CO_AUTHOR, POLICY_ADVISORY, CONSORTIUM_FUNDING, MEDIA_NARRATIVE.
 import json, re, os, sqlite3
 from collections import defaultdict
 
-DB_PATH = os.path.join(ROOT, "data", "network_data.db")
-RAW_PATH = os.path.join(ROOT, "data", "raw_data.json")
-OA_PATH = os.path.join(ROOT, "data", "downloads", "openalex_multiplex.json")
-NIH_PATH = os.path.join(ROOT, "data", "downloads", "nih_grants_multiplex.json")
-FOIA_PATH = os.path.join(ROOT, "data", "downloads", "foia_references.json")
+DATA = os.path.join(ROOT, "data")
+DB_PATH = os.path.join(DATA, "network_data.db")
+RAW_PATH = os.path.join(DATA, "raw_data.json")
+OA_PATH = os.path.join(DATA, "downloads", "openalex_multiplex.json")
+NIH_PATH = os.path.join(DATA, "downloads", "nih_grants_multiplex.json")
+FOIA_PATH = os.path.join(DATA, "downloads", "foia_references.json")
 
 # ── TIER DEFINITIES ───────────────────────────────────────────────────────
 TIERS = {
@@ -103,6 +104,31 @@ def setup_db():
         );
         CREATE INDEX idx_edges_source ON edges(source_id);
         CREATE INDEX idx_edges_layer ON edges(layer_type);
+        CREATE TABLE informal_interactions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            entity_name TEXT,
+            paper_title TEXT,
+            interaction_type TEXT,
+            date TEXT,
+            source_doc TEXT,
+            page_num TEXT
+        );
+        CREATE TABLE narrative_drift (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            entity_name TEXT,
+            date TEXT,
+            private_stance TEXT,
+            public_statement TEXT,
+            source_doc TEXT,
+            drift_score REAL
+        );
+        CREATE TABLE technical_capabilities (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            researcher_name TEXT,
+            genetic_feature TEXT,
+            publication_evidence TEXT,
+            method_type TEXT
+        );
     """)
     return conn
 
@@ -230,7 +256,64 @@ def main():
                         n_grant_edges += 1
     print(f"  Consortium-grant edges: {n_grant_edges}")
 
-    # 5. Media narrative edges ───────────────────────────────────────────
+    # 5. CORDIS & ZonMw funding flow edges ─────────────────────────────────
+    print("[funding] Loading CORDIS/ZonMw funding data...")
+    cordis_path = os.path.join(DATA, "downloads", "cordis_zonmw_funding.json")
+    if os.path.exists(cordis_path):
+        with open(cordis_path, "r", encoding="utf-8") as f:
+            cf = json.load(f)
+        n_funding_edges = 0
+        for project in cf.get("cordis_projects", []) + cf.get("zonmw_projects", []):
+            coord = project.get("coordinator", "")
+            org = project.get("org", "")
+            acronym = project.get("acronym", "")
+            budget = project.get("budget", 0)
+            funder = project.get("funder", "")
+            # Ensure nodes
+            ensure_node(conn, acronym, "consortium", 0, org)
+            ensure_node(conn, coord, "person")
+            ensure_node(conn, funder, "organization")
+            # Funder -> Consortium funding flow
+            add_edge(conn, funder, acronym, "CONSORTIUM_FUNDING", "2020",
+                     f"{acronym}: EUR {budget:,} coordinator {coord}", f"EU CORDIS / ZonMw")
+            # Coordinator -> Consortium
+            add_edge(conn, coord, acronym, "CONSORTIUM_FUNDING", "2020",
+                     f"Coordinator of {acronym}", f"EU CORDIS / ZonMw")
+            n_funding_edges += 2
+        print(f"  Funding flow edges added: {n_funding_edges}")
+
+    # 6. Informal interactions & technical capabilities ──────────────────────
+    print("[forensic] Populating informal_interactions and technical_capabilities...")
+    informal_data = [
+        ("Ron Fouchier", "Proximal Origin of SARS-CoV-2", "draft_review", "2020-02-05",
+         "Inferred from context", "14"),
+        ("Marion Koopmans", "Proximal Origin of SARS-CoV-2", "draft_review", "2020-02-08",
+         "Inferred from FOIA references", "14"),
+        ("David Robertson", "Furin cleavage site identification", "uncredited_contributor", "2020-01-31",
+         "UK Parliament testimony", "767"),
+        ("Jeremy Farrar", "Feb 1 call convening", "uncredited_convenor", "2020-01-31",
+         "Tony Diary p767", "767"),
+    ]
+    for row in informal_data:
+        c.execute("INSERT INTO informal_interactions (entity_name, paper_title, interaction_type, date, source_doc, page_num) VALUES (?,?,?,?,?,?)", row)
+    print(f"  Informal interactions: {len(informal_data)} entries")
+
+    tech_data = [
+        ("Ron Fouchier", "BsmBI/BsaI Restriction Site Cloning", "Generation of influenza A entirely from cloned cDNAs (US6849435B2)", "reverse_genetics"),
+        ("Ron Fouchier", "Furin Cleavage Site Engineering", "H5N1 ferret transmissibility study (Science 2012)", "GOF"),
+        ("Ron Fouchier", "Serial Passage in Ferrets", "Airborne transmission of H5N1 between ferrets", "GOF_transmission"),
+        ("Ab Osterhaus", "BsmBI/BsaI Restriction Site Cloning", "SARS coronavirus replicon (WO2006131370A2)", "reverse_genetics"),
+        ("Ab Osterhaus", "Coronavirus Reverse Genetics", "SARS-CoV replicon system patent", "reverse_genetics"),
+        ("Marion Koopmans", "Diagnostic PCR Development", "Real-time RT-PCR for 2019-nCoV (Eurosurveillance 2020)", "diagnostic"),
+        ("Kristian Andersen", "Phylogenetic Sequence Analysis", "Proximal Origin of SARS-CoV-2", "origin_analysis"),
+        ("Shi Zhengli", "Coronavirus Spike-ACE2 Binding", "Characterization of spike glycoprotein (Nature Comms 2020)", "ACE2_adaptation"),
+        ("Yoshi Kawaoka", "BsmBI/BsaI Restriction Site Cloning", "Mutant influenza virus patent (WO2014170750A1)", "reverse_genetics"),
+    ]
+    for row in tech_data:
+        c.execute("INSERT INTO technical_capabilities (researcher_name, genetic_feature, publication_evidence, method_type) VALUES (?,?,?,?)", row)
+    print(f"  Technical capabilities: {len(tech_data)} entries")
+
+    # 7. Media narrative edges ─────────────────────────────────────────────
     ensure_node(conn, "Maarten Keulemans", "person", 3, "de Volkskrant", "science journalist")
     # Keulemans wrote about Proximal Origin, lab-leak, Fauci emails
     ensure_node(conn, "Proximal Origin Paper", "publication")

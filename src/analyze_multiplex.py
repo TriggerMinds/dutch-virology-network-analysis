@@ -173,6 +173,69 @@ for l in layers:
         label = f"{l}_{variant}"
         results[label] = compute_centrality_and_communities(G_l)
 
+# ── SILENT CONTRIBUTOR INDEX (SCI) ─────────────────────────────────────────
+print(f"\n{'='*50}")
+print(f"SILENT CONTRIBUTOR INDEX (SCI)")
+print(f"{'='*50}")
+sci_results = {}
+for r in conn.execute("""
+    SELECT entity_name, COUNT(*) as informal_count, interaction_type
+    FROM informal_interactions
+    GROUP BY entity_name
+"""):
+    name = r["entity_name"]
+    informal = r["informal_count"]
+    # Count official author credits
+    credits = conn.execute("""
+        SELECT COUNT(DISTINCT e.id) FROM edges e
+        JOIN nodes n ON e.source_id = n.id
+        WHERE n.name = ? AND e.layer_type = 'CO_AUTHOR'
+    """, (name,)).fetchone()[0]
+    sci = round(informal / max(credits, 1), 4)
+    sci_results[name] = {
+        "informal_reviews": informal,
+        "official_credits": credits,
+        "sci_score": sci,
+        "flagged": credits == 0 and informal > 0
+    }
+    tier = conn.execute("SELECT tier FROM nodes WHERE name=?", (name,)).fetchone()
+    tier_val = tier[0] if tier else "?"
+    flag = " ** FLAGGED **" if sci_results[name]["flagged"] else ""
+    print(f"  {name:25s} | Tier {tier_val} | SCI={sci:.4f} | informal={informal} | credits={credits}{flag}")
+results["silent_contributor_index"] = sci_results
+
+# ── NARRATIVE DRIFT SCORE ──────────────────────────────────────────────────
+print(f"\n{'='*50}")
+print(f"NARRATIVE DRIFT MATRIX")
+print(f"{'='*50}")
+narrative_drift_results = {}
+for r in conn.execute("SELECT entity_name, date, private_stance, public_statement, drift_score FROM narrative_drift"):
+    name = r["entity_name"]
+    drift = r["drift_score"] or 0.0
+    narrative_drift_results[name] = {
+        "date": r["date"],
+        "private_stance": r["private_stance"],
+        "public_statement": r["public_statement"],
+        "drift_score": drift
+    }
+    print(f"  {name:25s} | {r['date']} | private={str(r['private_stance'])[:30]} | public={str(r['public_statement'])[:30]} | drift={drift:.2f}")
+results["narrative_drift"] = narrative_drift_results
+
+# ── Technical Capabilities Summary ─────────────────────────────────────────
+print(f"\n{'='*50}")
+print(f"TECHNICAL CAPABILITIES")
+print(f"{'='*50}")
+tech_results = {}
+for r in conn.execute("SELECT researcher_name, genetic_feature, method_type FROM technical_capabilities"):
+    name = r["researcher_name"]
+    if name not in tech_results:
+        tech_results[name] = {"methods": []}
+    tech_results[name]["methods"].append({"feature": r["genetic_feature"], "type": r["method_type"]})
+for name, info in sorted(tech_results.items()):
+    methods = ", ".join(m["feature"] for m in info["methods"])
+    print(f"  {name:25s} | {methods}")
+results["technical_capabilities"] = tech_results
+
 # ── Save ─────────────────────────────────────────────────────────────────
 with open(OUT_STATS, "w", encoding="utf-8") as f:
     json.dump(results, f, ensure_ascii=False, indent=1)
