@@ -138,7 +138,7 @@ FOIA_SOURCES = [
     # Washington Post Fauci emails archive
     ("Fauci Emails (Washington Post archive)", "https://www.washingtonpost.com/context/fauci-emails/"),
     # Proximal Origin paper DOI
-    ("Proximal Origin paper DOI", "https://doi.org/10.1038/s41591-022-01791-8"),
+    ("Proximal Origin paper DOI", "https://doi.org/10.1038/s41591-020-0820-9"),
 ]
 
 foia_data = []

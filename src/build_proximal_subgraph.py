@@ -16,7 +16,7 @@ c = conn.cursor()
 PROXIMAL_INFO = {
     "title": "The Proximal Origin of SARS-CoV-2",
     "journal": "Nature Medicine",
-    "doi": "10.1038/s41591-022-01791-8",
+    "doi": "10.1038/s41591-020-0820-9",
     "preprint_date": "2020-05-05",
     "publication_date": "2022-03-07",
     "authors": ["Kristian Andersen", "Edward Holmes", "Andrew Rambaut", "Robert Garry",

@@ -17,16 +17,26 @@ conn = sqlite3.connect(DB_PATH)
 conn.row_factory = sqlite3.Row
 c = conn.cursor()
 
-# ── Build complete NetworkX graph ────────────────────────────────────────
-G = nx.Graph()
+# ── TIER DEFINITIES (for reference in group extraction) ─────────────────
+TIERS = {
+    "Ron Fouchier": 1, "Marion Koopmans": 1, "Ab Osterhaus": 1, "Thijs Kuiken": 1, "Bart Haagmans": 1,
+    "Jaap van Dissel": 1, "Diederik Gommers": 1, "Jan Kluytmans": 1,
+    "Aura Timen": 2, "Menno de Jong": 2, "Marc Bonten": 2, "Annemiek van der Eijk": 2, "Massimo Palmarini": 2,
+    "Arfan Ikram": 2, "Ernst Kuipers": 2,
+    "Maarten Keulemans": 3
+}
+GLOBAL_NODES = ["Anthony Fauci", "Francis Collins", "Jeremy Farrar", "Kristian Andersen", "Edward Holmes", "Andrew Rambaut", "Christian Drosten", "Robert Garry"]
+
+# ── Build complete NetworkX MultiGraph ───────────────────────────────────
+G = nx.MultiGraph()
 for r in c.execute("SELECT name, entity_type, tier, organization, primary_role FROM nodes"):
     G.add_node(r["name"], type=r["entity_type"], tier=r["tier"],
                org=r["organization"], role=r["primary_role"])
 
-for r in c.execute("""SELECT n1.name AS s, n2.name AS t, e.layer_type, e.date, e.description
+for r in c.execute("""SELECT n1.name AS s, n2.name AS t, e.layer_type, e.date, e.description, e.weight
                       FROM edges e JOIN nodes n1 ON e.source_id=n1.id
                       JOIN nodes n2 ON e.target_id=n2.id"""):
-    G.add_edge(r["s"], r["t"], layer=r["layer_type"], date=r["date"], desc=r["description"])
+    G.add_edge(r["s"], r["t"], layer=r["layer_type"], date=r["date"], desc=r["description"], weight=r["weight"] or 1)
 
 data = nx.node_link_data(G)
 with open(GRAPH_PATH, "w", encoding="utf-8") as f:
@@ -36,7 +46,7 @@ print(f"[graph] {G.number_of_nodes()} nodes, {G.number_of_edges()} edges -> {GRA
 # ── Load centrality results ──────────────────────────────────────────────
 centrality = {}
 if os.path.exists(CENTRALITY_PATH):
-    with open(CENTRALITY_PATH, "r") as f:
+    with open(CENTRALITY_PATH, "r", encoding="utf-8") as f:
         centrality = json.load(f)
 
 # ── Gather statistics ────────────────────────────────────────────────────
@@ -54,8 +64,8 @@ timeline_entries = [dict(r) for r in c.execute("SELECT * FROM timeline ORDER BY 
 
 # Extract top betweenness
 all_between = []
-if "ALL" in centrality:
-    for node in centrality["ALL"]["betweenness_top"]:
+if "ALL_full" in centrality:
+    for node in centrality["ALL_full"].get("betweenness_top", []):
         r = c.execute("SELECT tier, organization FROM nodes WHERE name=?", (node["node"],)).fetchone()
         all_between.append({
             "name": node["node"],
@@ -65,8 +75,8 @@ if "ALL" in centrality:
         })
 
 coauthor_between = []
-if "CO_AUTHOR" in centrality:
-    for node in centrality["CO_AUTHOR"]["betweenness_top"]:
+if "CO_AUTHOR_full" in centrality:
+    for node in centrality["CO_AUTHOR_full"].get("betweenness_top", []):
         r = c.execute("SELECT tier, organization FROM nodes WHERE name=?", (node["node"],)).fetchone()
         coauthor_between.append({
             "name": node["node"],
@@ -74,6 +84,58 @@ if "CO_AUTHOR" in centrality:
             "tier": r["tier"] if r else 0,
             "org": r["organization"] if r else ""
         })
+
+# ── Dynamic Community Resolution ──────────────────────────────────────────
+communities = defaultdict(list)
+all_full_partition = centrality.get("ALL_full", {}).get("partition", {})
+for node, comm_id in all_full_partition.items():
+    communities[comm_id].append(node)
+
+# Find which community the core Dutch virologists belong to
+dutch_core = ["Ron Fouchier", "Marion Koopmans", "Ab Osterhaus", "Thijs Kuiken", "Bart Haagmans"]
+dutch_comm_id = None
+max_intersection = 0
+for comm_id, members in communities.items():
+    intersect_len = len(set(dutch_core).intersection(members))
+    if intersect_len > max_intersection:
+        max_intersection = intersect_len
+        dutch_comm_id = comm_id
+
+dutch_comm_size = len(communities[dutch_comm_id]) if dutch_comm_id is not None else 0
+dutch_comm_members = [m for m in communities[dutch_comm_id] if m in TIERS] if dutch_comm_id is not None else []
+dutch_comm_members_str = ", ".join(sorted(dutch_comm_members))
+
+# Sort other communities by size
+other_comms = []
+for comm_id, members in sorted(communities.items(), key=lambda x: -len(x[1])):
+    if comm_id == dutch_comm_id:
+        continue
+    key_members = [m for m in members if m in TIERS or m in GLOBAL_NODES]
+    key_members_str = ", ".join(sorted(key_members)[:5])
+    other_comms.append({
+        "id": comm_id,
+        "size": len(members),
+        "key_members": key_members_str if key_members_str else "overige co-auteurs"
+    })
+
+# Dynamic Policy splitsing resolution
+policy_partition = centrality.get("POLICY_ADVISORY_full", {}).get("partition", {})
+if not policy_partition:
+    policy_partition = centrality.get("POLICY_ADVISORY_virology", {}).get("partition", {})
+
+policy_comms = defaultdict(list)
+for node, comm_id in policy_partition.items():
+    policy_comms[comm_id].append(node)
+
+policy_comm_rows = []
+for comm_id, members in sorted(policy_comms.items(), key=lambda x: -len(x[1])):
+    members_str = ", ".join(sorted(members))
+    policy_comm_rows.append(f"{comm_id + 1}. **Community {comm_id}** ({len(members)} leden): {members_str}")
+policy_comm_str = "\n".join(policy_comm_rows)
+
+# Check which community Koopmans is in (for policy split discussion)
+koopmans_policy_comm = policy_partition.get("Marion Koopmans", "?")
+fouchier_policy_comm = policy_partition.get("Ron Fouchier", "?")
 
 # ── Generate dossier ─────────────────────────────────────────────────────
 dossier = f"""# DUTCH CONNECTIONS DOSSIER — Multiplex Knowledge Graph
@@ -92,9 +154,9 @@ Dit dossier beschrijft de **multiplex Knowledge Graph** van het Nederlandse viro
 
 | Laag | Nodes | Edges | Beschrijving |
 |------|-------|-------|-------------|
-| CO_AUTHOR | {len([n for n in G.nodes() if any(e[2].get('layer')=='CO_AUTHOR' for e in G.edges(n, data=True))]) or 'n/a'} | {coauthor_edges} | Wetenschappelijke publicaties en co-auteurschappen |
-| POLICY_ADVISORY | {len([n for n in G.nodes() if any(e[2].get('layer')=='POLICY_ADVISORY' for e in G.edges(n, data=True))]) or 'n/a'} | {policy_edges} | Beleidsadvisering: Feb 1 call, OMT, WHO |
-| MEDIA_NARRATIVE | {len([n for n in G.nodes() if any(e[2].get('layer')=='MEDIA_NARRATIVE' for e in G.edges(n, data=True))]) or 'n/a'} | {media_edges} | Mediaverslaggeving: journalisten, publicaties |
+| CO_AUTHOR | {len([n for n in G.nodes() if any(G.get_edge_data(n, n2, key).get('layer')=='CO_AUTHOR' for n2 in G.neighbors(n) for key in G.get_edge_data(n, n2))]) or 'n/a'} | {coauthor_edges} | Wetenschappelijke publicaties en co-auteurschappen |
+| POLICY_ADVISORY | {len([n for n in G.nodes() if any(G.get_edge_data(n, n2, key).get('layer')=='POLICY_ADVISORY' for n2 in G.neighbors(n) for key in G.get_edge_data(n, n2))]) or 'n/a'} | {policy_edges} | Beleidsadvisering: Feb 1 call, OMT, WHO |
+| MEDIA_NARRATIVE | {len([n for n in G.nodes() if any(G.get_edge_data(n, n2, key).get('layer')=='MEDIA_NARRATIVE' for n2 in G.neighbors(n) for key in G.get_edge_data(n, n2))]) or 'n/a'} | {media_edges} | Mediaverslaggeving: journalisten, publicaties |
 
 ### Tier-indeling
 
@@ -125,9 +187,9 @@ Dit dossier beschrijft de **multiplex Knowledge Graph** van het Nederlandse viro
 
 | Entiteit | Betweenness | Rol |
 |----------|------------|-----|
-{chr(10).join(f"| **{n['name']}** | {n['score']:.4f} | Feb 1 call participant / policy position |" for n in centrality.get("POLICY_ADVISORY", {}).get("betweenness_top", [])[:8])}
+{chr(10).join(f"| **{n['node']}** | {n['score']:.4f} | Feb 1 call participant / policy position |" for n in centrality.get("POLICY_ADVISORY_full", {}).get("betweenness_top", [])[:8])}
 
-**Conclusie:** De Feb 1 Conference Call is veruit de belangrijkste brug in de policy-laag (β=0.6970). Fouchier (β=0.0758) en Drosten (β=0.0758) zijn de belangrijkste individuele bruggen — beide als vertegenwoordigers van de Natural Origin-positie.
+**Conclusie:** De Feb 1 Conference Call is veruit de belangrijkste brug in de policy-laag. Fouchier en Drosten zijn belangrijke individuele bruggen — beide als vertegenwoordigers van de Natural Origin-positie.
 
 ---
 
@@ -135,28 +197,24 @@ Dit dossier beschrijft de **multiplex Knowledge Graph** van het Nederlandse viro
 
 ### 3.1 Co-auteur community met Erasmus MC-kern
 
-Het **Louvain-algoritme** detecteert een aparte community (Community 2) bestaande uit:
-- **Tier 1:** Ron Fouchier, Marion Koopmans, Thijs Kuiken, Bart Haagmans, Ab Osterhaus
-- **Grootte:** 708 nodes (in CO_AUTHOR laag)
+Het **Leiden/Louvain-algoritme** detecteert een aparte community (Community {dutch_comm_id}) bestaande uit:
+- **Core Tiers:** {dutch_comm_members_str}
+- **Grootte:** {dutch_comm_size} nodes (in CO_AUTHOR laag)
 
-**Dit is de Erasmus MC / Nederlandse virologie-community.** Al deze personen publiceren regelmatig samen en delen een co-auteurs netwerk van ~708 onderzoekers.
+**Dit is de Erasmus MC / Nederlandse virologie-community.** Al deze personen publiceren regelmatig samen en delen een co-auteurs netwerk van ~{dutch_comm_size} onderzoekers.
 
 ### 3.2 Andere communities
 
-| Community | Grootte | Kernleden | Kenmerk |
-|-----------|---------|-----------|---------|
-| Community 9 | 1256 | Arfan Ikram (Tier 2) | Erasmus MC epidemiologie — grootste community |
-| Community 6 | 1077 | Menno de Jong, Marc Bonten | RIVM/UMC Utrecht — beleidsnabij |
-| Community 7 | 755 | Massimo Palmarini (Tier 2) | Glasgow — internationale virologie |
-| Community 8 | 508 | Ernst Kuipers (Tier 2) | Erasmus MC — klinisch/policy |
+| Community | Grootte | Kernleden |
+|-----------|---------|-----------|
+{chr(10).join(f"| Community {c['id']} | {c['size']} | {c['key_members']} |" for c in other_comms[:5])}
 
 ### 3.3 Policy-community splitsing
 
-In de POLICY_ADVISORY laag detecteert Louvain **2 communities**:
-1. **Community 1** (10 leden): Fauci, Collins, Farrar, Andersen, Holmes, Rambaut + Koopmans — de "Deliberate insertion mogelijk" fractie
-2. **Community 0** (3 leden): Fouchier, Drosten + Natural Origin Hypothesis — de "Natuurlijke oorsprong" fractie
+In de POLICY_ADVISORY laag detecteert Louvain de volgende communities:
+{policy_comm_str}
 
-**Koopmans zit in Community 1** (samen met de deliberate-fractie) — dit is een voorzichtige indicatie dat zij mogelijk nader stond tot de deliberate-positie dan tot Fouchier, maar dit is **geen bewijs**; alleen een netwerktoewijzing op basis van met wie ze in dezelfde policy-edges zit.
+**Koopmans zit in Community {koopmans_policy_comm}** (samen met de deliberate-fractie) — dit is een voorzichtige indicatie dat zij mogelijk nader stond tot de deliberate-positie dan Fouchier (die in Community {fouchier_policy_comm} zit), maar dit is **geen bewijs**; alleen een netwerktoewijzing op basis van met wie ze in dezelfde policy-edges zit.
 
 ---
 
@@ -249,3 +307,4 @@ with open(DOSSIER_PATH, "w", encoding="utf-8") as f:
     f.write(dossier)
 print(f"[dossier] Written to {DOSSIER_PATH}")
 print("[done] STAP 5 complete")
+conn.close()

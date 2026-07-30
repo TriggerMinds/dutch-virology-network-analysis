@@ -33,7 +33,7 @@
 
 ### 2.1 Het "proximal origin" paper (maart 2022)
 
-De paper *"The Proximal Origin of SARS-CoV-2"* (Andersen et al., Nature Medicine, DOI: 10.1038/s41591-022-01791-8) wordt in het dagboek genoemd op p805 (juli 2021, als preprint). Deze paper wordt algemeen beschouwd als het belangrijkste wetenschappelijke argument voor natuurlijke oorsprong. **Maar:** de paper is geschreven door *Kristian Andersen*, *Robert Garry* en anderen — allen deelnemers aan de Feb 1 call of nauw daaraan gelieerd. Dit roept de vraag op: was de Feb 1 call het startpunt voor wat later de "natural origin consensus" zou worden?
+De paper *"The Proximal Origin of SARS-CoV-2"* (Andersen et al., Nature Medicine, DOI: 10.1038/s41591-020-0820-9) wordt in het dagboek genoemd op p805 (juli 2021, als preprint). Deze paper wordt algemeen beschouwd als het belangrijkste wetenschappelijke argument voor natuurlijke oorsprong. **Maar:** de paper is geschreven door *Kristian Andersen*, *Robert Garry* en anderen — allen deelnemers aan de Feb 1 call of nauw daaraan gelieerd. Dit roept de vraag op: was de Feb 1 call het startpunt voor wat later de "natural origin consensus" zou worden?
 
 De dataset bevat deze link **niet** als edge — een gemiste relatie tussen "Feb 1 Conference Call" en "Proximal Origin paper".
 
@@ -97,7 +97,7 @@ Het DARPA DEFUSE (Detecting Emerging Pandemic Threats) programma wordt **0 keer*
 |---|-----------|------|-----------|
 | 3.1 | Robertson (Farrar's adviser) | PubMed: Robertson DL, University of Glasgow | Hoog |
 | 3.2 | Transcript Feb 1 call | Vraag bij deelnemers op (Fouchier, Koopmans, Farrar) — bestaat waarschijnlijk niet | Hoog |
-| 3.2 | Proximal Origin co-authors | https://doi.org/10.1038/s41591-022-01791-8 | Hoog |
+| 3.2 | Proximal Origin co-authors | https://doi.org/10.1038/s41591-020-0820-9 | Hoog |
 | 3.3 | AIVD COVID-origins | Woo-verzoek | Medium |
 | 3.4 | Koopmans' expertise profiel | https://www.erasmusmc.nl/nl/research/onderzoekers/koopmans-mpg-marion | Medium |
 | 3.5 | Proximal Origin ↔ Feb 1 call | Edge-analyse in graph.json — moet worden toegevoegd | Medium |

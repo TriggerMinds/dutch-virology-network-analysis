@@ -254,10 +254,26 @@ try:
 except Exception as e:
     print("Grants error:", e)
 
+# Load timeline and map fields to match index.html expectations
+timeline = []
+try:
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    for r in c.execute("SELECT * FROM timeline ORDER BY date").fetchall():
+        d = dict(r)
+        d["type"] = d.get("event_type", "")
+        d["desc"] = d.get("description", "")
+        timeline.append(d)
+    conn.close()
+except Exception as e:
+    print("Timeline error:", e)
+
 data_out = {
     "visible": {"nodes": nodes_out, "edges": edges_out},
     "fullIndex": full_index,
     "forensic_grants": forensic_grants,
+    "timeline": timeline,
     "meta": {
         "totalNodes": G.number_of_nodes(),
         "totalEdges": G.number_of_edges(),

@@ -162,7 +162,6 @@ def main():
                 ensure_node(conn, person, "person", TIERS.get(person, (0,"",""))[0])
                 ctx = re.sub(r'\s+', ' ', (p["text"] or "")[:500]).strip()
                 add_evidence(conn, person, ctx, "2020-02-01", "Tony's Diary", str(p["page"]))
-                break
 
     # Feb 1 call edges
     ensure_node(conn, "Feb 1 Conference Call", "event")
@@ -240,12 +239,12 @@ def main():
     add_edge(conn, "Maarten Keulemans", "Anthony Fauci", "MEDIA_NARRATIVE",
              "2021-06", "Reported on Fauci email release / lab leak debate", "Volkskrant")
     add_edge(conn, "Kristian Andersen", "Proximal Origin Paper", "CO_AUTHOR",
-             "2022-03", "Lead author of Proximal Origin paper", "DOI: 10.1038/s41591-022-01791-8")
+             "2022-03", "Lead author of Proximal Origin paper", "DOI: 10.1038/s41591-020-0820-9")
     # Link all Feb 1 call participants who co-authored Proximal Origin
     for author, paper_role in [("Kristian Andersen", "lead"), ("Edward Holmes", "author"),
                                 ("Andrew Rambaut", "author"), ("Robert Garry", "author")]:
         add_edge(conn, author, "Proximal Origin Paper", "CO_AUTHOR", "2022-03",
-                 f"{paper_role} on Proximal Origin", "DOI: 10.1038/s41591-022-01791-8")
+                 f"{paper_role} on Proximal Origin", "DOI: 10.1038/s41591-020-0820-9")
 
     # 6. Timeline entries ────────────────────────────────────────────────
     timeline_data = [
@@ -253,9 +252,9 @@ def main():
         ("2020-02-01", "meeting", "Fauci convenes 12 scientists incl. Fouchier, Koopmans. NO CONSENSUS on natural vs deliberate", "Fouchier, Koopmans, Fauci, Collins et al.", "Tony's Diary p14"),
         ("2020-02-09", "consultation", "Tom Frieden calls Fauci; discussed CFR estimates 0.2-0.3% vs 2%", "Tom Frieden, Anthony Fauci", "Tony's Diary p19"),
         ("2020-03-11", "declaration", "WHO declares COVID-19 a pandemic", "WHO, Fauci", "WHO"),
-        ("2020-05", "publication", "Andersen et al. 'The Proximal Origin of SARS-CoV-2' published in Nature Medicine", "Andersen, Garry, Holmes, Rambaut", "DOI: 10.1038/s41591-022-01791-8"),
+        ("2020-05", "publication", "Andersen et al. 'The Proximal Origin of SARS-CoV-2' published in Nature Medicine", "Andersen, Garry, Holmes, Rambaut", "DOI: 10.1038/s41591-020-0820-9"),
         ("2021-06", "FOIA release", "Washington Post publishes Fauci email archive — Koopmans/Fouchier emails public", "Fauci, Koopmans, Fouchier", "WashPost FOIA"),
-        ("2022-03", "analysis", "Nature Medicine publishes final Proximal Origin paper with expanded analysis", "Andersen, Holmes, Rambaut, Garry", "DOI: 10.1038/s41591-022-01791-8"),
+        ("2022-03", "analysis", "Nature Medicine publishes final Proximal Origin paper with expanded analysis", "Andersen, Holmes, Rambaut, Garry", "DOI: 10.1038/s41591-020-0820-9"),
     ]
     for dt, etype, desc, actors, ref in timeline_data:
         add_timeline(conn, dt, etype, desc, actors, ref)

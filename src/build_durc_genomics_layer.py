@@ -66,7 +66,7 @@ precedents = [
      1, 1, 0),
     ("Identification of the furin cleavage site in SARS-CoV-2 spike glycoprotein",
      "Robertson D, Farrar J, Andersen K, Holmes E et al.",
-     2020, None, "10.1038/s41591-022-01791-8",
+     2020, None, "10.1038/s41591-020-0820-9",
      "The furin cleavage site (PRRAR|SV) is unusual -- only 4 additional amino acids; natural evolution vs insertion debate",
      "BsmBI cloning site compatible; furin motif PRRAR|SV",
      "DEFUSE: the furin site itself is the central DURC object of the Feb 1 call debate",

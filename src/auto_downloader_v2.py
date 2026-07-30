@@ -49,13 +49,55 @@ print("=" * 60)
 print("A. OPENALEX — Full Tier 1-2-3 author fetching")
 print("=" * 60)
 
+ORCID_MAP = {
+    "Ron Fouchier": ["0000-0001-7187-2510", "0000-0001-8095-2869"],
+    "Marion Koopmans": ["0000-0002-5204-2312"],
+    "Ab Osterhaus": ["0000-0002-8610-8547"],
+    "Thijs Kuiken": ["0000-0003-4638-3486"],
+    "Bart Haagmans": ["0000-0001-6785-5917"],
+    "Jaap van Dissel": ["0000-0003-0802-5884"],
+    "Diederik Gommers": ["0000-0001-9252-0943"],
+    "Jan Kluytmans": ["0000-0001-7440-6927"],
+    "Aura Timen": ["0000-0002-0402-990X"],
+    "Menno de Jong": ["0000-0003-4702-8247"],
+    "Marc Bonten": ["0000-0002-2391-7299"],
+    "Annemiek van der Eijk": ["0000-0003-2469-8094"],
+    "Massimo Palmarini": ["0000-0003-2882-6288"],
+    "Arfan Ikram": ["0000-0003-0384-0042", "0000-0003-0372-8585"],
+    "Ernst Kuipers": ["0000-0002-1262-6712"]
+}
+
+def find_author(name):
+    # Try ORCID first
+    if name in ORCID_MAP:
+        for orcid in ORCID_MAP[name]:
+            url = f"https://api.openalex.org/authors?filter=orcid:https://orcid.org/{orcid}"
+            res = fetch_json(url)
+            if res and res.get("results"):
+                return res["results"][0]
+
+    # Fallback to name search with ROR filter if at Erasmus MC
+    erasmus_mc_names = ["Ron Fouchier", "Marion Koopmans", "Thijs Kuiken", "Bart Haagmans",
+                        "Diederik Gommers", "Annemiek van der Eijk", "Arfan Ikram", "Ernst Kuipers"]
+    search_name = name.replace(" ", "+")
+    if name in erasmus_mc_names:
+        url = f"https://api.openalex.org/authors?search={search_name}&filter=last_known_institutions.ror:https://ror.org/018906e22|https://ror.org/01z883b21"
+        res = fetch_json(url)
+        if res and res.get("results"):
+            return res["results"][0]
+
+    # Global search fallback
+    url = f"https://api.openalex.org/authors?search={search_name}&per_page=5"
+    res = fetch_json(url)
+    if res and res.get("results"):
+        return res["results"][0]
+    return None
+
 all_authors = {}
 for name in list(ALL_TIERS.keys()):
     print(f"\n  [{ALL_TIERS[name]}] {name}")
-    search_name = name.replace(" ", "+")
-    result = fetch_json(f"https://api.openalex.org/authors?search={search_name}&per_page=5")
-    if result and result.get("results"):
-        author = result["results"][0]
+    author = find_author(name)
+    if author:
         aid = author.get("id")
         all_authors[name] = {
             "id": aid,
@@ -140,7 +182,7 @@ print("=" * 60)
 foia_entries = [
     {"label": "Fauci Emails (WashPost FOIA)", "url": "https://www.washingtonpost.com/context/fauci-emails/",
      "relevance": "Complete Fauci email archive — includes Koopmans/Fouchier correspondence"},
-    {"label": "Proximal Origin paper (DOI)", "url": "https://doi.org/10.1038/s41591-022-01791-8",
+    {"label": "Proximal Origin paper (DOI)", "url": "https://doi.org/10.1038/s41591-020-0820-9",
      "relevance": "Andersen et al. 2022 — key natural origin argument; 5 Feb 1 call participants as co-authors"},
     {"label": "House Select Subcommittee COVID-19 Origins", "url": "https://oversight.house.gov/",
      "relevance": "U.S. Congressional investigation into COVID origins — NIH/Fauci funding records"},

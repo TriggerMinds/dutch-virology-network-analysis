@@ -1,196 +1,192 @@
 name,tier,org,virology_betweenness,policy_betweenness,coauthor_betweenness
-Marion Koopmans,1,Erasmus MC,0.2676,0.0,0.2379
-Ron Fouchier,1,Erasmus MC,0.1611,0.0758,0.1416
-Menno de Jong,2,RIVM / AMC,0.1422,0.0,0.1361
-Annemiek van der Eijk,2,Erasmus MC,0.1236,0.0,0.159
-Ab Osterhaus,1,Univ. Veterinary Medicine Hannover,0.1099,0.0,0.1136
-Bart Haagmans,1,Erasmus MC,0.1032,0.0,0.1242
-Aura Timen,2,Radboud UMC / RIVM,0.0862,0.0,0.09
-Jan Kluytmans,1,UMC Utrecht / Amphia,0.0817,0.0,0.0822
-Thijs Kuiken,1,Erasmus MC,0.0805,0.0,0.0867
-Feb 1 Conference Call,0,,0.0627,0.697,0.0
-Massimo Palmarini,2,MRC-University of Glasgow,0.0527,0.0,0.0624
-Marc Bonten,2,UMC Utrecht,0.0404,0.0,0.0288
-Andrew Rambaut,0,University of Edinburgh,0.0376,0.0108,0.0595
-Diederik Gommers,1,Erasmus MC,0.0242,0.0,0.0259
-Malik Peiris,0,,0.0207,0.0,0.0211
-Maria Zambon,0,,0.017,0.0,0.0223
-Richard Molenkamp,0,,0.0164,0.0,0.0177
-Herman Goossens,0,,0.0163,0.0,0.0134
-Wilina Lim,0,,0.0161,0.0,0.0167
-Eric J. Snijder,0,,0.0128,0.0,0.0135
-Jaap van Dissel,1,LUMC / RIVM,0.0115,0.0,0.0192
-Robin Gopal,0,,0.0098,0.0,0.0128
-David F. Burke,0,,0.0098,0.0,0.0128
-Mihai G. Netea,0,,0.0082,0.0,0.0061
-Neeltje A. Kootstra,0,,0.0082,0.0,0.0088
-Jeremy Farrar,0,Wellcome Trust,0.0075,0.0108,0.0
-Deliberate Insertion Hypothesis,0,,0.0069,0.1591,0.0
-Yong Poovorawan,0,,0.0065,0.0,0.0073
-Theo M. Bestebroer,0,,0.0057,0.0,0.0062
-Janke Schinkel,0,,0.0052,0.0,0.006
-Manon Haverkate,0,,0.0052,0.0,0.006
-Proximal Origin Paper,0,,0.0038,0.0,0.0455
-Reina S. Sikkema,0,,0.0038,0.0,0.004
-Bas B. Oude Munnink,0,,0.0038,0.0,0.0041
-Anthony Fauci,0,NIAID,0.0036,0.0108,0.0
-Henri A. Verbrugh,0,,0.0035,0.0,0.0037
-Albert D. M. E. Osterhaus,0,,0.0029,0.0,0.0039
-Peter M. Schneeberger,0,,0.0025,0.0,0.0034
-V. Stalin Raj,0,,0.0022,0.0,0.003
-Frank L. van de Veerdonk,0,,0.0022,0.0,0.0024
-Adam Meijer,0,,0.0022,0.0,0.003
-Kristian Andersen,0,Scripps Research,0.002,0.0108,0.0
-Edward Holmes,0,University of Sydney,0.002,0.0108,0.0
-Robert Garry,0,Tulane University,0.002,0.0108,0.0
-Christian Drosten,0,Charité Berlin,0.0018,0.0758,0.0
-Harry Vennema,0,,0.0018,0.0,0.0026
-Bart L. Haagmans,0,,0.0017,0.0,0.0022
-Nisreen M.A. Okba,0,,0.0017,0.0,0.0022
-James Cohen Stuart,0,,0.0016,0.0,0.0012
-Sander van Boheemen,0,,0.0016,0.0,0.0022
-Gerard J. J. van Doornum,0,,0.0015,0.0,0.0018
-Marc J. M. Bonten,0,,0.0015,0.0,0.0014
-Martin Bootsma,0,,0.0015,0.0,0.0014
-Allen Cheng,0,,0.0015,0.0,0.0014
-Wei Zhou,0,,0.0014,0.0,0.0006
-Eirini Marouli,0,,0.0014,0.0,0.0006
-Stavroula Kanoni,0,,0.0014,0.0,0.0006
-Masahiro Kanai,0,,0.0014,0.0,0.0006
-Loïc Yengo,0,,0.0014,0.0,0.0006
-Yukinori Okada,0,,0.0014,0.0,0.0006
-Margherita Francescatto,0,,0.0014,0.0,0.0006
-Joseph D. Buxbaum,0,,0.0014,0.0,0.0006
-Jeanne E. Savage,0,,0.0014,0.0,0.0006
-Hugues Aschard,0,,0.0014,0.0,0.0006
-Claudia Schurmann,0,,0.0014,0.0,0.0006
-Saskia L. Smits,0,,0.0012,0.0,0.0018
-Ed J. Kuijper,0,,0.0012,0.0,0.0011
-Martin Schutten,0,,0.0011,0.0,0.0016
-Stephan Günther,0,,0.0011,0.0,0.0014
-Mart M. Lamers,0,,0.0011,0.0,0.0014
-Jim van Steenbergen,0,,0.001,0.0,0.0013
-Arfan Ikram,2,Erasmus MC,0.0009,0.0,0.0013
-Lonneke Leijten,0,,0.0008,0.0,0.0012
-Francis Collins,0,NIH,0.0007,0.0108,0.0
-Charles A. Boucher,0,,0.0006,0.0,0.0007
-N. van de Sande-Bruinsma,0,,0.0006,0.0,0.0004
-J. Kenneth Baillie,0,,0.0006,0.0,0.0004
-Alistair Nichol,0,,0.0006,0.0,0.0004
-Tom Fletcher,0,,0.0006,0.0,0.0004
-David van de Vijver,0,,0.0006,0.0,0.0007
-Nardo J. M. van der Meer,0,,0.0006,0.0,0.0005
-Laura Merson,0,,0.0006,0.0,0.0004
-Daniel F. McAuley,0,,0.0006,0.0,0.0004
-Jake Dunning,0,,0.0006,0.0,0.0004
-Peter Horby,0,,0.0006,0.0,0.0004
-Menno M. van der Eerden,0,,0.0005,0.0,0.0005
-Corine H. GeurtsvanKessel,0,,0.0004,0.0,0.0005
-Chantal Reusken,0,,0.0004,0.0,0.0005
-Bas van der Veer,0,,0.0004,0.0,0.0005
-Annemiek A. van der Eijk,0,,0.0004,0.0,0.0005
-Henrik Endeman,0,,0.0002,0.0,0.0002
-Eric C. M. Van Gorp,0,,0.0002,0.0,0.0002
-Johannes P. C. van den Akker,0,,0.0002,0.0,0.0002
-Pieter L. A. Fraaij,0,,0.0002,0.0,0.0002
-Dennis A. Hesselink,0,,0.0002,0.0,0.0002
-Jan J. Cornelissen,0,,0.0002,0.0,0.0002
-Jurriaan E.M. de Steenwinkel,0,,0.0002,0.0,0.0002
-Herold J. Metselaar,0,,0.0002,0.0,0.0002
-Annelies Verbon,0,,0.0002,0.0,0.0002
-Rogier A.S. Hoek,0,,0.0002,0.0,0.0002
-Georgina I. Aron,0,,0.0002,0.0,0.0002
-Jeroen J. A. van Kampen,0,,0.0002,0.0,0.0002
-Jolanda J.C. Voermans,0,,0.0002,0.0,0.0002
-Guus F. Rimmelzwaan,0,,0.0001,0.0,0.0001
+Marion Koopmans,1,Erasmus MC,0.2612,0.0,0.2313
+Ron Fouchier,1,Erasmus MC,0.1741,0.0758,0.1492
+Annemiek van der Eijk,2,Erasmus MC,0.151,0.0,0.1592
+Ab Osterhaus,1,Univ. Veterinary Medicine Hannover,0.1418,0.0,0.158
+Menno de Jong,2,RIVM / AMC,0.1339,0.0,0.1713
+Jan Kluytmans,1,UMC Utrecht / Amphia,0.1225,0.0,0.109
+Thijs Kuiken,1,Erasmus MC,0.1084,0.0,0.1247
+Feb 1 Conference Call,0,,0.0894,0.697,0.0
+Bart Haagmans,1,Erasmus MC,0.089,0.0,0.1181
+Massimo Palmarini,2,MRC-University of Glasgow,0.0514,0.0,0.0526
+Aura Timen,2,Radboud UMC / RIVM,0.0502,0.0,0.0476
+Jaap van Dissel,1,LUMC / RIVM,0.0451,0.0,0.0566
+Andrew Rambaut,0,University of Edinburgh,0.0403,0.0108,0.0313
+Robin Gopal,0,,0.0307,0.0,0.0307
+Marc Bonten,2,UMC Utrecht,0.0291,0.0,0.0466
+Diederik Gommers,1,Erasmus MC,0.0265,0.0,0.0159
+Yong Poovorawan,0,,0.0263,0.0,0.0336
+Eric J. Snijder,0,,0.0253,0.0,0.0348
+Reina S. Sikkema,0,,0.0213,0.0,0.0218
+Bas B. Oude Munnink,0,,0.0211,0.0,0.0218
+Harry Vennema,0,,0.0197,0.0,0.0214
+Malik Peiris,0,,0.0172,0.0,0.0181
+Mihai G. Netea,0,,0.0172,0.0,0.0181
+David F. Burke,0,,0.0166,0.0,0.0176
+Menno M. van der Eerden,0,,0.0147,0.0,0.0158
+Adam Meijer,0,,0.0136,0.0,0.0165
+Lonneke Leijten,0,,0.0105,0.0,0.0135
+Theo M. Bestebroer,0,,0.0101,0.0,0.01
+Wilina Lim,0,,0.0096,0.0,0.0142
+Manon Haverkate,0,,0.009,0.0,0.011
+Janke Schinkel,0,,0.009,0.0,0.0109
+Bas van der Veer,0,,0.0083,0.0,0.0111
+Deliberate Insertion Hypothesis,0,,0.0068,0.1591,0.0
+Martin Bootsma,0,,0.0062,0.0,0.0075
+Richard Molenkamp,0,,0.0059,0.0,0.0068
+James Cohen Stuart,0,,0.005,0.0,0.0073
+V. Stalin Raj,0,,0.0045,0.0,0.0051
+Erwin Duizer,0,,0.0045,0.0,0.0051
+Anthony Fauci,0,NIAID,0.0044,0.0108,0.0
+Proximal Origin Paper,0,,0.004,0.0,0.0161
+Edward Holmes,0,University of Sydney,0.0035,0.0108,0.0
+Robert Garry,0,Tulane University,0.0035,0.0108,0.0
+Henri A. Verbrugh,0,,0.0033,0.0,0.0034
+N. van de Sande-Bruinsma,0,,0.0029,0.0,0.0026
+Maria Zambon,0,,0.0027,0.0,0.0026
+Babs E. Verstrepen,0,,0.0026,0.0,0.0025
+Willy Bogers,0,,0.0026,0.0,0.0025
+Peter van Run,0,,0.0026,0.0,0.0025
+Ernst J. Verschoor,0,,0.0026,0.0,0.0025
+Jan A. M. Langermans,0,,0.0026,0.0,0.0025
+Carla van Tienen,0,,0.0025,0.0,0.0027
+Martin Schutten,0,,0.0024,0.0,0.003
+Jeanne E. Savage,0,,0.0024,0.0,0.0024
+Margherita Francescatto,0,,0.0024,0.0,0.0024
+Yukinori Okada,0,,0.0024,0.0,0.0024
+Gerard J. J. van Doornum,0,,0.0023,0.0,0.0023
+Claudia Schurmann,0,,0.0023,0.0,0.0023
+Hugues Aschard,0,,0.0023,0.0,0.0024
+Stavroula Kanoni,0,,0.0023,0.0,0.0024
+Wei Zhou,0,,0.0023,0.0,0.0024
+Natural Origin Hypothesis,0,,0.0022,0.0076,0.0
+Emmie de Wit,0,,0.002,0.0,0.0019
+Saskia L. Smits,0,,0.0017,0.0,0.0017
+Peter M. Schneeberger,0,,0.0017,0.0,0.0017
+Frans W. Rozendaal,0,,0.0017,0.0,0.0017
+Jan M. Broekman,0,,0.0017,0.0,0.0017
+S. A. G. Kemink,0,,0.0017,0.0,0.0017
+Guus Koch,0,,0.0017,0.0,0.0017
+Charles A. Boucher,0,,0.0017,0.0,0.0016
+David van de Vijver,0,,0.0016,0.0,0.0016
+Annemiek A. van der Eijk,0,,0.0015,0.0,0.0022
+Barry Rockx,0,,0.0012,0.0,0.0011
+Dennis de Meulder,0,,0.0012,0.0,0.0012
+Martje Fentener van Vlissingen,0,,0.0012,0.0,0.0012
+Huihui Mou,0,,0.001,0.0,0.0009
+Dick H. W. Dekkers,0,,0.001,0.0,0.0009
+Ronald Dijkman,0,,0.001,0.0,0.0009
+Volker Thiel,0,,0.001,0.0,0.0009
+Ali Moh Zaki,0,,0.001,0.0,0.0009
+Francis Collins,0,NIH,0.001,0.0108,0.0
+Judith M. A. van den Brand,0,,0.001,0.0,0.001
+Jeremy Farrar,0,Wellcome Trust,0.001,0.0108,0.0
+Kristian Andersen,0,Scripps Research,0.001,0.0108,0.0
+M. Steven Oberste,0,,0.0009,0.0,0.0009
+Silvia Peñaranda,0,,0.0009,0.0,0.0009
+Doreen Muth,0,,0.0009,0.0,0.0009
+Peter J. M. Rottier,0,,0.0009,0.0,0.0009
+Debby van Riel,0,,0.0009,0.0,0.0009
+Berry Wilbrink,0,,0.0009,0.0,0.0009
+Marina Conyn,0,,0.0009,0.0,0.0009
+Gerard Natrop,0,,0.0009,0.0,0.0009
+Hans van der Nat,0,,0.0009,0.0,0.0009
+Jim van Steenbergen,0,,0.0009,0.0,0.0009
+Laura Merson,0,,0.0008,0.0,0.0016
+Jake Dunning,0,,0.0008,0.0,0.0016
+Tom Fletcher,0,,0.0008,0.0,0.0016
+Sander van Boheemen,0,,0.0007,0.0,0.0007
+J.C. de Jong,0,,0.0006,0.0,0.0012
+Nardo J. M. van der Meer,0,,0.0006,0.0,0.0011
+Chunyan Wang,0,,0.0005,0.0,0.0004
+Wentao Li,0,,0.0005,0.0,0.0004
+B Martina,0,,0.0005,0.0,0.0004
+Claudia Schapendonk,0,,0.0005,0.0,0.0003
+Áine O’Toole,0,,0.0005,0.0,0.0003
+Pascal Lexmond,0,,0.0005,0.0,0.0003
+Anne van der Linden,0,,0.0005,0.0,0.0003
+Irina Chestakova,0,,0.0005,0.0,0.0003
+Ronald J. Overmars,0,,0.0005,0.0,0.0003
+Stefan van Nieuwkoop,0,,0.0005,0.0,0.0003
+Anneke Bergmans,0,,0.0005,0.0,0.0003
+Neeltje A. Kootstra,0,,0.0005,0.0,0.0004
+Guus F. Rimmelzwaan,0,,0.0003,0.0,0.0006
+Arfan Ikram,2,Erasmus MC,0.0003,0.0,0.0007
+Eirini Marouli,0,,0.0003,0.0,0.0003
+Masahiro Kanai,0,,0.0003,0.0,0.0003
+Loïc Yengo,0,,0.0003,0.0,0.0003
+Joseph D. Buxbaum,0,,0.0003,0.0,0.0003
+Frank L. van de Veerdonk,0,,0.0003,0.0,0.0007
+Christian Drosten,0,Charité Berlin,0.0002,0.0758,0.0
+Jan Groen,0,,0.0002,0.0,0.0002
+Ronald de Groot,0,,0.0002,0.0,0.0002
+Jonas Waldenström,0,,0.0002,0.0,0.0002
+Martin Linster,0,,0.0002,0.0,0.0002
+Nisreen M.A. Okba,0,,0.0002,0.0,0.0003
+Jon D. Laman,0,,0.0002,0.0,0.0002
+Gerard van Doornum,0,,0.0002,0.0,0.0002
+Ai Ee Ling,0,,0.0002,0.0,0.0002
+Paul K.S. Chan,0,,0.0002,0.0,0.0002
+John S. Tam,0,,0.0002,0.0,0.0002
+Jean-Claude Manuguerra,0,,0.0002,0.0,0.0002
+Daniel F. McAuley,0,,0.0002,0.0,0.0004
+Ann C.T.M. Vossen,0,,0.0002,0.0,0.0003
+Rogier A.S. Hoek,0,,0.0001,0.0,0.0001
+Stephan Günther,0,,0.0001,0.0,0.0002
 Maarten Keulemans,3,de Volkskrant,0.0001,0.0,0.0
-Jonas Waldenström,0,,0.0,0.0,0.0
-Dick H. W. Dekkers,0,,0.0,0.0,0.0
-Emmie de Wit,0,,0.0,0.0,0.0
-Sylvie van der Werf,0,,0.0,0.0,0.0
-Irina Chestakova,0,,0.0,0.0,0.0
-Jon D. Laman,0,,0.0,0.0,0.0
-M. Steven Oberste,0,,0.0,0.0,0.0
-Klaus Stöhr,0,,0.0,0.0,0.0
-Chris Lauber,0,,0.0,0.0,0.0
-Jeroen Demmers,0,,0.0,0.0,0.0
-Ron A. M. Fouchier,0,,0.0,0.0,0.0
-Jan Groen,0,,0.0,0.0,0.0
+Jan J. Cornelissen,0,,0.0001,0.0,0.0001
+Marjolein Kluytmans-van den Bergh,0,,0.0001,0.0,0.0001
+Heiman Wertheim,0,,0.0001,0.0,0.0001
+Mart M. Lamers,0,,0.0001,0.0,0.0001
+Jeroen J. A. van Kampen,0,,0.0001,0.0,0.0001
+Pieter L. A. Fraaij,0,,0.0001,0.0,0.0001
+Dennis A. Hesselink,0,,0.0001,0.0,0.0001
+Herold J. Metselaar,0,,0.0001,0.0,0.0001
+Annelies Verbon,0,,0.0001,0.0,0.0001
+Jurriaan E.M. de Steenwinkel,0,,0.0001,0.0,0.0001
+Georgina I. Aron,0,,0.0001,0.0,0.0001
+Jolanda J.C. Voermans,0,,0.0001,0.0,0.0001
+Debby Schipper,0,,0.0001,0.0,0.0001
+Rik L. de Swart,0,,0.0001,0.0,0.0001
+Herman Goossens,0,,0.0001,0.0,0.0001
 Ali M. Zaki,0,,0.0,0.0,0.0
-Marcel A. Müller,0,,0.0,0.0,0.0
-Wentao Li,0,,0.0,0.0,0.0
-Dennis de Meulder,0,,0.0,0.0,0.0
-Ronald de Groot,0,,0.0,0.0,0.0
-John S. Tam,0,,0.0,0.0,0.0
-Áine O’Toole,0,,0.0,0.0,0.0
-Stefan van Nieuwkoop,0,,0.0,0.0,0.0
-Paul K.S. Chan,0,,0.0,0.0,0.0
-Ernst J. Verschoor,0,,0.0,0.0,0.0
-Frans W. Rozendaal,0,,0.0,0.0,0.0
-Eefje J. A. Schrauwen,0,,0.0,0.0,0.0
-Geert van Amerongen,0,,0.0,0.0,0.0
-David F. Nieuwenhuijse,0,,0.0,0.0,0.0
-Guus Koch,0,,0.0,0.0,0.0
-Babs E. Verstrepen,0,,0.0,0.0,0.0
-Volker Thiel,0,,0.0,0.0,0.0
-Martin Linster,0,,0.0,0.0,0.0
-Peter J. M. Rottier,0,,0.0,0.0,0.0
-Miranda M. L. van Rijen,0,,0.0,0.0,0.0
-Berend‐Jan Bosch,0,,0.0,0.0,0.0
-Jan M. Broekman,0,,0.0,0.0,0.0
-Doreen Muth,0,,0.0,0.0,0.0
-Ali Moh Zaki,0,,0.0,0.0,0.0
-Barry Rockx,0,,0.0,0.0,0.0
-J.C. de Jong,0,,0.0,0.0,0.0001
-Derek J. Smith,0,,0.0,0.0,0.0
-Ernst Kuipers,2,Erasmus MC,0.0,0.0,0.0
-Bernadette G. van den Hoogen,0,,0.0,0.0,0.0
-Chunyan Wang,0,,0.0,0.0,0.0
-DURABLE,0,,0.0,0.0,0.0
-Debby Schipper,0,,0.0,0.0,0.0
-Pascal Lexmond,0,,0.0,0.0,0.0
-COMPARE,0,Erasmus MC,0.0,0.0,0.0
-Erwin Duizer,0,,0.0,0.0,0.0
-Berry Wilbrink,0,,0.0,0.0,0.0
-S. A. G. Kemink,0,,0.0,0.0,0.0
-A Bosman,0,,0.0,0.0,0.0
-Marina Conyn,0,,0.0,0.0,0.0
-Mark Pronk,0,,0.0,0.0,0.0
-Debby van Riel,0,,0.0,0.0,0.0
-Ton de Jong,0,,0.0,0.0,0.0
-Hans van der Nat,0,,0.0,0.0,0.0
-Gerard Natrop,0,,0.0,0.0,0.0
-Wouter van den Bijllaardt,0,,0.0,0.0,0.0
-Rik L. de Swart,0,,0.0,0.0,0.0
-Ariene Rietveld,0,,0.0,0.0,0.0
-Martje Fentener van Vlissingen,0,,0.0,0.0,0.0
-Ronald J. Overmars,0,,0.0,0.0,0.0
-Heiman Wertheim,0,,0.0,0.0,0.0
-Vincent J. Munster,0,,0.0,0.0,0.0
-Jean-Claude Manuguerra,0,,0.0,0.0,0.0
-Peter van Run,0,,0.0,0.0,0.0
-B Martina,0,,0.0,0.0,0.0
-Jan A. M. Langermans,0,,0.0,0.0,0.0
-Ronald Dijkman,0,,0.0,0.0,0.0
+Albert D. M. E. Osterhaus,0,,0.0,0.0,0.0
+Ron A. M. Fouchier,0,,0.0,0.0,0.0
+Sylvie van der Werf,0,,0.0,0.0,0.0
 Nicolas Escriou,0,,0.0,0.0,0.0
-Ai Ee Ling,0,,0.0,0.0,0.0
-VEO,0,,0.0,0.0,0.0
-Suzan D. Pas,0,,0.0,0.0,0.0
-Gerard van Doornum,0,,0.0,0.0,0.0
-Ann C.T.M. Vossen,0,,0.0,0.0,0.0
-Miranda de Graaf,0,,0.0,0.0,0.0
-Claudia Schapendonk,0,,0.0,0.0,0.0
-Judith M. A. van den Brand,0,,0.0,0.0,0.0
+Bernadette G. van den Hoogen,0,,0.0,0.0,0.0
+Marcel A. Müller,0,,0.0,0.0,0.0
+Jeroen Demmers,0,,0.0,0.0,0.0
+Berend‐Jan Bosch,0,,0.0,0.0,0.0
+Bart L. Haagmans,0,,0.0,0.0,0.0
+Vincent J. Munster,0,,0.0,0.0,0.0
+Derek J. Smith,0,,0.0,0.0,0.0
 Sander Herfst,0,,0.0,0.0,0.0
-Jaco J. Verweij,0,,0.0,0.0,0.0
-Willy Bogers,0,,0.0,0.0,0.0
-Anne van der Linden,0,,0.0,0.0,0.0
+Eefje J. A. Schrauwen,0,,0.0,0.0,0.0
+Klaus Stöhr,0,,0.0,0.0,0.0
+A Bosman,0,,0.0,0.0,0.0
+Geert van Amerongen,0,,0.0,0.0,0.0
+Ton de Jong,0,,0.0,0.0,0.0
+Miranda de Graaf,0,,0.0,0.0,0.0
+Chris Lauber,0,,0.0,0.0,0.0
 Alexander E. Gorbalenya,0,,0.0,0.0,0.0
-ECRAID,0,,0.0,0.0,0.0
-Marjolein Kluytmans-van den Bergh,0,,0.0,0.0,0.0
-Carla van Tienen,0,,0.0,0.0,0.0
-Anneke Bergmans,0,,0.0,0.0,0.0
-Silvia Peñaranda,0,,0.0,0.0,0.0
+Alistair Nichol,0,,0.0,0.0,0.0
+J. Kenneth Baillie,0,,0.0,0.0,0.0
+Peter Horby,0,,0.0,0.0,0.0
+Jaco J. Verweij,0,,0.0,0.0,0.0
+Chantal Reusken,0,,0.0,0.0,0.0
+David F. Nieuwenhuijse,0,,0.0,0.0,0.0
+Mark Pronk,0,,0.0,0.0,0.0
+Corine H. GeurtsvanKessel,0,,0.0,0.0,0.0
+Wouter van den Bijllaardt,0,,0.0,0.0,0.0
+Miranda M. L. van Rijen,0,,0.0,0.0,0.0
+Suzan D. Pas,0,,0.0,0.0,0.0
 B. M. W. Diederen,0,,0.0,0.0,0.0
-Huihui Mou,0,,0.0,0.0,0.0
-Natural Origin Hypothesis,0,,0.0,0.0076,0.0
+Ariene Rietveld,0,,0.0,0.0,0.0
+Johannes P. C. van den Akker,0,,0.0,0.0,0.0
+Henrik Endeman,0,,0.0,0.0,0.0
+Eric C. M. Van Gorp,0,,0.0,0.0,0.0
+Ed J. Kuijper,0,,0.0,0.0,0.0
+Marc J. M. Bonten,0,,0.0,0.0,0.0
+Allen Cheng,0,,0.0,0.0,0.0
+Ernst Kuipers,2,Erasmus MC,0.0,0.0,0.0
