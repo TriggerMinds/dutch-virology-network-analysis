@@ -529,27 +529,69 @@
   function showNodeInfo(idx) {
     var node = activeNodes.filter(function(n) { return n.id === idx; })[0];
     if (!node) return;
-    var d = node.full_data;
-    var html = '<h2>' + d.id + '</h2>';
-    html += '<div class="meta">';
-    if (d.org) html += d.org + ' • ';
-    html += 'Tier ' + d.tier + ' • ' + (d.role || '') + '</div>';
-
-    var betw = d.betweenness !== undefined ? d.betweenness : (nodeLookup[d.id] ? nodeLookup[d.id].betweenness : 0);
-    html += '<div class="section"><h3>Centrality Statistics</h3><div class="stat-grid">';
-    html += '<div class="stat-card"><span class="label">Betweenness</span><span class="value">' + betw + '</span></div>';
-    html += '<div class="stat-card"><span class="label">Visible Degree</span><span class="value">' + d.degree + '</span></div>';
-    html += '</div></div>';
-
+    var d = node.full_data || node;
     var nodeEdges = edgeIndex[d.id] || [];
     var filteredNodeEdges = nodeEdges.filter(function(e) {
       if (currentLayers.ALL) return true;
       if (e.layer === 'CO_AUTHOR' && !currentLayers.CO_AUTHOR) return false;
       if (e.layer === 'POLICY_ADVISORY' && !currentLayers.POLICY_ADVISORY) return false;
       if (e.layer === 'MEDIA_NARRATIVE' && !currentLayers.MEDIA_NARRATIVE) return false;
+      if (e.layer === 'CONSORTIUM_FUNDING' && !currentLayers.CONSORTIUM_FUNDING) return false;
       return true;
     });
 
+    // Kogelvrije fallback voor Visible Degree (geen undefined meer!)
+    var visibleDegreeCount = (filteredNodeEdges && filteredNodeEdges.length !== undefined) ? filteredNodeEdges.length : (d.degree !== undefined ? d.degree : (nodeEdges ? nodeEdges.length : 0));
+
+    var html = '<h2>' + d.id + '</h2>';
+    html += '<div class="meta">';
+    if (d.org) html += d.org + ' • ';
+    html += 'Tier ' + (d.tier !== undefined ? d.tier : 0) + ' • ' + (d.role || '') + '</div>';
+
+    var betw = d.betweenness !== undefined ? d.betweenness : (nodeLookup[d.id] ? nodeLookup[d.id].betweenness : 0);
+    html += '<div class="section"><h3>Centrality Statistics</h3><div class="stat-grid">';
+    html += '<div class="stat-card"><span class="label">Betweenness</span><span class="value">' + betw + '</span></div>';
+    html += '<div class="stat-card"><span class="label">Visible Degree</span><span class="value" id="visible-degree-val">' + visibleDegreeCount + '</span></div>';
+    html += '</div></div>';
+
+    // 1. METADATA & EXTERNE HYPERLINKS
+    var hasMeta = d.doi || d.grants || d.woo_refs || d.big_registration;
+    if (hasMeta) {
+      html += '<div class="section"><h3>Metadata & Externe Hyperlinks</h3>';
+      html += '<div style="background:rgba(0,0,0,0.25);border:1px solid var(--border-color);border-radius:8px;padding:12px;font-size:12px;line-height:1.6;">';
+      if (d.doi) {
+        html += '<div style="margin-bottom:6px;"><strong>DOI:</strong> <a href="' + d.doi + '" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">' + d.doi + ' ↗</a></div>';
+      }
+      if (d.grants) {
+        html += '<div style="margin-bottom:6px;"><strong>Subsidies & Grants:</strong> <span style="color:#e6edf3;">' + d.grants + '</span></div>';
+      }
+      if (d.woo_refs) {
+        html += '<div style="margin-bottom:6px;"><strong>Woo Dossiers:</strong> <span style="color:#d29922;">' + d.woo_refs + '</span></div>';
+      }
+      if (d.big_registration) {
+        html += '<div style="margin-bottom:2px;"><strong>BIG-Register:</strong> <span style="color:#2ea043;">' + d.big_registration + '</span></div>';
+      }
+      html += '</div></div>';
+    }
+
+    // 2. INHOUDELIJKE CONTEXT & DUIDING
+    if (d.context_note) {
+      html += '<div class="section"><h3>Inhoudelijke Context & Duiding</h3>';
+      html += '<div style="background:rgba(88,166,255,0.08);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 14px;font-size:13px;color:#e6edf3;line-height:1.5;">';
+      html += d.context_note;
+      html += '</div></div>';
+    }
+
+    // 3. LETTERLIJKE CITATEN & BEWIJS (Evidence Quotes)
+    if (d.evidence && d.evidence.length > 0) {
+      html += '<div class="section"><h3>Letterlijke Citaten & Bewijs (' + d.evidence.length + ')</h3>';
+      d.evidence.slice(0, 4).forEach(function(eq) {
+        html += '<div class="evidence-item">"' + eq.quote + '" <span class="source">— ' + eq.source + ' (p.' + eq.page + ')</span></div>';
+      });
+      html += '</div>';
+    }
+
+    // 4. INTERACTIEVE VERBINDINGEN PER LAAG
     if (filteredNodeEdges.length === 0 && nodeEdges.length > 0) {
       var layerList = [];
       var tmp = {};
@@ -559,7 +601,7 @@
     }
 
     if (filteredNodeEdges.length > 0) {
-      html += '<div class="section"><h3>Connections (' + filteredNodeEdges.length + ')</h3>';
+      html += '<div class="section"><h3>Interactieve Verbindingen (' + filteredNodeEdges.length + ')</h3>';
       var byLayer = {};
       filteredNodeEdges.forEach(function(e) {
         if (!byLayer[e.layer]) byLayer[e.layer] = [];
@@ -577,16 +619,9 @@
     }
 
     // Export buttons
-    html += '<div style="margin-top:8px"><button class="preset-btn" onclick="window.exportSubgraphCSV(\'' + (d.id || '').replace(/'/g, "\\'") + '\')" style="padding:3px 8px;border:1px solid var(--border-color);border-radius:4px;background:transparent;color:var(--text-secondary);font-size:10px;cursor:pointer;margin-right:4px">Export Subgraph (CSV)</button>';
-    html += '<button class="preset-btn" onclick="window.exportPNG()" style="padding:3px 8px;border:1px solid var(--border-color);border-radius:4px;background:transparent;color:var(--text-secondary);font-size:10px;cursor:pointer">Export PNG</button></div>';
+    html += '<div style="margin-top:16px;display:flex;gap:8px;"><button class="preset-btn" onclick="window.exportSubgraphCSV(\'' + (d.id || '').replace(/'/g, "\\'") + '\')" style="padding:5px 10px;border:1px solid var(--border-color);border-radius:6px;background:rgba(255,255,255,0.05);color:var(--text-primary);font-size:11px;cursor:pointer;">📥 Subgraph (CSV)</button>';
+    html += '<button class="preset-btn" onclick="window.exportPNG()" style="padding:5px 10px;border:1px solid var(--border-color);border-radius:6px;background:rgba(255,255,255,0.05);color:var(--text-primary);font-size:11px;cursor:pointer;">📷 Export PNG</button></div>';
 
-    if (d.evidence && d.evidence.length > 0) {
-      html += '<div class="section"><h3>Evidence Quotes</h3>';
-      d.evidence.slice(0, 3).forEach(function(eq) {
-        html += '<div class="evidence-item">"' + eq.quote + '" <span class="source">— ' + eq.source + ' (p.' + eq.page + ')</span></div>';
-      });
-      html += '</div>';
-    }
     inspectPanel.innerHTML = html;
   }
 
