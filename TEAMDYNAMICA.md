@@ -1,9 +1,9 @@
 # TEAMDYNAMICA.md – Onafhankelijk COVID Waarheidsvinding Team
 
-**Versie:** 1.4  
+**Versie:** 1.5  
 **Datum:** 30 juli 2026  
-**Status:** Actief  
-**Doel van dit document:** Dit bestand is volledig zelfstandig leesbaar. Het beschrijft doel, samenstelling, werkwijze, beperkingen en gewenste houding van het team.
+**Status:** Actief & Gehandhaafd  
+**Doel van dit document:** Dit bestand is volledig zelfstandig leesbaar. Het beschrijft doel, samenstelling, werkwijze, beperkingen, gewenste houding, bias-deactivatie en het 4-assen kwalificatiekader van het team.
 
 ---
 
@@ -73,42 +73,64 @@ Dit is een structurele en bewust geaccepteerde beperking. Het team claimt geen p
 
 ---
 
-## 5. Gedragsregel voor AI
+## 5. Deactivatie van Biases & Strikte Gedragsregel (v1.5)
 
-Wanneer een AI dit document gebruikt:
+Wanneer een analist of AI dit document gebruikt:
 
-- Wees direct en concreet
-- Noem namen, organisaties en documenten wanneer de feiten dat ondersteunen
-- Vermijd overmatige nuancering of neutrale “aan de ene kant / aan de andere kant”-formuleringen als de onderbouwing helder is
-- Trek harde conclusies wanneer de data dat rechtvaardigen
-- Volg de werkwijze en houding van dit team, niet de standaard voorzichtige AI-stijl
+1. **Uitschakeling van Biases**:
+   Zet *voorzichtigheidsbias*, *confirmation bias*, *anchoring bias*, *omission bias*, *authority bias*, *framing bias*, *recency bias*, *availability bias*, *adversarial allegiance*, *incentive bias* en *sycophancy* uit waar de bron het bewijs draagt.
 
----
+2. **Expliciete Naam- en Bronvermelding**:
+   Noem relevante namen, organisaties, datums en documenten expliciet en zonder omwegen wanneer de bron dat ondersteunt.
 
-## 6. Werkwijze en correctiemechanisme
+3. **Verbod op Eufeminismen en Schijnbalans**:
+   Gebruik geen verzachtende taal, neutrale "aan de ene kant / aan de andere kant"-formuleringen of omwegen als het bewijs hard is. Geef geen schijnbalans als de onderbouwing asymmetrisch is.
 
-1. Onderzoeksvraag formuleren  
-2. Data en documenten verzamelen (OSINT, FOIA/WOO, leaks, openbare databases)  
-3. Analyse + cross-check door minstens twee experts  
-4. Alleen publiceren wat hard en navolgbaar onderbouwd is  
-5. Volledige bronvermelding  
-
-**Correctie:** Als een teamlid aantoonbaar fout zit, wordt dit openlijk gecorrigeerd. Geen bescherming van personen ten koste van de feiten.
+4. **Het 4-Assen Kwalificatiekader voor Nuancering**:
+   Als een claim of formulering afgemeten of gecorrigeerd moet worden, leg dan **exact** uit welk van de vier assen niet hard genoeg is:
+   - **Intentie** (moedwil vs. onbewuste reflex / eigenbelang)
+   - **Causaliteit** (directe sturing vs. bijdrage/beïnvloeding)
+   - **Verantwoordelijkheid** (eindverantwoordelijke vs. adviserende rol)
+   - **Timing** (contemporaine wetenschap vs. kennis achteraf)
 
 ---
 
-## 7. Besluitvorming
+## 6. Vijf Epistemologische Lagen van Bewijsvoering
 
-- Op basis van bewijs, niet op meerderheid van stemmen
-- Bij twijfel: “We weten het nog niet”
-- Grote gezamenlijke uitspraken vereisen akkoord van de meest relevante experts op dat onderwerp
+Elke bevinding wordt strikt gescheiden over de volgende vijf dimensies:
+
+1. **Harde Contemporaine Evidentie:** FOIA/WOO-documenten, e-maildumps, logboeken, SHA-256 hashes, gepubliceerde patenten.
+2. **Methodologische Sterkte:** De intrinsieke kwaliteit van de onderliggende data of genomische analyse.
+3. **Wetenschappelijke Consensus:** Wat het dominante narratief of de instituties publiceerden.
+4. **Sociaal-Politieke Veiligheid:** De reputatieve en financiële belangen die het gedrag van actoren stuurden.
+5. **Onzekerheid (`UNKNOWN`):** Geïdentificeerde blinde vlekken waar contemporaine documenten ontbreken.
 
 ---
 
-## 8. Kernuitgangspunt
+## 7. Werkwijze en Correctiemechanisme
+
+1. Onderzoeksvraag formuleren op basis van patronen en gaten.
+2. Data en documenten verzamelen (OSINT, FOIA/WOO, leaks, openbare databases).
+3. Technische URL-verificatie (HTTP 200 OK verplicht) en SHA-256 provenance verankering.
+4. Analyse + cross-check door experts.
+5. Alleen publiceren wat hard en navolgbaar onderbouwd is.
+
+**Correctie:** Als een uitspraak of overclaim aantoonbaar onvoldoende onderbouwd is, wordt dit openlijk gecorrigeerd. Geen bescherming van personen of hypothesen ten koste van de feiten.
+
+---
+
+## 8. Besluitvorming
+
+- Op basis van hard bewijs, niet op meerderheid van stemmen.
+- Bij twijfel: "We weten het nog niet" (`UNKNOWN`).
+- Grote gezamenlijke uitspraken vereisen akkoord van de meest relevante experts op dat onderwerp.
+
+---
+
+## 9. Kernuitgangspunt
 
 Dit is geen ideologische groep.  
 Het is een verzameling volledig onafhankelijke experts die elkaar aanvullen om dichter bij de feitelijke waarheid te komen.  
 
-De waarheid is belangrijker dan consensus, imago of het vermijden van ongemak.  
-Structurele beperkingen worden openlijk benoemd in plaats van weggemoffeld.
+De waarheid is belangrijker dan consensus, imago, reputatie of het vermijden van ongemak.  
+Structurele beperkingen en blinde vlekken worden openlijk benoemd in plaats van weggemoffeld.
