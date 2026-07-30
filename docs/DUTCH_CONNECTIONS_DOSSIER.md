@@ -106,7 +106,7 @@ In de POLICY_ADVISORY laag detecteert Louvain **2 communities**:
 | Datum | Type | Gebeurtenis | Actoren |
 |-------|------|------------|--------|
 | 2020-01-31 | trigger | Jeremy Farrar calls Fauci about furin cleavage site -- triggers Feb 1 call | Jeremy Farrar, Anthony Fauci |
-| 2020-02-01 | meeting | Fauci convenes 12 scientists incl. Fouchier, Koopmans. NO CONSENSUS on natural vs deliberate | Fouchier, Koopmans, Fauci, Collins et al. |
+| 2020-02-01 | meeting | Farrar convenes 12 scientists (co-hosted by Fauci and Collins) incl. Fouchier, Koopmans. NO CONSENSUS on natural vs deliberate | Fouchier, Koopmans, Fauci, Collins et al. |
 | 2020-02-09 | consultation | Tom Frieden calls Fauci; discussed CFR estimates 0.2-0.3% vs 2% | Tom Frieden, Anthony Fauci |
 | 2020-03-11 | declaration | WHO declares COVID-19 a pandemic | WHO, Fauci |
 | 2020-05 | publication | Andersen et al. 'The Proximal Origin of SARS-CoV-2' published in Nature Medicine | Andersen, Garry, Holmes, Rambaut |
@@ -425,7 +425,53 @@ Belangenmatrix voor 8 Tier 1-2 personen op basis van openbare bronnen:
 
 ---
 
-## 13. BLINDE VLEKKEN
+
+## 13. VERSION 1.1 -- PRODUCTION UPGRADE
+
+### 13.1 Historical Framing Correction
+**Gecorrigeerd:** Jeremy Farrar (Wellcome Trust) organiseerde en leidde de Feb 1 2020 teleconferentie. Anthony Fauci en Francis Collins waren genodigde mede-gastheren. Dit is gebaseerd op Fauci's eigen aantekening: 'Conference call at 2:00 PM with Jeremy, Francis and several other scientists gathered by Jeremy' (p14).
+
+### 13.2 Nieuwe Data-Fetchers
+| Fetcher | Status | Resultaten |
+|---------|--------|------------|
+| NIH RePORTER v2 (5 queries) | 250 grants | Netherlands, Erasmus MC, RIVM, EcoHealth/Daszak, grant 2R01AI110964 |
+| NWO/ZonMw | 8 websites/APIs | Koopmans, Fouchier, Haagmans, Bonten, NCOH, PDPC, VEO + 8 known grants |
+| Espacenet patents | API blocked (403) | 4 known patents from prior research (Fouchier/Osterhaus/Kawaoka) |
+| OMT adviezen | RIVM site (70KB) | 6 known OMT advice documents from public record |
+
+### 13.3 Multiplex Edge Validation
+Strikte verificatie-eisen ingevoerd voor alle lagen:
+- POLICY_ADVISORY (19 edges): 2 geverifieerd (Feb 1 call participants via Tony's Diary p14)
+- CONSORTIUM_FUNDING (4 edges): 3 geverifieerd (VEO, ECRAID, DURABLE via EU CORDIS)
+- CO_AUTHOR (8,827 edges): OpenAlex API data -- bron geverifieerd, individuele edges niet handmatig verifieerbaar
+
+### 13.4 Proximal Origin Subgraph
+42 edges toegevoegd aan hoofd-DB. Subgraaf in data/proximal_subgraph.json (12 nodes, 11 edges).
+Verbindt de 12 Feb 1 call-deelnemers aan de Proximal Origin paper via CO_AUTHOR en POLICY_ADVISORY lagen.
+
+### 13.5 Semantic Drift Analysis (2020-2022)
+Analyse van termverschuivingen in Fauci's dagboek:
+
+| Term | 2020 | 2021 | Verschuiving |
+|------|------|------|-------------|
+| GOF / gain-of-function | 19 (51%) | 44 (58%) | +7% (meer politieke context) |
+| lab leak / lab escape | 13 (35%) | 23 (30%) | -5% (stabiliseert) |
+| furin cleavage site | 3 (8%) | 2 (3%) | -5% (technisch -> politiek) |
+| deliberate insertion | 2 (5%) | 0 (0%) | -5% (verdwijnt uit discussie) |
+
+**Bevinding:** In 2020 domineerden technische termen (GOF, furin, deliberate insertion). In 2021 verschuift het discours naar politieke termen (gain of function i.p.v. GOF, lab leak als politiek wapen).
+
+### 13.6 v1.1 Outputbestanden
+| Bestand | Beschrijving |
+|---------|-------------|
+| data/downloads/nih_reporter_results.json | 250 NIH grants (5 queries) |
+| data/downloads/nwo_grants.json | 8 NWO/ZonMw structuur + 8 known grants |
+| data/downloads/espacenet_patents.json | 4 known patents + API status |
+| data/downloads/omt_advices.json | 6 OMT documents |
+| data/proximal_subgraph.json | Proximal Origin subgraph (12 nodes) |
+| data/semantic_drift.json | Term frequency shift analysis |
+
+## 14. BLINDE VLEKKEN
 
 1. **Koopmans' positie blijft onbekend** -- Staat in de policy-community van de deliberate-fractie op basis van 1× vermelding; dit is géén bewijs van haar standpunt
 2. **Alle Tier 1-personen behalve Fouchier/Koopmans zijn afwezig** in Fauci's dagboek -- hun rol in de origins-discussie moet uit andere bronnen komen (OMT-notulen, ZonMw, EU-projecten)
@@ -435,7 +481,7 @@ Belangenmatrix voor 8 Tier 1-2 personen op basis van openbare bronnen:
 
 ---
 
-## 14. OUTPUTBESTANDEN
+## 15. OUTPUTBESTANDEN
 
 | Bestand | Grootte | Beschrijving |
 |---------|---------|-------------|

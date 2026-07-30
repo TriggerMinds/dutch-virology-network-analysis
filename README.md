@@ -17,7 +17,7 @@ This repository contains a **multiplex knowledge graph** of **5,401 nodes** and 
 
 ### Key Finding
 
-On **1 February 2020**, Anthony Fauci convened 12 international scientists to discuss the furin cleavage site in the SARS-CoV-2 spike protein. Two Dutch virologists from Erasmus MC participated:
+On **1 February 2020**, Anthony Jeremy Farrar (Wellcome Trust) convened 12, with Anthony Fauci and Francis Collins as co-hosts international scientists to discuss the furin cleavage site in the SARS-CoV-2 spike protein. Two Dutch virologists from Erasmus MC participated:
 
 - **Ron Fouchier** argued the site could occur naturally — "the original GOF person with Yoshi Kawaoka"
 - **Marion Koopmans** was present — her position was **not recorded** by Fauci (explicit blind spot)

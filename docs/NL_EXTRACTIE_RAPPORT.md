@@ -20,7 +20,7 @@ In het dagboek van Dr. Anthony Fauci (NIAID-directeur) zijn **82 pagina's** geï
 
 ### Sleutelvondst: Feb 1 Conference Call (p14)
 
-Fauci beschrijft hoe hij op **31 januari 2020** een telefoontje kreeg van Jeremy Farrar (Wellcome Trust), waarna hij op **1 februari 2020 om 14:00** een videoconference belegde met:
+Fauci beschrijft hoe Jeremy Farrar op **31 januari 2020** belde met de analyse van David Robertson (furin cleavage site), waarna Farrar op **1 februari 2020 om 14:00** een videoconference organiseerde met Fauci en Collins als mede-gastheren met:
 
 - **Francis Collins** (Francis Collins, Director of the U.S. National Institutes of Health, U.S.;...)
 - **Anthony Fauci** (Anthony Fauci, Director of the U.S. National Institute of Allergy and Infectious...)

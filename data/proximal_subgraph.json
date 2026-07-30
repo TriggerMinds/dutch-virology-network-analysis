@@ -1,0 +1,155 @@
+{
+ "nodes": [
+  {
+   "id": "Andrew Rambaut",
+   "type": "person",
+   "tier": 0,
+   "org": "University of Edinburgh"
+  },
+  {
+   "id": "Anthony Fauci",
+   "type": "person",
+   "tier": 0,
+   "org": "NIAID"
+  },
+  {
+   "id": "Christian Drosten",
+   "type": "person",
+   "tier": 0,
+   "org": "Charité Berlin"
+  },
+  {
+   "id": "Edward Holmes",
+   "type": "person",
+   "tier": 0,
+   "org": "University of Sydney"
+  },
+  {
+   "id": "Feb 1 Conference Call",
+   "type": "event",
+   "tier": 0,
+   "org": ""
+  },
+  {
+   "id": "Francis Collins",
+   "type": "person",
+   "tier": 0,
+   "org": "NIH"
+  },
+  {
+   "id": "Jeremy Farrar",
+   "type": "person",
+   "tier": 0,
+   "org": "Wellcome Trust"
+  },
+  {
+   "id": "Kristian Andersen",
+   "type": "person",
+   "tier": 0,
+   "org": "Scripps Research"
+  },
+  {
+   "id": "Marion Koopmans",
+   "type": "person",
+   "tier": 1,
+   "org": "Erasmus MC"
+  },
+  {
+   "id": "Proximal Origin Paper",
+   "type": "publication",
+   "tier": 0,
+   "org": ""
+  },
+  {
+   "id": "Robert Garry",
+   "type": "person",
+   "tier": 0,
+   "org": "Tulane University"
+  },
+  {
+   "id": "Ron Fouchier",
+   "type": "person",
+   "tier": 1,
+   "org": "Erasmus MC"
+  }
+ ],
+ "edges": [
+  {
+   "source": "Francis Collins",
+   "target": "Proximal Origin Paper",
+   "layer": "CONNECTED_TO",
+   "desc": "Feb 1 call participant ; not a co-author of Proximal Origin paper",
+   "doc": "Tony Diary p14 / Nature Medicine 2022"
+  },
+  {
+   "source": "Anthony Fauci",
+   "target": "Proximal Origin Paper",
+   "layer": "CONNECTED_TO",
+   "desc": "Feb 1 call participant ; not a co-author of Proximal Origin paper",
+   "doc": "Tony Diary p14 / Nature Medicine 2022"
+  },
+  {
+   "source": "Jeremy Farrar",
+   "target": "Proximal Origin Paper",
+   "layer": "CONNECTED_TO",
+   "desc": "Feb 1 call participant ; not a co-author of Proximal Origin paper",
+   "doc": "Tony Diary p14 / Nature Medicine 2022"
+  },
+  {
+   "source": "Kristian Andersen",
+   "target": "Proximal Origin Paper",
+   "layer": "CO_AUTHOR",
+   "desc": "Feb 1 call participant and co-author of Proximal Origin paper",
+   "doc": "Tony Diary p14 / Nature Medicine 2022"
+  },
+  {
+   "source": "Christian Drosten",
+   "target": "Proximal Origin Paper",
+   "layer": "CONNECTED_TO",
+   "desc": "Feb 1 call participant ; not a co-author of Proximal Origin paper",
+   "doc": "Tony Diary p14 / Nature Medicine 2022"
+  },
+  {
+   "source": "Edward Holmes",
+   "target": "Proximal Origin Paper",
+   "layer": "CO_AUTHOR",
+   "desc": "Feb 1 call participant and co-author of Proximal Origin paper",
+   "doc": "Tony Diary p14 / Nature Medicine 2022"
+  },
+  {
+   "source": "Andrew Rambaut",
+   "target": "Proximal Origin Paper",
+   "layer": "CO_AUTHOR",
+   "desc": "Feb 1 call participant and co-author of Proximal Origin paper",
+   "doc": "Tony Diary p14 / Nature Medicine 2022"
+  },
+  {
+   "source": "Ron Fouchier",
+   "target": "Proximal Origin Paper",
+   "layer": "CONNECTED_TO",
+   "desc": "Feb 1 call participant ; not a co-author of Proximal Origin paper",
+   "doc": "Tony Diary p14 / Nature Medicine 2022"
+  },
+  {
+   "source": "Robert Garry",
+   "target": "Proximal Origin Paper",
+   "layer": "CO_AUTHOR",
+   "desc": "Feb 1 call participant and co-author of Proximal Origin paper",
+   "doc": "Tony Diary p14 / Nature Medicine 2022"
+  },
+  {
+   "source": "Marion Koopmans",
+   "target": "Proximal Origin Paper",
+   "layer": "CONNECTED_TO",
+   "desc": "Feb 1 call participant ; not a co-author of Proximal Origin paper",
+   "doc": "Tony Diary p14 / Nature Medicine 2022"
+  },
+  {
+   "source": "Proximal Origin Paper",
+   "target": "Proximal Origin Paper",
+   "layer": "CO_AUTHOR",
+   "desc": "Submitted to Nature Medicine",
+   "doc": "Nature Medicine"
+  }
+ ]
+}

@@ -1,0 +1,231 @@
+{
+ "meta": {
+  "description": "Semantic drift analysis of key terms across Fauci diary 2020-2022",
+  "limitations": "Date assignment is approximate (based on first date mention in page text)"
+ },
+ "term_frequencies": {
+  "2020": {
+   "GOF": 9,
+   "furin": 2,
+   "deliberate insertion": 2,
+   "gain-of-function": 2,
+   "gain of function": 8,
+   "lab leak": 9,
+   "lab-leak": 4,
+   "furin cleavage site": 1
+  },
+  "2021": {
+   "lab leak": 20,
+   "lab-leak": 3,
+   "gain-of-function": 2,
+   "gain of function": 40,
+   "GOF": 2,
+   "furin cleavage site": 2,
+   "furin": 2,
+   "engineered": 2,
+   "natural emergence": 2,
+   "natural origin": 1
+  }
+ },
+ "term_contexts": {
+  "2020": {
+   "GOF": [
+    " Sidney Australia. There have been conspiracy theories that the virus was given GOF by inserted mutations and deliberately or accidentally released in Wuhan. One t",
+    "divert effort to pursue this. This is expected of him since he was the original GOF person with Yoshi Kawaoka. Also, Christian Drosten was with Ron; the rest felt ",
+    " that Dr. Zheng-Li Shi at the University of Wuhan has been working for years in GOF in coronaviruses to allow adaptation of the spike protein to bind to the human "
+   ],
+   "furin": [
+    " call was different. The people on the phone felt that the mutations around the furine cleavage site of the spike protein could not have occurred naturally since it ",
+    "izing antibodies • Cluster of mutations (H655Y + N679K + P681H) adjacent to the furin cleavage site – usually associated with more efficient cell entry • NSP6 deleti"
+   ],
+   "deliberate insertion": [
+    "asmus Medical Center, NL. There was not total agreement about the likelihood of deliberate insertion. Ron Fouchier said he was sure that this could occur naturally and we should no",
+    "on with Yoshi Kawaoka. Also, Christian Drosten was with Ron; the rest felt that deliberate insertion was possible and given the fact that Dr. Zheng-Li Shi at the University of Wuha"
+   ],
+   "gain-of-function": [
+    "aul Fact Checker Analysis The repeated claim that Fauci lied to Congress about ‘gain-of-function’ research Oct. 30, 2021 Had a meeting in my home today with Hugo Crosthwaite wh",
+    "ion of the virus. As you might expect the people who have been attacking us for gain-of-function research are jumping all over this. We are putting out a statement indicating t"
+   ],
+   "gain of function": [
+    "ans would have come at me pretty hard and she wanted me to explain to her about gain of function research so that she could get a better understanding of things and she promise",
+    "same conflict with Senator Rand Paul who continues to lie egregiously about the gain of function research which he claims was done at the Wuhan Institute of Virology funded by ",
+    "ther bill floating in the Senate (proposed by Senator Joni Ernst) is forbidding gain of function research and that bill is called the “Fauci Act” PRESS: NBC Now TV with Hallie "
+   ],
+   "lab leak": [
+    "Times - Has written another insightful review of the profound weaknesses of the lab leak theory. He exposes Alina Chan of the Broad Institute as someone leaning towards",
+    "written a book providing no evidence whatsoever other than conjecture about the lab leak theory (see below). Discussion with Jeff and the medical team today. - Although",
+    "ery clear that the outbreak was almost certainly a natural occurrence and not a lab leak. The most recent paper was one by Michael Worobey that appeared in Science 3 da"
+   ],
+   "lab-leak": [
+    "s Medical Unit - TV with Ashkay Syal; These authors wanted to push the COVID-19 lab-leak theory. Instead they exposed its weaknesses",
+    " stooges (Richard Ebright, David Relman, and Jesse Bloom) are still pushing the lab-leak hypothesis literally based on absolutely no solid evidence, but only conjecture",
+    "ard connection The Spectator: Was a Fauci-endorsed Chinese donation part of the lab-leak cover up? PRESS: Korean Broadcasting System documentary “Corona Chronicles inte"
+   ],
+   "furin cleavage site": [
+    "izing antibodies • Cluster of mutations (H655Y + N679K + P681H) adjacent to the furin cleavage site – usually associated with more efficient cell entry • NSP6 deletion (105-107) -"
+   ]
+  },
+  "2021": {
+   "lab leak": [
+    "st with Kara Swisher Very Important piece in Foreign Policy by Justin Ling: The Lab Leak Theory Doesn’t Hold Up The rush to find a conspiracy around the COVID-19 pandem",
+    "e influencers. • FOX News on a rampage against me on every show and pushing the lab leak origin Tucker PRESS: Tucker Carlson continues with his slanderous attacks: Carl",
+    " past couple of days given the amount of speculation about the possibility of a lab leak I have been saying that no one is 100% certain of the origin including me and s"
+   ],
+   "lab-leak": [
+    "S: CBS “This Morning”; ITV (UK TV); Interview with Alison Young of USA Today on lab-leak hypothesis; Interview with Yahoo Life; Did White House digital team PSA at NIH;",
+    "iant in UK and danger to USA) Blinken casts doubt on methodology of coronavirus lab-leak report Reuters This is report from Lawrence Livermore Lab that supposed lent cr",
+    "ump people about the “lab leak” theory: Top Trump officials pushed the Covid-19 lab-leak theory. Investigators had doubts. New documents and interviews show how the pre"
+   ],
+   "gain-of-function": [
+    " Chairman Rand Paul The far right continues to accuse me of fostering dangerous gain-of-function research. The letter to the editor of the National Review refutes this: Letter ",
+    "Dr. Fauci last month, Senator Paul brought up one of the most cited examples of gain-of-function research, a study of coronaviruses done by Ralph Baric at the University of Nor"
+   ],
+   "gain of function": [
+    "g to heat up again. The usual cast of characters that had been bugging us about gain of function research or add it again claiming incorrectly that we have funded gain of funct",
+    "n of function research or add it again claiming incorrectly that we have funded gain of function research for the Wuhan lab. Somehow or other they're trying to connect funding ",
+    " research for the Wuhan lab. Somehow or other they're trying to connect funding gain of function with a Chinese investigator getting infected with the spread of COVID-19 throug"
+   ],
+   "GOF": [
+    "such as “Pulse Nation” starting to scale up on conspiracy theory rhetoric about GOF. • Anne Schuchat announced her retirement from CDC today. As expected, the pres",
+    "ew with Frank Bruni for his book on aging; interview with Betsy McKay of WSJ on GoF; Sirius XM Radio with Marc Siegel; MSNBC with Chris Hayes; July 8, 2021 - Krist"
+   ],
+   "furin cleavage site": [
+    " of the virus and felt that there was a possibility that because of the unusual furin cleavage site that this could possibly have been a constructed virus. as indicated in my note",
+    "y integrity and in my service. Senator Marshall later asked questions about the furin cleavage site and the CGG codon. Then he started talking about the S1 segment of the spike pr"
+   ],
+   "furin": [
+    " of the virus and felt that there was a possibility that because of the unusual furin cleavage site that this could possibly have been a constructed virus. as indica",
+    "y integrity and in my service. Senator Marshall later asked questions about the furin cleavage site and the CGG codon. Then he started talking about the S1 segment o"
+   ],
+   "engineered": [
+    "e possibility of a lab leak and also expressed concern the virus appeared to be engineered. WHAT: Select Subcommittee expert forum entitled “Led By Science: The COVID-19 ",
+    " that they felt fairly confident that it was not a bioweapon nor that it was bioengineered. They still left open the possibility that it could be a lab leak ; However, mo"
+   ],
+   "natural emergence": [
+    "g of animals could occur. In essence, they clouded the possibility of proving a natural emergence. I urged the NSC folks to work closely with qualified card-carrying evolutionar",
+    "day with on a preprint server a paper strongly arguing with good evidence for a natural emergence of SARS-CoV-2 rather thsan a lab leak: The Origins of SARS-CoV-2: A Critical Re"
+   ],
+   "natural origin": [
+    "ight elements. I gave to Leslie some reprints of papers that strongly favor the natural origin of COVID. We discussed strategies of how to stay ahead of this insidious campai"
+   ]
+  }
+ },
+ "drift_summary": {
+  "2020": {
+   "gain-of-function": {
+    "count": 2,
+    "pct": 5.4
+   },
+   "gain of function": {
+    "count": 8,
+    "pct": 21.6
+   },
+   "GOF": {
+    "count": 9,
+    "pct": 24.3
+   },
+   "dual use": {
+    "count": 0,
+    "pct": 0.0
+   },
+   "dual-use": {
+    "count": 0,
+    "pct": 0.0
+   },
+   "lab leak": {
+    "count": 9,
+    "pct": 24.3
+   },
+   "lab-leak": {
+    "count": 4,
+    "pct": 10.8
+   },
+   "laboratory escape": {
+    "count": 0,
+    "pct": 0.0
+   },
+   "natural origin": {
+    "count": 0,
+    "pct": 0.0
+   },
+   "natural emergence": {
+    "count": 0,
+    "pct": 0.0
+   },
+   "deliberate insertion": {
+    "count": 2,
+    "pct": 5.4
+   },
+   "engineered": {
+    "count": 0,
+    "pct": 0.0
+   },
+   "furin cleavage site": {
+    "count": 1,
+    "pct": 2.7
+   },
+   "furin": {
+    "count": 2,
+    "pct": 5.4
+   }
+  },
+  "2021": {
+   "gain-of-function": {
+    "count": 2,
+    "pct": 2.6
+   },
+   "gain of function": {
+    "count": 40,
+    "pct": 52.6
+   },
+   "GOF": {
+    "count": 2,
+    "pct": 2.6
+   },
+   "dual use": {
+    "count": 0,
+    "pct": 0.0
+   },
+   "dual-use": {
+    "count": 0,
+    "pct": 0.0
+   },
+   "lab leak": {
+    "count": 20,
+    "pct": 26.3
+   },
+   "lab-leak": {
+    "count": 3,
+    "pct": 3.9
+   },
+   "laboratory escape": {
+    "count": 0,
+    "pct": 0.0
+   },
+   "natural origin": {
+    "count": 1,
+    "pct": 1.3
+   },
+   "natural emergence": {
+    "count": 2,
+    "pct": 2.6
+   },
+   "deliberate insertion": {
+    "count": 0,
+    "pct": 0.0
+   },
+   "engineered": {
+    "count": 2,
+    "pct": 2.6
+   },
+   "furin cleavage site": {
+    "count": 2,
+    "pct": 2.6
+   },
+   "furin": {
+    "count": 2,
+    "pct": 2.6
+   }
+  }
+ }
+}
