@@ -381,8 +381,8 @@
   function buildEdgeIndex() {
     edgeIndex = {};
     fullEdgeList.forEach(function(e, ei) {
-      var src = fullNodeList[e.from];
-      var tgt = fullNodeList[e.to];
+      var src = fullNodeList[e.source !== undefined ? e.source : e.from];
+      var tgt = fullNodeList[e.target !== undefined ? e.target : e.to];
       if (!src || !tgt) return;
       var sname = src.id;
       var tname = tgt.id;
@@ -418,7 +418,7 @@
     
     for (var j = 0; j < fullEdgeList.length; j++) {
       var e = fullEdgeList[j];
-      var s = fullNodeList[e.from], t = fullNodeList[e.to];
+      var s = fullNodeList[e.source !== undefined ? e.source : e.from], t = fullNodeList[e.target !== undefined ? e.target : e.to];
       if (!s || !t) continue;
       var otherId = null;
       if (s.id === fullId) otherId = t.id;
@@ -460,7 +460,8 @@
     });
 
     fullEdgeList.forEach(function(e) {
-      var src = fullNodeList[e.from], tgt = fullNodeList[e.to];
+      var src = fullNodeList[e.source !== undefined ? e.source : e.from];
+      var tgt = fullNodeList[e.target !== undefined ? e.target : e.to];
       if (!src || !tgt) return;
       var si = nodeIdMap[src.id], ti = nodeIdMap[tgt.id];
       if (si === undefined || ti === undefined) return;
