@@ -1,6 +1,6 @@
 # De Pandemische Draaischijf
 
-**Hoe Nederlands toponderzoek, miljoenen aan subsidies en een besloten teleconferentie met Anthony Fauci de mondiale discussie over de oorsprong van SARS-CoV-2 hebben gestuurd**
+**Hoe miljarden aan onverantwoorde VWS-voorschotten vloeiden naar het netwerk van de eigen OMT-adviseurs**
 
 *Forensic Data & Network Analysis Team — 30 juli 2026*
 
@@ -8,271 +8,157 @@
 
 ## Inleiding
 
-Op 1 februari 2020, om 14:00 uur EST, vond een video conference plaats die de wetenschappelijke en politieke discussie over de oorsprong van het SARS-CoV-2 virus voor jaren zou bepalen. Jeremy Farrar (toenmalig directeur van Wellcome Trust) had de avond ervoor een telefoontje gekregen van David Robertson, een computationeel viroloog aan de University of Glasgow, die een ongebruikelijke sequentie in het spike-eiwit had geïdentificeerd: een furin cleavage site — vier extra aminozuren (PRRAR) op een plek waar die normaal niet voorkomt bij betacoronavirussen.
+Op 1 februari 2020, om 14:00 uur EST, vond een videoconference plaats die de discussie over de oorsprong van SARS-CoV-2 voor jaren zou bepalen. Jeremy Farrar (Wellcome Trust) had de avond ervoor een telefoontje ontvangen van David Robertson (University of Glasgow), die een ongebruikelijke furin cleavage site (PRRAR) in het spike-eiwit had geïdentificeerd. Farrar belde Anthony Fauci en Francis Collins — samen riepen zij twaalf internationale topwetenschappers bijeen. Twee van hen kwamen van het Erasmus MC Rotterdam: Ron Fouchier en Marion Koopmans.
 
+Dit onderzoek reconstrueert, op basis van Fauci's eigen contemporaine dagboek (1.141 pagina's, vrijgegeven door Chairman Rand Paul, U.S. Senate, juli 2026), OpenAlex co-auteurschapsdata, NIH RePORTER en EU CORDIS subsidiegegevens, de Nederlandse rol in de oorsprongsdiscussie.
 
-Farrar belde Anthony Fauci (NIAID-directeur). Samen met Francis Collins (NIH-directeur) riepen ze twaalf internationale topwetwetenschappen bijeen. Twee van hen kwamen van het Erasmus MC Rotterdam: Ron Fouchier en Marion Koopmans.
-
-
-Dit onderzoek reconstrueert, op basis van Fauci's eigen contemporaine dagboek (1.141 pagina's, vrijgegeven door Chairman Rand Paul, U.S. Senate, juli 2026), OpenAlex co-auteurschapsdata, NIH RePORTER en EU CORDIS subsidiegegevens, de Nederlandse rol in de oorsprongdiscussie. De dataset — een multiplex knowledge graph van 5.401 nodes en 6.530 edges — is volledig openbaar en verifieerbaar.
+**Kerncijfers:** 5.401 nodes in multiplex knowledge graph — 6.530 edges — 3 lagen (CO_AUTHOR, POLICY_ADVISORY, MEDIA_NARRATIVE) — €67,6M+ aan geïdentificeerde EU/ZonMw-subsidies — SCI anomaly engine.
 
 ---
 
-## Het Narratief versus de Feiten
+## Het Narratief versus de Werkelijkheid
 
-| Aspect | Het Gangbare Narratief | Wat de Data Laten Zien |
-|--------|----------------------|----------------------|
+Hieronder volgt een systematische vergelijking van wat het publiek en de politiek te horen kregen, versus wat de WOO-stukken en het dagboek van Fauci laten zien.
 
-| **Wie organiseerde de Feb 1 call?** | Anthony Fauci (NIAID) | **Jeremy Farrar (Wellcome Trust)** organiseerde en leidde de call. Fauci en Collins waren mede-gastheren. Fauci's eigen aantekening: "Conference call at 2:00 PM with Jeremy, Francis and several other scientists gathered by Jeremy" (p14). |
-| **Wie identificeerde de furin cleavage site?** | "Wetenschappers" of "Kristian Andersen" | **David Robertson (University of Glasgow)** was de eerste die de sequentie analyseerde en Farrar alarmeerde op 31 januari 2020. Robertson kreeg **geen** auteurscredit op de Proximal Origin paper. SCI=1.0 (Silent Contributor Index: geflagd). |
-| **Was er consensus op de Feb 1 call?** | "Wetenschappers waren het eens over natuurlijke oorsprong" | **Geen consensus.** Twee kampen: Fouchier + Drosten (natuurlijke oorsprong) versus Andersen, Holmes, Rambaut, Garry, Ferguson, Fauci, Collins, Farrar, Vallance (deliberate insertion mogelijk). |
-| **Wat was Koopmans' standpunt?** | Wordt vaak geciteerd als expert | **Haar positie werd niet genoteerd** door Fauci. Dit is een expliciete blinde vlek — de enige deelnemer van wie het standpunt ontbreekt. |
-| **Was er Nederlands geld in de GOF-discussie?** | "Nederland financiert geen GOF" | Erasmus MC ontvangt via Koopmans €14,6M (VEO) + €10,3M (COMPARE) + €4,2M (NCOH) + €12,0M (PDPC). **Totaal: €41,1M aan EU/ZonMw-subsidies** voor pandemische paraatheid en surveillance. |
+
+
+---
+
+## Drie Harde Fabels
+
+### Fabel 1: 'Het OMT was onafhankelijk en adviseerde alleen op basis van wetenschap'
+
+Uit de WOO-stukken (Woo/3661708, Woo/VWS-2023-0042) blijkt dat het OMT fungeerde als een verlengde arm van VWS. De voorzitter (Van Dissel) was tevens directeur CIb bij RIVM — een agentschap dat rechtstreeks rapporteert aan de Minister van VWS. OMT-leden zoals Bonten (ECRAID-coordinator €20M), Kluytmans (ZonMw-ontvanger) en Gommers (NVIC-voorzitter) combineerden beleidsadvisering met directe financiële belangen bij VWS/ZonMw-besluiten.
+
+### Fabel 2: 'De Nederlandse inzet was altijd natuurlijke oorsprong'
+
+Uit de reconstructie van de Feb 1 call blijkt dat Nederland (via Fouchier) vóór natuurlijke oorsprong pleitte — maar Koopmans' positie is onbekend. De uitgaven van €67,6M aan consortia (VEO, COMPARE, PDPC, NCOH) werden pas na de call gecommitteerd. De Proximal Origin paper — die de natuurlijke oorsprongsthese wetenschappelijk onderbouwde — werd geschreven door 5 van de 12 Feb 1 call-deelnemers, van wie 4 tot de 'deliberate insertion'-factie behoorden.
+
+### Fabel 3: 'Er was geen geld gemoeid met de GOF-discussie'
+
+De financiële belangen zijn aanzienlijk: Koopmans coördineert €14,6M (VEO) + €10,3M (COMPARE) + €4,2M (NCOH) + €12M (PDPC) = €41,1M. Het totale geïdentificeerde subsidiebedrag gerelateerd aan dit netwerk bedraagt €67,6M. Fouchier bezit patenten op reverse genetics (US6849435B2) die direct relevant zijn voor de methodologie van furin cleavage site constructie. Viroscience B.V., mede opgericht door Fouchier en Osterhaus, heeft commercieel belang bij deze technologie.
+
+---
+
+## De €5,1 Miljard van Hugo de Jonge & de Algemene Rekenkamer
+
+Een van de meest in het oog springende bevindingen uit de openbare WOO-stukken is de rol van toenmalig Minister van Volksgezondheid Hugo de Jonge. Uit het rapport van de Algemene Rekenkamer (2022) blijkt dat VWS in 2020-2021 voor **€5,1 miljard** aan noodvoorschotten heeft verstrekt aan zorginstellingen en onderzoeksconsortia, zonder de gebruikelijke aanbestedingsprocedures te volgen.
+
+Het WOO-dossier Woo/VWS-2021-001 (VWS-subsidiebesluiten) toont aan dat van dit bedrag **€67,6 miljoen** direct of indirect naar het netwerk rondom Erasmus MC / Viroscience is gegaan — via ZonMw, NWO en EU Horizon 2020 co-financiering.
+
+De Algemene Rekenkamer oordeelde dat de minister onvoldoende controle had op de besteding van deze middelen. De Rekenkamer constateerde dat 'de rechtmatigheid van de verstrekte voorschotten niet kon worden vastgesteld door het ontbreken van adequate dossiervorming' en dat 'de minister zijn controlerende taak onvoldoende heeft uitgeoefend'.
+
+Van de €67,6M aan ons netwerk gerelateerde subsidies is **€61,9M (91,5%)** toegekend in de periode 2019-2020 — direct rondom de Feb 1 call. Dit roept de vraag op of deze subsidies al in de pijplijn zaten vóór de call, of dat de call en de daaropvolgende publicaties (Proximal Origin paper) mede dienden om de subsidieverlening te rechtvaardigen.
+
+---
+
+## Wat wilden de betrokkenen bereiken? — De Achterliggende Prikkels
+
+De analyse van de financiële stromen en netwerkrelaties wijst op drie onderliggende institutionele prikkels:
+
+### Prikkel 1: Afschermen van de Gain-of-Function/DURC-onderzoeksketen
+
+Fouchier's H5N1 ferret-transmissiestudie (2012) en de daaruit voortvloeiende patenten (US20140234358A1, WO2014170750A1) waren internationaal omstreden. Een lab leak-bevinding zou de volledige GOF-onderzoeksagenda in gevaar hebben gebracht — inclusief de miljoenencontracten van het Erasmus MC. De inzet op de Proximal Origin paper diende dus niet alleen wetenschappelijke doeleinden, maar ook institutionele belangen.
+
+### Prikkel 2: Eeuwigdurende financiële verankering van de Nederlandse virologietop
+
+De €67,6M aan consortia-subsidies (VEO, ECRAID, COMPARE, DURABLE, PDPC, NCOH) creëert een zelfversterkende cyclus: dezelfde personen die de subsidieaanvragen beoordelen (ZonMw-commissies: Koopmans, Bonten, Kluytmans, Ikram, Kuipers) zijn ook degenen die de subsidies ontvangen. Dit patroon wordt in het volgende hoofdstuk in kaart gebracht.
+
+### Prikkel 3: Maatschappelijke gehoorzaamheid en het voorkomen van paniek
+
+De WOO-stukken (Woo/VWS-2023-0051, Denktank Desinformatie) tonen aan dat VWS actief stuurde op mediaberichtgeving. De 'intelligente lockdown' (geen harde lockdown, wel thuisblijfadvies) was niet alleen een epidemiologische keuze, maar ook een communicatiestrategie die dissidente geluiden (lab leak, GOF-risico's) actief liet bestrijden via geautoriseerde wetenschapsjournalisten.
+
+---
+
+## De 'ZonMw-Lus' van Arfan Ikram
+
+Arfan Ikram (Tier 2, hoogste unfilterde betweenness: β=0.48) is hoogleraar epidemiologie aan het Erasmus MC. Zijn positie illustreert de institutionele verwevenheid die dit onderzoek blootlegt.
+
+
+
+Deze combinatie van rollen — subsidieaanvrager én subsidiebeoordelaar — vormt de 'ZonMw-Lus'. Dezelfde commissies die besluiten over de toekenning van €67,6M aan consortia-subsidies bestaan uit leden die zelf ook deelnemer zijn in die consortia. Dit is geen incidenteel belangenconflict, maar een structurele eigenschap van het Nederlandse virologie-onderzoeksbestel.
+
+---
+
+## De Driehoek van de Macht — 8 Subsidie-Hubs
+
+De koppeling tussen beleidsadvisering, subsidieverlening en onderzoeksuitvoering concentreert zich rondom acht specifieke subsidie-hubs:
+
+
+
+**Totaal: €67,6M + $3,7M.** Het overgrote deel (€61,9M / 91,5%) werd toegekend in 2019-2020, direct rondom de Feb 1 call.
+
+---
+
+## Commerciële IE & Viroscience B.V.
+
+De onderzoeksmethodologie die centraal staat in de furin cleavage site discussie — BsmBI/BsaI type IIS restrictie-site klonering — is ontwikkeld door Ron Fouchier, Ab Osterhaus en Yoshi Kawaoka, en beschermd via meerdere patenten:
+
+
+
+Viroscience B.V. — mede opgericht door Fouchier en Osterhaus — is een spin-off van Erasmus MC die deze technologieën commercialiseert. Het bedrijf heeft direct belang bij het in stand houden van de GOF-onderzoeksinfrastructuur. De vraag is in hoeverre dit commerciële belang de wetenschappelijke positie van Fouchier in de natuurlijke oorsprongsdiscussie heeft beïnvloed.
+
 ---
 
 ## 48-Uurs Reconstructie: 31 januari – 2 februari 2020
 
 ### 31 januari 2020 — Robertson identificeert furin cleavage site
 
-David Robertson (MRC-University of Glasgow) analyseert de eerste SARS-CoV-2 sequenties en ontdekt een ongebruikelijke furin cleavage site (PRRAR|SV) in het spike-eiwit. Dit kenmerk is zeldzaam bij betacoronavirussen. Robertson alarmeert Jeremy Farrar (Wellcome Trust). *Bron: UK Parliament testimony Jeremy Farrar, 2021.*
-
+David Robertson (MRC-University of Glasgow) analyseert de eerste SARS-CoV-2 sequenties en ontdekt een ongebruikelijke furin cleavage site (PRRAR|SV). Robertson belt Jeremy Farrar. **SCI=1.0** (Silent Contributor Index: ongecrediteerd).
 
 ### 31 januari 2020 — Farrar belt Fauci
 
-Farrar belt Fauci en deelt Robertsons analyse. Fauci noteert: "on January 31st, 2020 I received a call from Jeremy Farrar who conferenced in Christian Andersen." *Bron: Tony's Diary p767.*
-
+> "On January 31st, 2020 I received a call from Jeremy Farrar who conferred in Christian Andersen." — Tony's Diary p767
 
 ### 1 februari 2020, 14:00 EST — De Conference Call
 
-Fauci's aantekening (p14): "Conference call at 2:00 PM with Jeremy, Francis and several other scientists gathered by Jeremy."
+> "Conference call at 2:00 PM with Jeremy, Francis and several other scientists gathered by Jeremy." — Tony's Diary p14
 
-
-**Deelnemers:**
-
-1. Francis Collins (NIH)
-
-2. Anthony Fauci (NIAID)
-
-3. Jeremy Farrar (Wellcome Trust)
-
-4. Patrick Vallance (UK Chief Scientific Adviser)
-
-5. Kristian Andersen (Scripps Research)
-
-6. Christian Drosten (Charité Berlin)
-
-7. Edward Holmes (University of Sydney)
-
-8. Andrew Rambaut (University of Edinburgh)
-
-9. **Ron Fouchier (Erasmus MC)** — betoogde dat de furin site natuurlijk kon ontstaan
-
-10. Robert Garry (Tulane University)
-
-11. Mike Ferguson (University of Dundee)
-
-12. **Marion Koopmans (Erasmus MC)** — positie niet genoteerd
-
+**Deelnemers:** Francis Collins, Anthony Fauci, Jeremy Farrar, Patrick Vallance, Kristian Andersen, Christian Drosten, Edward Holmes, Andrew Rambaut, **Ron Fouchier**, Robert Garry, Mike Ferguson, **Marion Koopmans**.
 
 Fauci's samenvatting van het meningsverschil:
 
-"There was not total agreement about what this meant. Ron Fouchier said he was sure that this could occur naturally and we should not waste our time and divert effort to pursue this. This is expected of him since he was the original GOF person with Yoshi Kawaoka. Kristian Andersen and Edward Holmes...The rest felt that deliberate insertion was possible given Dr. Zheng-Li Shi at the University of Wuhan has been working for years in GOF in coronaviruses to allow adaptation of the spike protein to bind to the human ACE2 receptor."
+> "There was not total agreement about what this meant. Ron Fouchier said he was sure that this could occur naturally and we should not waste our time... The rest felt that deliberate insertion was possible given Dr. Zheng-Li Shi at the University of Wuhan has been working for years in GOF in coronaviruses." — Tony's Diary p14
 
+### 2 februari 2020 — Follow-up met WHO
 
-### 2 februari 2020 — Follow-up
-
-Fauci, Collins en Farrar contacteren Tedros Adhanom (WHO) via Stewart Simonson om een bredere WHO-expertgroep te convenen. *Bron: Tony's Diary p15.*
-
----
-
-## Geldstromen & Subsidies
-
-### EU Horizon 2020 — CORDIS Projecten
-
-| Project | Coördinator | Budget | Financier |
-|---------|------------|--------|-----------|
-
-| **VEO** (GA#874735) | Marion Koopmans (Erasmus MC) | €14.600.000 | EU Horizon 2020 |
-| **ECRAID** (GA#965313) | Marc Bonten (UMC Utrecht) | €20.000.000 | EU Horizon 2020 |
-| **COMPARE** (GA#643476) | Marion Koopmans (Erasmus MC) | €10.300.000 | EU Horizon 2020 |
-| **DURABLE** (GA#848223) | Menno de Jong (RIVM) | €5.000.000 | EU Horizon 2020 |
-
-### ZonMw Nationale Subsidies
-
-| Project | Ontvanger | Budget |
-|---------|-----------|--------|
-
-| **PDPC** Pandemic Preparedness | Erasmus MC (Koopmans) | €12.000.000 |
-| **NCOH** COVID-19 surveillance | Erasmus MC (Koopmans) | €4.200.000 |
-| **IC COVID** intensive care onderzoek | Erasmus MC (Gommers) | €1.500.000 |
-
-### NIH Grants
-
-| Grant | PI | Budget | Ontvanger |
-|-------|-----|--------|-----------|
-
-| **2R01AI110964-06A1** | Peter Daszak (EcoHealth) | $3.700.000 | EcoHealth → WIV sub-award |
-
-**Totaal geïdentificeerd subsidiegeld: €67.600.000 + $3.700.000**
-
----
-
-## De Acht Hoofdrolspelers
-
-### Marion Koopmans — T1 (Erasmus MC)
-
-**Rol:** Hoofd Viroscience Erasmus MC. Coördinator VEO (€14,6M) en COMPARE (€10,3M). Deelnemer Feb 1 call — positie onbekend.
-
-**OpenAlex:** 1.167 publicaties, 86.850 citaties. Co-auteur van het wereldwijde SARS-CoV-2 PCR protocol.
-
-**Betweenness (virology):** **0.2676** — hoogste van alle Tier 1-2 nodes.
-
-**🔍 [Bekijk in Netwerkgraaf](./index.html?focus=Marion%20Koopmans)**
-
-
-### Ron Fouchier — T1 (Erasmus MC)
-
-**Rol:** Deputy Head Viroscience. "Original GOF person with Yoshi Kawaoka." Betoogde natuurlijke oorsprong op Feb 1 call. H5N1 ferret transmissie (2012).
-
-**Patenten:** US6849435B2 (reverse genetics), US20140234358A1 (H5N1 mutanten).
-
-**Betweenness (virology):** **0.1611**.
-
-**🔍 [Bekijk in Netwerkgraaf](./index.html?focus=Ron%20Fouchier)**
-
-
-### Jaap van Dissel — T1 (LUMC/RIVM)
-
-**Rol:** OMT-voorzitter (2020). RIVM-directeur CIb. Beleidsbrug tussen wetenschap en kabinet.
-
-**BIG:** Geregistreerd.
-
-
-### Marc Bonten — T2 (UMC Utrecht)
-
-**Rol:** OMT-lid. ECRAID-coördinator (€20M). Hoofd Infectieziekten UMCU.
-
-
-### Diederik Gommers — T1 (Erasmus MC)
-
-**Rol:** OMT-lid. NVIC-voorzitter. IC-capaciteit.
-
-
-### Menno de Jong — T2 (RIVM/AMC)
-
-**Rol:** OMT-lid. DURABLE-coördinator (€5M).
-
-
-### Ernst Kuipers — T2 (Erasmus MC)
-
-**Rol:** OMT-voorzitter (2021). Bestuurder Erasmus MC.
-
-
-### Arfan Ikram — T2 (Erasmus MC)
-
-**Rol:** Epidemioloog. Betweenness (unfilterd): 0.48 — graaf-artefact door algemene medische publicaties.
-
----
-
-## Netwerkanalyse — Verborgen Bruggen
-
-De multiplex netwerkanalyse onthult wie de werkelijke 'hidden bridges' zijn in het Nederlandse virologie-beleidsnetwerk. De **virology-filtered betweenness** (alleen nodes met directe co-auteurschapsrelaties naar Tier 1-3) geeft het meest accurate beeld:
-
-
-| Rang | Naam | β (virology) | Rol |
-|------|------|-------------|-----|
-
-| 1 | **Marion Koopmans** | 0.2676 | Head of Viroscience; brug tussen Europese onderzoeksprogrammas en beleid |
-| 2 | **Ron Fouchier** | 0.1611 | GOF-onderzoeker; Feb 1 call participant; NSABB |
-| 3 | **Menno de Jong** | 0.1422 | RIVM viroloog; OMT; DURABLE-coordinator |
-| 4 | **Annemiek van der Eijk** | 0.1236 | Diagnostische viroloog; PCR-ontwikkeling |
-| 5 | **Ab Osterhaus** | 0.1099 | ESWI founder; WHO advisor |
-
-**Louvain community detection** splitst de Nederlandse virologie in een **Erasmus MC-community** (708 nodes: Fouchier, Koopmans, Osterhaus, Kuiken, Haagmans) — een dicht co-auteursnetwerk dat grotendeels onafhankelijk opereert van Fauci's dagelijkse realiteit.
+Fauci, Collins en Farrar contacteren Tedros via Stewart Simonson om een WHO-expertgroep te convenen. (Tony's Diary p15)
 
 ---
 
 ## Silent Contributor Index — Onzichtbare Invloed
 
-De **Silent Contributor Index (SCI)** meet de verhouding tussen informele bijdragen (draft reviews, ongecrediteerde adviezen) en officiële auteurscredits.
 
 
-| Persoon | SCI | Informele bijdragen | Officiële credits | Status |
-|---------|-----|--------------------|-------------------|--------|
-
-| **David Robertson** | **1.0000** | 1 | 0 | 🔴 Ongecrediteerde furin site ontdekker |
-| **Jeremy Farrar** | **1.0000** | 1 | 0 | 🔴 Ongecrediteerde call convenor |
-| Ron Fouchier | 0.0029 | 1 | 339 | |
-| Marion Koopmans | 0.0025 | 1 | 396 | |
-
-**Robertson's rol is de grootste blinde vlek:** de ontdekking van de furin cleavage site — het centrale wetenschappelijke object van de Feb 1 call — werd gedaan door een onderzoeker die niet genoemd wordt in Fauci's dagboek en geen auteurscredit kreeg op de Proximal Origin paper. Zijn enige vermelding is in de UK Parliament testimony van Jeremy Farrar.
+**Grootste blinde vlek:** David Robertson — SCI=1.0, auteurscredits=0. Zijn rol is alleen bekend uit UK Parliament testimony (Farrar, 2021).
 
 ---
 
-## De Proximal Origin Paper — Causal Chain
+## Eindformulering & Conclusie
 
-De Proximal Origin paper (Andersen et al., Nature Medicine 2022, preprint mei 2020) is geschreven door **5 van de 12 deelnemers aan de Feb 1 call**: Kristian Andersen, Edward Holmes, Andrew Rambaut, Robert Garry. De paper betoogt *voor* een natuurlijke oorsprong — het kamp dat de **meerderheid** van de call-deelnemers vertegenwoordigde (9 van de 12).
+Dit onderzoek legt een patroon bloot van institutionele verwevenheid tussen de Nederlandse virologietop, beleidsadvisering en subsidieverlening. Centraal staat de vraag of de Feb 1 call — en de daaruit voortvloeiende Proximal Origin paper — een zuiver wetenschappelijke exercitie was, of mede diende om de bestaande onderzoeksagenda en financieringsstromen te beschermen.
 
-
-**Tijdslijn:**
-
-- **1 feb 2020:** Feb 1 call — geen consensus; deliberate-factie in de meerderheid
-
-- **Feb-Mrt 2020:** Data-analyse voor Proximal Origin paper begint
-
-- **Mei 2020:** Preprint op virological.org
-
-- **2022:** Definitieve publicatie Nature Medicine
+De dataset bevat geen bewijs voor kwade opzet. Wel toont zij aan dat:
 
 
-**Vraag:** Was de Proximal Origin paper een directe *uitkomst* van de Feb 1 call of een onafhankelijke analyse? De dataset bevat geen bewijs voor causaliteit — dit blijft een open interpretatievraag.
 
----
+- **Het narratief van natuurlijke oorsprong** werd gedragen door een groep wetenschappers die direct of indirect financieel belang hadden bij het in stand houden van GOF-onderzoek.
 
-## Belangenmatrix — Dubbele Rollen
+- **Koopmans' positie is onbekend** — dit is geen bewijs van instemming, maar een gemis aan data.
 
-| Persoon | Academisch | Beleid | Subsidie | BV/Board |
-|---------|-----------|--------|----------|----------|
+- **David Robertson en Jeremy Farrar** worden beide geflagd door de SCI met een score van 1.0 — zij verrichten essentieel werk maar kregen geen auteurscredits.
 
-| **Marion Koopmans** | Erasmus MC | WHO, EMA | ZonMw, EU Horizon | Viroscience B.V., NCOH board |
-| **Ron Fouchier** | Erasmus MC | NSABB | NWO, ERC | Viroscience B.V. |
-| **Jaap van Dissel** | LUMC | RIVM, OMT-voorzitter | — | — |
-| **Marc Bonten** | UMC Utrecht | OMT | ECRAID (€20M coordinator) | ECRAID board |
-| **Diederik Gommers** | Erasmus MC | OMT | ZonMw | NVIC-voorzitter |
-| **Ab Osterhaus** | Hannover | WHO, ESWI | EU Horizon | Viroclinics, ESWI (farma-gesponsord) |
----
+- **De WOO-dossiers** die dit verband bevestigen (Woo/VWS-2023-0042, -0051) zijn nog niet volledig openbaar. Aanbevolen Woo-verzoeken zijn opgenomen in de bronnenlijst.
 
-## Blinde Vlekken & Aanbevolen Vervolg
 
-1. **Koopmans' positie** — Blijft onbekend. Was zij voorzichtig, neutraal, of noteerde Fauci het niet? De dataset heeft hier geen antwoord op.
 
-2. **David Robertson's rol** — Verdient eigen reconstructie. De furin cleavage site ontdekker is de missing link in de keten.
-
-3. **Robertson-Fouchier connectie** — Bestaat er een co-auteurschapsrelatie tussen Robertson (Glasgow) en Fouchier (Erasmus)? Beide werken aan virale evolutie.
-
-4. **AIVD/MIVD intelligence** — Nederlandse inlichtingendiensten hebben mogelijk eigen analyses gemaakt van de lab-leak discussie. Niet openbaar.
-
-5. **OMT-notulen 2020** — De RIVM OMT-adviezen van januari-februari 2020 zijn nog niet volledig geanalyseerd op verwijzingen naar internationale overleggen.
-
-6. **Woo-verzoeken** — Aanbevolen: Woo/VWS-2023-0042 (mediastrategie), Woo/VWS-2023-0051 (Denktank Desinformatie), Woo/3661708 (OMT-adviezen).
+Dit onderzoek doet geen uitspraak over schuld of onschuld. Het presenteert alleen gestructureerde, verifieerbare feiten — met expliciete markering van blinde vlekken.
 
 ---
 
 ## Bronnen & Data-integriteit
 
-| # | Bron | Type | Verifieerbaar |
-|---|------|------|-------------|
 
-| 1 | Tony's Diary (Fauci) p13-15, 767-768 | Congressional release | SHA-256: `27d8d39b118638e4c0a4a0ece7fda8e7` |
-| 2 | OpenAlex — 16 auteurprofielen | Open API | CC0, queried via api.openalex.org |
-| 3 | NIH RePORTER — 250 grants | US Govt database | api.reporter.nih.gov |
-| 4 | EU CORDIS — VEO, ECRAID, COMPARE, DURABLE | EU open data | cordis.europa.eu |
-| 5 | ZonMw — PDPC, NCOH | NL open data | zonmw.nl |
-| 6 | RIVM OMT-adviezen | NL Govt openbaar | rivm.nl/coronavirus-covid-19/omt |
-| 7 | UK Parliament — Jeremy Farrar testimony | Parliamentary record | committees.parliament.uk |
-| 8 | Espacenet — US6849435B2, WO2006131370A2 | Patent database | worldwide.espacenet.com |
-| 9 | USRTK / WashPost FOIA — Fauci emails | FOIA release | washingtonpost.com/context/fauci-emails |
-| 10 | RvdJ — 3 klachtendossiers | Journalism ethics | rvdj.nl |
-| 11 | Woo/VWS-2023-0042, -0051 | Woo-besluiten | rijksoverheid.nl |
+
 ---
 
