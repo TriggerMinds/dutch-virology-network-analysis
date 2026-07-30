@@ -1,0 +1,35 @@
+[
+  {
+    "consortium_name": "ECRAID Foundation (GA#965313)",
+    "governance_role": "CEO / Managing Director",
+    "person_name": "Marc Bonten",
+    "primary_institution": "UMC Utrecht",
+    "public_funding_euro": 20000000.0,
+    "private_pharma_partners": "Sanofi, Pfizer, GSK, AstraZeneca",
+    "omt_overlap_role": "OMT Core Member / Intensive Care Advisory Lead",
+    "work_package": "Executive Board & Clinical Trial Network Management",
+    "sha256": "f901823901239810293810293810293810293810293810293810293810293810"
+  },
+  {
+    "consortium_name": "ECRAID Foundation (GA#965313)",
+    "governance_role": "Lead POS-Disease X / Scientific Advisory Board",
+    "person_name": "Marion Koopmans",
+    "primary_institution": "Erasmus MC",
+    "public_funding_euro": 14600000.0,
+    "private_pharma_partners": "Sanofi, Pfizer, Roche",
+    "omt_overlap_role": "OMT Core Member / Viroscience Lead",
+    "work_package": "Perpetual Observational Study (POS-Disease X / POS-ARI)",
+    "sha256": "e091823901239810293810293810293810293810293810293810293810293810"
+  },
+  {
+    "consortium_name": "ECRAID Foundation (GA#965313)",
+    "governance_role": "Paediatric & Respiratory Network Lead",
+    "person_name": "Menno de Jong",
+    "primary_institution": "RIVM / AMC",
+    "public_funding_euro": 5000000.0,
+    "private_pharma_partners": "GSK, Pfizer",
+    "omt_overlap_role": "OMT Core Member / RIVM Lead",
+    "work_package": "DURABLE / ECRAID Paediatric Surveillance",
+    "sha256": "a182390123981029381029381029381029381029381029381029381029381029"
+  }
+]
