@@ -285,6 +285,12 @@
       <button class="layer-btn" data-layer="CO_AUTHOR">Co-Author</button>
       <button class="layer-btn" data-layer="POLICY_ADVISORY">Policy</button>
       <button class="layer-btn" data-layer="MEDIA_NARRATIVE">Media</button>
+      <button class="layer-btn" data-layer="CONSORTIUM_FUNDING">Consortia</button>
+    </div>
+    <div id="presets" style="padding:6px 14px 4px;display:flex;gap:4px;flex-wrap:wrap;flex-shrink:0">
+      <button class="preset-btn" data-preset="virologists" style="padding:3px 8px;border:1px solid var(--border-color);border-radius:12px;background:transparent;color:var(--text-dim);font-size:10px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border-color)'" onclick="applyPreset('virologists')">🎯 Top Virologen Bruggen</button>
+      <button class="preset-btn" data-preset="feb1" style="padding:3px 8px;border:1px solid var(--border-color);border-radius:12px;background:transparent;color:var(--text-dim);font-size:10px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border-color)'" onclick="applyPreset('feb1')">📞 Feb 1 Call Netwerk</button>
+      <button class="preset-btn" data-preset="consortia" style="padding:3px 8px;border:1px solid var(--border-color);border-radius:12px;background:transparent;color:var(--text-dim);font-size:10px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border-color)'" onclick="applyPreset('consortia')">💶 Consortia & Subsidies</button>
     </div>
     <div id="stats">
       <span id="stat-nodes">0 nodes</span>
@@ -569,6 +575,10 @@
       html += '</div>';
     }
 
+    // Export buttons
+    html += '<div style="margin-top:8px"><button class="preset-btn" onclick="window.exportSubgraphCSV(\'' + (d.id || '').replace(/'/g, "\\'") + '\')" style="padding:3px 8px;border:1px solid var(--border-color);border-radius:4px;background:transparent;color:var(--text-secondary);font-size:10px;cursor:pointer;margin-right:4px">Export Subgraph (CSV)</button>';
+    html += '<button class="preset-btn" onclick="window.exportPNG()" style="padding:3px 8px;border:1px solid var(--border-color);border-radius:4px;background:transparent;color:var(--text-secondary);font-size:10px;cursor:pointer">Export PNG</button></div>';
+
     if (d.evidence && d.evidence.length > 0) {
       html += '<div class="section"><h3>Evidence Quotes</h3>';
       d.evidence.slice(0, 3).forEach(function(eq) {
@@ -701,6 +711,59 @@
   buildInitialGraph();
   renderGraph();
   showDefaultInfo();
+
+  // ── Quick View Presets ────────────────────────────────────────────
+  window.applyPreset = function(preset) {
+    var targets = [];
+    if (preset === 'virologists') {
+      targets = ['Marion Koopmans', 'Ron Fouchier', 'Menno de Jong'];
+    } else if (preset === 'feb1') {
+      targets = ['Jeremy Farrar', 'Anthony Fauci', 'Francis Collins', 'Ron Fouchier', 'Christian Drosten', 'Kristian Andersen'];
+    } else if (preset === 'consortia') {
+      targets = ['VEO', 'ECRAID', 'COMPARE', 'DURABLE', 'Erasmus MC', 'Marion Koopmans', 'Marc Bonten'];
+    }
+    // Auto-switch to ALL
+    currentLayers = { ALL: true, CO_AUTHOR: true, POLICY_ADVISORY: true, MEDIA_NARRATIVE: true, CONSORTIUM_FUNDING: true };
+    document.querySelectorAll('.layer-btn').forEach(function(b) { b.classList.add('active'); });
+    if (typeof renderGraph === 'function') renderGraph();
+
+    // Focus first found node
+    var data = typeof VIS_DATA !== 'undefined' ? VIS_DATA : null;
+    if (!data || !data.visible) return;
+    var nodes = data.visible.nodes || [];
+    var foundId = null;
+    nodes.forEach(function(n) { if (targets.indexOf(n.id) !== -1 && !foundId) foundId = n.id; });
+    if (foundId && typeof window.selectNode === 'function') {
+      window.selectNode(foundId);
+    }
+  };
+
+  // ── Export functions ──────────────────────────────────────────────
+  window.exportSubgraphCSV = function(name) {
+    var data = typeof VIS_DATA !== 'undefined' ? VIS_DATA : null;
+    if (!data) return;
+    var edges = data.visible ? data.visible.edges || [] : [];
+    var nodes = data.visible ? data.visible.nodes || [] : [];
+    var csv = 'source,target,layer,weight,year,description\n';
+    if (name) {
+      edges.forEach(function(e, i) {
+        var src = nodes[e.source], tgt = nodes[e.target];
+        if (!src || !tgt) return;
+        if (src.id === name || tgt.id === name) csv += src.id + ',' + tgt.id + ',' + e.layer + ',' + (e.weight||1) + ',' + (e.year||'') + ',"' + (e.desc||'') + '"\n';
+      });
+    }
+    var blob = new Blob([csv], {type:'text/csv'});
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = (name||'full_graph') + '_subgraph.csv'; a.click();
+  };
+
+  window.exportPNG = function() {
+    var canvas = document.querySelector('canvas');
+    if (canvas) {
+      var a = document.createElement('a'); a.href = canvas.toDataURL('image/png');
+      a.download = 'network_graph.png'; a.click();
+    }
+  };
 
 })();
 </script>
