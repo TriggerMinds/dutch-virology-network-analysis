@@ -65,6 +65,7 @@ copy_doc_to_wiki("GLOBAL_FOIA_PROXIMAL_ORIGIN_DOSSIER.md", "Global-FOIA-Proximal
 copy_doc_to_wiki("GLOBAL_SOURCES_DUTCH_COVID_ROLE.md", "Global-Sources-Dutch-COVID-Role")
 copy_doc_to_wiki("BLIND_SPOT_MAPPING.md", "Blind-Spot-Mapping")
 copy_doc_to_wiki("DUTCH_ANOMALIES_FORENSIC_AUDIT.md", "Nederlandse-Anomalieen-en-Belangen")
+copy_doc_to_wiki("MASTER_UNTURNED_STONES_AUDIT.md", "Master-Unturned-Stones-Audit")
 
 # ── 2. De-Pandemische-Draaischijf.md ──────────────────────────────────────
 md_path = os.path.join(ROOT, "docs", "wiki", "De-Pandemische-Draaischijf.md")
