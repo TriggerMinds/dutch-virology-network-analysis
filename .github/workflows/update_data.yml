@@ -1,0 +1,75 @@
+# ──────────────────────────────────────────────────────────────────────────
+# Monthly Data Update Workflow
+# Runs: 1st of every month at 00:00 UTC, or manually via workflow_dispatch
+# What: Refreshes OpenAlex co-authorships, NIH grants, re-runs multiplex
+#        network analysis, and regenerates the web visualization.
+# ──────────────────────────────────────────────────────────────────────────
+name: Monthly Data Update
+
+on:
+  schedule:
+    # At 00:00 UTC on the 1st of every month
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+    # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Full fetch depth needed for git diff to work reliably
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Step 1 — Fetch external data (OpenAlex + NIH)
+        run: python src/auto_downloader_v2.py
+
+      - name: Step 2 — Rebuild multiplex database
+        run: python src/setup_multiplex_db.py
+
+      - name: Step 3 — Recompute network centrality
+        run: python src/analyze_multiplex.py
+
+      - name: Step 4 — Regenerate web visualization
+        run: python build_web_app.py
+
+      - name: Stage changes
+        run: |
+          # Stage only data/ artifacts that are tracked or newly created
+          git add data/downloads/ data/graph.json data/network_data.db data/centrality_results.json docs/data.js docs/index.html -A
+
+      - name: Check for changes & auto-commit
+        id: auto-commit
+        run: |
+          if git diff --cached --quiet; then
+            echo "No changes detected — skipping commit."
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected — committing."
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push
+        if: steps.auto-commit.outputs.has_changes == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git commit -m 'bot: monthly dataset & web graph auto-update [skip ci]'
+          git push origin main
