@@ -490,11 +490,12 @@
 
     var options = {
       physics: { 
-        stabilization: { iterations: 100 }, 
+        enabled: true,
+        stabilization: { iterations: 150, fit: true }, 
         solver: 'forceAtlas2Based',
-        forceAtlas2Based: { gravitationalConstant: -40, centralGravity: 0.005, springLength: 120, springConstant: 0.02 } 
+        forceAtlas2Based: { gravitationalConstant: -30, centralGravity: 0.005, springLength: 100, springConstant: 0.03 } 
       },
-      interaction: { hover: true, tooltipDelay: 200, zoomView: true, dragView: true },
+      interaction: { hover: true, tooltipDelay: 200, zoomView: true, dragView: true, dragNodes: true },
       edges: { smooth: { type: 'continuous' }, width: 1.5 },
       nodes: { 
         shape: 'dot', borderWidth: 2, 
@@ -513,10 +514,17 @@
         setTimeout(() => loader.style.display = 'none', 500);
       }
     };
+
+    const freezeGraph = () => {
+      if (network) {
+        network.setOptions({ physics: { enabled: false } });
+      }
+      hideLoader();
+    };
     
-    network.once("stabilizationIterationsDone", hideLoader);
-    network.once("afterDrawing", hideLoader);
-    setTimeout(hideLoader, 4000); // Fail-safe fallback
+    network.once("stabilizationIterationsDone", freezeGraph);
+    network.once("stabilized", freezeGraph);
+    setTimeout(freezeGraph, 2500); // Freeze layout after 2.5s maximum
 
     network.on('click', function(params) { 
       if (params.nodes.length > 0) showNodeInfo(params.nodes[0]); 
