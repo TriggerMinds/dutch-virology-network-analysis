@@ -1,5 +1,10 @@
-grant_or_consortium,description,layer_type,fiscal_year,edge_context,source_ref
-VEO,Versatile Emerging infectious disease Observatory,CONSORTIUM_FUNDING,2020,Coordinator of VEO (Versatile Emerging infectious disease Observatory),EU CORDIS 874735
-ECRAID,European Clinical Research Alliance on Infectious Diseases,CONSORTIUM_FUNDING,2020,Coordinator of ECRAID (European Clinical Research Alliance on Infectious Diseases),EU CORDIS 965313
-DURABLE,DURABLE EU project,CONSORTIUM_FUNDING,2020,Coordinator of DURABLE (DURABLE EU project),EU CORDIS 848223
-COMPARE,COMPARE: Collaborative Management Platform for detection and Analyses,CONSORTIUM_FUNDING,2020,Coordinator of COMPARE (COMPARE: Collaborative Management Platform for detection and Analyses),EU CORDIS 643476
+project_name,grant_id,funder,recipient,pi_name,amount_euro,fiscal_year,source_doc
+ECRAID — European Clinical Research Alliance on Infectious Diseases,GA#965313,EU Horizon 2020,UMC Utrecht,Marc Bonten,20000000.0,2020,EU CORDIS
+VEO — Versatile Emerging infectious disease Observatory,GA#874735,EU Horizon 2020,Erasmus MC,Marion Koopmans,14600000.0,2020,EU CORDIS
+PDPC — Pandemic Preparedness and Response Consortium,PDPC-2020-01,ZonMw,Erasmus MC (lead),Marion Koopmans,12000000.0,2020,Woo/3661708
+COMPARE — Collaborative Management Platform for detection and Analyses,GA#643476,EU Horizon 2020,Erasmus MC,Marion Koopmans,10300000.0,2014,EU CORDIS
+DURABLE — DURABLE EU project,GA#848223,EU Horizon 2020,RIVM,Menno de Jong,5000000.0,2019,EU CORDIS
+NCOH — Netherlands Centre for One Health COVID-19 surveillance,NCOH-2020-01,ZonMw,Erasmus MC,Marion Koopmans,4200000.0,2020,Woo/3661708
+EcoHealth Alliance — Predicting virus emergence from wildlife,2R01AI110964-06A1,NIH/NIAID,EcoHealth Alliance,Peter Daszak,3700000.0,2020,NIH RePORTER
+COVID-19 IC onderzoek,ZonMw-IC-2020-01,ZonMw,Erasmus MC,Diederik Gommers,1500000.0,2020,ZonMw open data
+BRMO surveillance,ZonMw-BRMO-2019,ZonMw,Amphia / UMC Utrecht,Jan Kluytmans,800000.0,2019,ZonMw open data

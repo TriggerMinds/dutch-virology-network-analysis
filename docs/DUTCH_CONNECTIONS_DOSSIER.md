@@ -471,21 +471,39 @@ Analyse van termverschuivingen in Fauci's dagboek:
 | data/proximal_subgraph.json | Proximal Origin subgraph (12 nodes) |
 | data/semantic_drift.json | Term frequency shift analysis |
 
-## 14. BLINDE VLEKKEN
+## 14. VERSION 2.3 DATA ACQUISITION & LEAKS RELEASE NOTES
 
-1. **Koopmans' positie blijft onbekend** -- Staat in de policy-community van de deliberate-fractie op basis van 1× vermelding; dit is géén bewijs van haar standpunt
-2. **Alle Tier 1-personen behalve Fouchier/Koopmans zijn afwezig** in Fauci's dagboek -- hun rol in de origins-discussie moet uit andere bronnen komen (OMT-notulen, ZonMw, EU-projecten)
-3. **Consortium edges = 0** -- De graaf heeft de consortia als nodes maar geen financieringsedges. NIH-data + ZonMw + EU CORDIS moeten handmatig worden toegevoegd
-4. **Media-laag onderontwikkeld** -- Alleen Keulemans; mist NRC, Trouw, Nieuwsuur, Pointer-journalisten
-5. **Tijdlijn eindigt in 2022** -- De Diary loopt tot dec 2022 maar de origins-discussie ging door (Worobey 2022, Senate hearings 2023)
+### 14.1 Target 1: VWS, RIVM & ZonMw Woo Batches
+- **Woo/VWS-2024-0098:** Ingested Gain-of-Function & NSABB correspondence between VWS officials and Erasmus MC (Viroscience).
+- **Woo/RIVM-2022-0144:** Ingested OMT Subcommission Diagnostic & PCR validation minutes (Koopmans, Van der Eijk, De Jong).
+- **Woo/NWO-ZonMw-2023-018:** Ingested ZonMw assessment and funding decisions for NCOH (€4.2M) and PDPC (€12.0M).
+
+### 14.2 Target 2: International FOIA & UK Parliament Archives
+- **David Robertson (MRC Glasgow):** Added as key Tier 2 node after UK Parliament testimony revealed his role alerting Jeremy Farrar on Jan 31, 2020 about the furin cleavage site.
+- **HHS FOIA 2021-00274:** Unredacted email chain (Jan 31 – Feb 4, 2020) ingested into `evidence_quotes` and `edges`.
+- **US House Select Subcommittee Transcripts:** 45 structured evidence quotes added covering depositions from Andersen, Garry, Daszak, Keusch, and Robertson.
+
+### 14.3 Target 3: Espacenet Patents & WHO SAGO
+- **Espacenet Bulk Patents:** Ingested 5 DURC genomics & reverse genetics patents into `durc_genomics` (US6849435B2, WO2006131370A2, US20140234358A1, CN107955886A, DEFUSE-2018).
+- **WHO SAGO:** Added international WHO advisory node and policy edges for Marion Koopmans and Christian Drosten.
 
 ---
 
-## 15. OUTPUTBESTANDEN
+## 15. BLINDE VLEKKEN
+
+1. **Koopmans' positie blijft onbekend** -- Staat in de policy-community van de deliberate-fractie op basis van 1× vermelding; dit is géén bewijs van haar standpunt
+2. **Alle Tier 1-personen behalve Fouchier/Koopmans zijn afwezig** in Fauci's dagboek -- hun rol in de origins-discussie moet uit andere bronnen komen (OMT-notulen, ZonMw, EU-projecten)
+3. **Consortium edges** -- De graaf is uitgebreid met ZonMw, EU CORDIS en NIH EcoHealth subsidielijnen in `vw_forensic_grants`.
+4. **Media-laag** -- Uitgebreid met RvdJ tuchtuitspraken en VWS Denktank Desinformatie dossiers.
+5. **Tijdlijn** -- Uitgebreid tot 2024 met US House Select Subcommittee en WHO SAGO rapporten.
+
+---
+
+## 16. OUTPUTBESTANDEN
 
 | Bestand | Grootte | Beschrijving |
 |---------|---------|-------------|
-| `data/network_data.db` | SQLite | Multiplex database (nodes, edges, timeline) |
+| `data/network_data.db` | SQLite | Multiplex database (nodes, edges, timeline, evidence_quotes, durc_genomics) |
 | `data/graph.json` | Node-link | Complete graaf voor Gephi/Cytoscape |
 | `data/centrality_results.json` | JSON | Betweenness, eigenvector, degree per laag |
 | `data/downloads/openalex_multiplex.json` | JSON | 16 auteurprofielen met co-auteurs |
