@@ -1,7 +1,7 @@
 """
-sync_wiki.py — Genereert 7 Markdown-pagina's voor de GitHub Wiki.
+sync_wiki.py — Genereert 7 Markdown-pagina's voor de GitHub Wiki en pusht direct naar de GitHub Wiki repo.
 """
-import os, sys
+import os, sys, shutil, subprocess
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WIKI_OUT = os.path.join(ROOT, "wiki_output")
@@ -44,18 +44,22 @@ with open(os.path.join(WIKI_OUT, "Home.md"), "w", encoding="utf-8") as f:
 print("  Home.md")
 
 # ── 2. De-Pandemische-Draaischijf.md ──────────────────────────────────────
-md_path = os.path.join(ROOT, "docs", "INVESTIGATIVE_REPORT_DUTCH.md")
+md_path = os.path.join(ROOT, "docs", "wiki", "De-Pandemische-Draaischijf.md")
+if not os.path.exists(md_path):
+    md_path = os.path.join(ROOT, "docs", "INVESTIGATIVE_REPORT_DUTCH.md")
+
 if os.path.exists(md_path):
     with open(md_path, "r", encoding="utf-8") as f:
         md_content = f.read()
     with open(os.path.join(WIKI_OUT, "De-Pandemische-Draaischijf.md"), "w", encoding="utf-8") as f:
-        f.write("# De Pandemische Draaischijf\n\n")
-        f.write("*Zie ook het originele artikel met interactieve netwerkgrafieken:* ")
-        f.write("[article.html](https://triggerminds.github.io/dutch-virology-network-analysis/article.html)\n\n")
+        if not md_content.startswith("# De Pandemische Draaischijf"):
+            f.write("# De Pandemische Draaischijf\n\n")
+            f.write("*Zie ook het originele artikel met interactieve netwerkgrafieken:* ")
+            f.write("[article.html](https://triggerminds.github.io/dutch-virology-network-analysis/article.html)\n\n")
         f.write(md_content)
     print("  De-Pandemische-Draaischijf.md")
 else:
-    print("  [SKIP] INVESTIGATIVE_REPORT_DUTCH.md not found")
+    print("  [SKIP] De-Pandemische-Draaischijf.md not found")
 
 # ── 3. Subsidies-en-Consortia.md ──────────────────────────────────────────
 subsidies = """# Subsidies en Consortia — EUR 67,6M+
@@ -120,7 +124,7 @@ Fauci's aantekening:
 9. **Ron Fouchier** (Erasmus MC) — betoogde natuurlijke oorsprong
 10. Robert Garry (Tulane University)
 11. Mike Ferguson (University of Dundee)
-12. **Marion Koopmans** (Erasmus MC) — positie NIET genoteerd
+12. **Marion Koopmans** (Erasmus MC) — positie NIET genoteerd (UNKNOWN)
 
 ### Het meningsverschil
 > "There was not total agreement about what this meant. Ron Fouchier said he was sure that this could occur naturally and we should not waste our time... The rest felt that deliberate insertion was possible given Dr. Zheng-Li Shi at the University of Wuhan has been working for years in GOF in coronaviruses."
@@ -128,7 +132,7 @@ Fauci's aantekening:
 **Twee kampen:**
 - **Natuurlijke oorsprong:** Fouchier + Drosten
 - **Deliberate insertion mogelijk:** Andersen, Holmes, Rambaut, Garry, Ferguson, Fauci, Collins, Farrar, Vallance
-- **Positie onbekend:** Koopmans
+- **Positie onbekend:** Koopmans (Formele status `UNKNOWN`)
 
 ## 2 februari 2020 — Follow-up met WHO
 Fauci, Collins en Farrar contacteren Tedros via Stewart Simonson om een WHO-expertgroep te convenen.
@@ -287,3 +291,32 @@ with open(os.path.join(WIKI_OUT, "AVG-GDPR-en-Wederhoor.md"), "w", encoding="utf
 print("  AVG-GDPR-en-Wederhoor.md")
 
 print(f"\n[wiki] 7 pages generated in {WIKI_OUT}")
+
+# ── Auto-push to GitHub Wiki repo if requested or by default ──────────────
+wiki_repo_url = "https://github.com/TriggerMinds/dutch-virology-network-analysis.wiki.git"
+temp_wiki_dir = os.path.join(ROOT, "temp_wiki_auto_sync")
+
+try:
+    print(f"\n[wiki] Syncing directly to GitHub Wiki repository ({wiki_repo_url})...")
+    if os.path.exists(temp_wiki_dir):
+        shutil.rmtree(temp_wiki_dir, ignore_errors=True)
+        
+    subprocess.check_call(["git", "clone", wiki_repo_url, temp_wiki_dir])
+    
+    for f in os.listdir(WIKI_OUT):
+        if f.endswith(".md"):
+            shutil.copy2(os.path.join(WIKI_OUT, f), os.path.join(temp_wiki_dir, f))
+            
+    subprocess.check_call(["git", "add", "."], cwd=temp_wiki_dir)
+    status_output = subprocess.check_output(["git", "status", "--porcelain"], cwd=temp_wiki_dir).decode()
+    
+    if status_output.strip():
+        subprocess.check_call(["git", "commit", "-m", "docs(wiki): auto-sync wiki pages with latest forensic updates"], cwd=temp_wiki_dir)
+        subprocess.check_call(["git", "push", "origin", "master"], cwd=temp_wiki_dir)
+        print("[wiki] GitHub Wiki successfully updated and pushed live!")
+    else:
+        print("[wiki] GitHub Wiki is already up to date.")
+        
+    shutil.rmtree(temp_wiki_dir, ignore_errors=True)
+except Exception as e:
+    print(f"[wiki] Warning: Auto-push to GitHub Wiki encountered an error: {e}")
