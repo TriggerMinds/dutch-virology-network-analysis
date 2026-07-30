@@ -9,24 +9,37 @@ Saves structured JSON data to data/downloads/open_macro_data.json.
 
 import json
 import os
-import urllib.request
-
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import json
+import os
+from curl_cffi import requests
+import time
+import random
 OUTPUT_PATH = os.path.join(ROOT, "data", "downloads", "open_macro_data.json")
-
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) DutchVirologyAnalysis/1.5'}
 
+PROXIES = {
+    'http': 'socks5h://127.0.0.1:1080',
+    'https': 'socks5h://127.0.0.1:1080'
+}
 
+def secure_request(url):
+    time.sleep(random.uniform(0.5, 2.5))
+    return requests.get(
+        url,
+        proxies=PROXIES,
+        impersonate="chrome120",
+        timeout=15,
+        headers=HEADERS
+    )
 def fetch_cbs_statline_summary():
     """
     Fetch CBS StatLine OData summary for mortality/demographic tables (Table ID: 70703NED or 85038NED).
     """
     url = "https://opendata.cbs.nl/ODataApi/odata/70703NED/TableInfos"
     try:
-        req = urllib.request.Request(url, headers=HEADERS)
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode())
-            return {
+        resp = secure_request(url)
+        data = resp.json()
+        return {
                 "source": "CBS StatLine OData API",
                 "table_id": "70703NED",
                 "title": data.get("value", [{}])[0].get("Title", "CBS Oversterfte & Sterftecijfers per week"),
@@ -50,11 +63,10 @@ def fetch_tweede_kamer_odata():
     """
     url = "https://datos.tweedekamer.nl/odata/v4/2.0/Document?$top=5&$filter=contains(Onderwerp,'gezondheid')%20or%20contains(Onderwerp,'corona')"
     try:
-        req = urllib.request.Request(url, headers=HEADERS)
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode())
-            docs = data.get("value", [])
-            return {
+        resp = secure_request(url)
+        data = resp.json()
+        docs = data.get("value", [])
+        return {
                 "source": "Tweede Kamer OData API",
                 "status": "FETCHED_LIVE",
                 "count": len(docs),
@@ -97,14 +109,13 @@ def fetch_crossref_doi_metadata(doi="10.1038/s41591-020-0820-9"):
     """
     url = f"https://api.crossref.org/works/{doi}"
     try:
-        req = urllib.request.Request(url, headers=HEADERS)
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode()).get("message", {})
-            authors = [
-                f"{a.get('given', '')} {a.get('family', '')}".strip()
-                for a in data.get("author", [])
-            ]
-            return {
+        resp = secure_request(url)
+        data = resp.json().get("message", {})
+        authors = [
+            f"{a.get('given', '')} {a.get('family', '')}".strip()
+            for a in data.get("author", [])
+        ]
+        return {
                 "source": "Crossref API",
                 "doi": doi,
                 "title": data.get("title", [""])[0],

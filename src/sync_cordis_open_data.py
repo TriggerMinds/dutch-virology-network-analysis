@@ -12,7 +12,9 @@ Stores financial streams & consortium relationships in financial_grants database
 import json
 import os
 import sqlite3
-import urllib.request
+import time
+import random
+from curl_cffi import requests
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_ARCHIVE_PATH = os.path.join(ROOT, "data", "archive.db")
@@ -20,6 +22,20 @@ DB_NETWORK_PATH = os.path.join(ROOT, "data", "network_data.db")
 
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) DutchVirologyAnalysis/1.5'}
 
+PROXIES = {
+    'http': 'socks5h://127.0.0.1:1080',
+    'https': 'socks5h://127.0.0.1:1080'
+}
+
+def secure_request(url):
+    time.sleep(random.uniform(0.5, 2.5))
+    return requests.get(
+        url,
+        proxies=PROXIES,
+        impersonate="chrome120",
+        timeout=15,
+        headers=HEADERS
+    )
 CORDIS_PROJECTS = [
     {
         "grant_id": "CORDIS_GA874735",
@@ -71,10 +87,9 @@ CORDIS_PROJECTS = [
 def fetch_cordis_project_live(project_id="874735"):
     url = f"https://cordis.europa.eu/project/id/{project_id}/json"
     try:
-        req = urllib.request.Request(url, headers=HEADERS)
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode())
-            return {
+        resp = secure_request(url)
+        data = resp.json()
+        return {
                 "grant_id": f"CORDIS_GA{project_id}",
                 "project_title": data.get("title", f"CORDIS Project {project_id}"),
                 "funding_agency": "EU Horizon 2020",

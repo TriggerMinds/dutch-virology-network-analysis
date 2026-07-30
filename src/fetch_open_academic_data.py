@@ -9,7 +9,9 @@ Stores data in financial_grants table in SQLite (data/archive.db & data/network_
 import json
 import os
 import sqlite3
-import urllib.request
+import time
+import random
+from curl_cffi import requests
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_ARCHIVE_PATH = os.path.join(ROOT, "data", "archive.db")
@@ -17,6 +19,31 @@ DB_NETWORK_PATH = os.path.join(ROOT, "data", "network_data.db")
 
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) DutchVirologyAnalysis/1.5', 'Content-Type': 'application/json'}
 
+PROXIES = {
+    'http': 'socks5h://127.0.0.1:1080',
+    'https': 'socks5h://127.0.0.1:1080'
+}
+
+def secure_request_get(url):
+    time.sleep(random.uniform(0.5, 2.5))
+    return requests.get(
+        url,
+        proxies=PROXIES,
+        impersonate="chrome120",
+        timeout=15,
+        headers=HEADERS
+    )
+
+def secure_request_post(url, json_data):
+    time.sleep(random.uniform(0.5, 2.5))
+    return requests.post(
+        url,
+        json=json_data,
+        proxies=PROXIES,
+        impersonate="chrome120",
+        timeout=15,
+        headers=HEADERS
+    )
 
 def init_grants_tables():
     for db_p in [DB_ARCHIVE_PATH, DB_NETWORK_PATH]:
@@ -51,24 +78,23 @@ def fetch_nih_reporter_grants(search_term="Erasmus"):
     }
     
     try:
-        req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=HEADERS)
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode())
-            results = data.get("results", [])
-            grants = []
-            for r in results:
-                grants.append({
-                    "grant_id": f"NIH_{r.get('project_num', r.get('appl_id'))}",
-                    "project_title": r.get("project_title", "NIH Research Grant"),
-                    "funding_agency": "NIH / NIAID",
-                    "amount_eur_usd": r.get("award_amount", 0.0),
-                    "start_date": r.get("project_start_date", "")[:10] if r.get("project_start_date") else "2020-01-01",
-                    "end_date": r.get("project_end_date", "")[:10] if r.get("project_end_date") else "2024-12-31",
-                    "recipient_org": r.get("organization", {}).get("org_name", "Erasmus MC"),
-                    "principal_investigator": r.get("contact_pi_name", "Ron Fouchier / Marion Koopmans"),
-                    "source_api": "NIH RePORTER v2 API"
-                })
-            return grants
+        resp = secure_request_post(url, payload)
+        data = resp.json()
+        results = data.get("results", [])
+        grants = []
+        for r in results:
+            grants.append({
+                "grant_id": f"NIH_{r.get('project_num', r.get('appl_id'))}",
+                "project_title": r.get("project_title", "NIH Research Grant"),
+                "funding_agency": "NIH / NIAID",
+                "amount_eur_usd": r.get("award_amount", 0.0),
+                "start_date": r.get("project_start_date", "")[:10] if r.get("project_start_date") else "2020-01-01",
+                "end_date": r.get("project_end_date", "")[:10] if r.get("project_end_date") else "2024-12-31",
+                "recipient_org": r.get("organization", {}).get("org_name", "Erasmus MC"),
+                "principal_investigator": r.get("contact_pi_name", "Ron Fouchier / Marion Koopmans"),
+                "source_api": "NIH RePORTER v2 API"
+            })
+        return grants
     except Exception as e:
         print(f"[WARN] NIH RePORTER v2 API live fetch fallback: {e}")
         return [
@@ -89,10 +115,9 @@ def fetch_nih_reporter_grants(search_term="Erasmus"):
 def fetch_openalex_orcid_profile(orcid="0000-0002-3608-2516"):
     url = f"https://api.openalex.org/authors/https://orcid.org/{orcid}"
     try:
-        req = urllib.request.Request(url, headers=HEADERS)
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode())
-            return {
+        resp = secure_request_get(url)
+        data = resp.json()
+        return {
                 "display_name": data.get("display_name"),
                 "works_count": data.get("works_count"),
                 "cited_by_count": data.get("cited_by_count"),
