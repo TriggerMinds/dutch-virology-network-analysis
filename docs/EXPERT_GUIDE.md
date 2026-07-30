@@ -1,188 +1,95 @@
-# Expert Guide — Dutch Virology Network Analysis Toolkit
+# Expert Guide: Multi-Language Document Archive (data/archive.db) & FTS5 Search
 
-> **Doelgroep:** Forensische data-analisten, OSINT-onderzoekers, moleculair biologen.
-> **Datasets:** SQLite (`network_data.db`), Parquet (`data/parquet/`), CSV (`data/csv/`), SHA-256 (`data/checksums.sha256`).
+> **Version:** 1.0  
+> **Database:** `data/archive.db`  
+> **Features:** FTS5 Full-Text Search, SHA-256 Provenance Hashing, EuroVoc Taxonomy, Multi-Lingual Metadata  
 
 ---
 
-## 1. SQLite Forensische Views
+## 1. Architecture & Schema Overview
 
-De volgende views zijn pre-compiled in `network_data.db`:
+The `data/archive.db` database is structured to store multi-language pandemic records (WOO, FOIA, RKI-Protokolle, Corman-Drosten protocols, Senate reports) with cryptographic provenance guarantees.
 
-| View | Rijen | Beschrijving |
-|------|-------|-------------|
-| `vw_forensic_grants` | 4 | EU consortium grants (VEO, ECRAID, DURABLE, COMPARE) met bedragen en coördinatoren |
-| `vw_woo_citations` | 3 | Bewijscitaten gekoppeld aan Woo-dossiernummers en openbare bronnen |
-| `vw_conflict_of_interest` | 16 | Belangenmatrix: academische rol, beleidsrol, subsidie-beoordelingsrol, media-rol per Tier 1-3 persoon |
-| `vw_virology_betweenness` | 195 | Virologie-gefilterde betweenness centrality per node (exclusief algemene epidemiologie) |
+### Table Schema
 
-### SQL-voorbeelden voor DuckDB / SQLite
+- `documents`: Primary metadata record (SHA-256 hash, jurisdiction, language_code, publication_date).
+- `document_texts`: Extracted page-by-page full text content linked via foreign key.
+- `taxonomy_topics`: EuroVoc-aligned topic categories (`TOPIC_ADVISORY_MINUTES`, `TOPIC_DIAGNOSTICS`, `TOPIC_EMERGENCY_PROCUREMENT`, `TOPIC_POLICY_DIRECTIVES`, `TOPIC_FINANCIAL_GRANTS`).
+- `document_topics`: Many-to-many relationship mapping documents to topics.
+- `document_versions`: Version history and hash release tracking.
+- `fts_document_texts`: SQLite FTS5 virtual table for high-speed full-text queries.
 
-```sql
--- Top virology bridges
-SELECT name, org, virology_betweenness
-FROM vw_virology_betweenness
-WHERE virology_betweenness > 0.1
-ORDER BY virology_betweenness DESC;
+---
 
--- Full conflict-of-interest matrix
-SELECT name, tier, academic_role, policy_role, grant_review_role, media_role
-FROM vw_conflict_of_interest
-WHERE tier <= 2;
+## 2. Python API Usage
 
--- Grants funded to specific consortium
-SELECT * FROM vw_forensic_grants
-WHERE grant_or_consortium IN ('VEO', 'ECRAID');
-
--- Woo citations for a specific entity
-SELECT * FROM vw_woo_citations
-WHERE entity_name LIKE '%Koopmans%';
-```
-
-## 2. SHA-256 Checksum Verificatie
-
-Alle gegenereerde data-bestanden zijn voorzien van SHA-256 hashes voor forensische verifieerbaarheid.
-
-### Verifiëren op Linux/macOS
-
-```bash
-cd data
-sha256sum -c checksums.sha256
-```
-
-### Verifiëren op Windows (PowerShell)
-
-```powershell
-Get-Content data\checksums.sha256 | ForEach-Object {
-    $hash, $file = $_ -split '  ', 2
-    $computed = (Get-FileHash $file -Algorithm SHA256).Hash.ToLower()
-    if ($hash -eq $computed) { Write-Host "$file: OK" -ForegroundColor Green }
-    else { Write-Host "$file: FAILED" -ForegroundColor Red }
-}
-```
-
-### Verifiëren in Python
+### Initializing the Database
 
 ```python
-import hashlib, os
-with open("data/checksums.sha256") as f:
-    for line in f:
-        expected_hash, filepath = line.strip().split("  ", 1)
-        actual_hash = hashlib.sha256(open(filepath, "rb").read()).hexdigest()
-        assert expected_hash == actual_hash, f"{filepath} hash mismatch"
-print("All files verified.")
+from src.init_archive_db import init_db
+
+init_db()  # Creates data/archive.db with all 5 tables and FTS5 triggers
 ```
 
-## 3. Parquet & CSV Exports
+### Ingesting PDF Files
 
-Bestanden in `data/parquet/` en `data/csv/`:
+```python
+from src.ingest_pdf_archive import ingest_pdf_file
 
-| Bestand | Formaat | Rijen | Inhoud |
-|---------|---------|-------|--------|
-| `centrality_flat` | Parquet/CSV | 33.584 | Betweenness, degree, eigenvector scores per node per laag (genormaliseerd) |
-| `vw_forensic_grants` | Parquet/CSV | 4 | Consortium grants |
-| `vw_woo_citations` | Parquet/CSV | 3 | Woo-referenties |
-| `vw_conflict_of_interest` | Parquet/CSV | 16 | Belangenmatrix |
-| `vw_virology_betweenness` | Parquet/CSV | 195 | Virologie-gefilterde centraliteit |
-
-### Verwerken met DuckDB
-
-```sql
--- Analyseer centraliteit per laag
-SELECT layer, COUNT(*) as nodes, AVG(score) as avg_score
-FROM 'data/parquet/centrality_flat.parquet'
-WHERE metric = 'betweenness'
-GROUP BY layer
-ORDER BY avg_score DESC;
-
--- Join tussenness met conflict-of-interest
-SELECT b.name, b.virology_betweenness, c.policy_role, c.grant_review_role
-FROM 'data/parquet/vw_virology_betweenness.parquet' b
-JOIN 'data/parquet/vw_conflict_of_interest.parquet' c ON b.name = c.name
-ORDER BY b.virology_betweenness DESC;
+doc_id = ingest_pdf_file(
+    "downloads/pdf_documents/2026.07.24_Tonys-Diary-Package.pdf",
+    jurisdiction="US",
+    language_code="en",
+    topic_code="TOPIC_ADVISORY_MINUTES"
+)
 ```
 
-## 4. Genomische DURC-Relevante Publicaties
+### Searching Full-Text Content via FTS5
 
-Tabel `durc_genomics` identificeert publicaties met **Dual-Use Research of Concern** (DURC) relevantie.
+```python
+from src.search_archive import search_by_keyword
 
-| Categorie | Aantal | Voorbeelden |
-|-----------|--------|-------------|
-| GOF_influenza | 1 | Fouchier H5N1 ferret (2012) — 5 mutations enable aerosol transmission |
-| coronavirus_discovery | 1 | Fouchier MERS-CoV discovery (2012) |
-| diagnostic | 1 | Koopmans nCoV real-time RT-PCR (2020) |
-| coronavirus_pathogenesis | 1 | Koopmans SARS-CoV-2 gut enterocytes (2020) |
-| origin_debate | 1 | Proximal Origin paper (Andersen et al. 2020/2022) |
-| spike_ace2 | 1 | Shi Zhengli spike-ACE2 characterization (2020) |
-| influenza_surveillance | 1 | Fouchier influenza evolution mapping (2004) |
+# Search across all documents for specific terms
+results = search_by_keyword("Fouchier OR Koopmans OR Drosten", language_code="nl", jurisdiction="NL")
 
-### DURC-criteria (WHO/NSABB gedefinieerd):
-
-1. **Enhances pathogen virulence** — Fouchier H5N1
-2. **Disrupts immunity** — N.v.t.
-3. **Confers resistance** — N.v.t.
-4. **Enhances transmissibility** — Fouchier H5N1
-5. **Alters host range** — Shi Zhengli ACE2 adaptation
-6. **Evades detection** — N.v.t.
-7. **Enables weaponization** — N.v.t.
-
-### Volledige lijst:
-
-```sql
-SELECT title, authors, publication_year, durc_category
-FROM durc_genomics
-ORDER BY publication_year;
+for r in results:
+    print(f"[{r['jurisdiction']}] {r['title']}")
+    print(f"Snippet: {r['snippet']}")
+    print(f"SHA-256 Hash: {r['sha256_hash']}\n")
 ```
 
-## 5. Woo-document Register
+### Searching by Taxonomy Topic
 
-Tabel `woo_documents` bevat verifieerbare Woo-dossiernummers en openbare bronnen:
+```python
+from src.search_archive import search_by_topic
 
-| Woo-nummer | Bron | Relevantie |
-|-----------|------|-----------|
-| Woo/3661708 | RIVM OMT adviezen | NL beleidsreactie COVID-19 |
-| Woo/VWS-2021-001 | VWS subsidiebesluiten | ZonMw/NCOH/PDPC financiering |
-| Woo/EU-CORDIS-VEO | EU Horizon 2020 | Koopmans VEO coordinator |
-| Woo/EU-CORDIS-ECRAID | EU Horizon 2020 | Bonten ECRAID coordinator |
-| Woo/US-NIH-2R01AI110964 | NIH RePORTER | EcoHealth/Daszak grant naar WIV |
-| Woo/US-PARLIAMENT-FARRAR | UK Parliament | Farrar testimony over Jan 31 call |
-
-## 6. Pipeline Reproductie
-
-```bash
-# Volledige data-pipeline (vereist PDF in data/)
-pip install -r requirements.txt
-python src/auto_downloader_v2.py     # OpenAlex + NIH
-python src/setup_multiplex_db.py     # Bouw SQLite
-python src/analyze_multiplex.py      # Centraliteit + communities
-python src/setup_sql_views.py        # Forensische views
-python src/export_forensic_data.py   # Parquet/CSV/SHA-256
-python src/enrich_expert_layers.py   # Woo + DURC
-python build_web_app.py              # Web visualisatie
-python src/export_multiplex.py       # Graph + dossier export
-```
-
-## 7. Bestandsstructuur (forensisch relevant)
-
-```
-data/
-├── network_data.db          SQLite (centrale database)
-├── graph.json               NetworkX export
-├── checksums.sha256         SHA-256 hashes (alle exports)
-├── parquet/                 Parquet exports (5 bestanden)
-├── csv/                     CSV exports (5 bestanden)
-├── downloads/               Ruwe API-data (OpenAlex, NIH, FOIA)
-docs/
-├── DUTCH_CONNECTIONS_DOSSIER.md   Master rapport
-├── BLIND_SPOT_MAPPING.md          Epistemologische audit
-├── EXPERT_GUIDE.md                Deze handleiding
-src/
-├── setup_sql_views.py             View creatie
-├── export_forensic_data.py        Parquet/CSV/SHA export
-├── enrich_expert_layers.py        Woo + DURC
-└── analyze_multiplex.py           Centraliteit + communities
+# Retrieve all diagnostic protocol documents
+docs = search_by_topic("TOPIC_DIAGNOSTICS", date_from="2020-01-01")
+for d in docs:
+    print(d["title"], d["publication_date"])
 ```
 
 ---
 
-*Laatste update: 2026-07-30. Voor vragen of correcties: open een GitHub Issue.*
+## 3. SQL Query Examples
+
+### Executing FTS5 Full-Text Search in SQLite CLI
+
+```sql
+SELECT d.title, d.jurisdiction, d.sha256_hash,
+       snippet(fts_document_texts, 1, '<b>', '</b>', '...', 30) AS snippet
+FROM fts_document_texts fts
+JOIN documents d ON fts.document_id = d.id
+WHERE fts_document_texts MATCH 'Fauci AND "Proximal Origin"'
+ORDER BY rank
+LIMIT 10;
+```
+
+### Verifying SHA-256 Hash Provenance
+
+```sql
+SELECT d.id, d.title, d.sha256_hash, v.version_number, v.release_date
+FROM documents d
+JOIN document_versions v ON d.id = v.document_id
+WHERE d.sha256_hash = '27d8d39b118638e4c0a4a0ece7fda8e7e6772ea70a920aacfdcca70f198cd57e';
+```
