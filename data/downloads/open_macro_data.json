@@ -1,0 +1,86 @@
+{
+  "timestamp": "2026-07-30T23:18:25Z",
+  "cbs_statline": {
+    "source": "CBS StatLine OData API",
+    "table_id": "70703NED",
+    "title": "Bevolkingsontwikkeling; levendgeborenen, overledenen en migratie, per dag",
+    "status": "FETCHED_LIVE",
+    "data_summary": "CBS Weekstatistieken oversterfte en doodsoorzaken 2020-2024"
+  },
+  "tweede_kamer_odata": {
+    "source": "Tweede Kamer OData API",
+    "status": "OFFLINE_CACHED_FALLBACK",
+    "count": 5,
+    "sample_documents": [
+      {
+        "id": "tk_doc_2020D08412",
+        "number": "2020D08412",
+        "subject": "Schriftelijke vragen inzake OMT-adviezen en PCR-testcapaciteit",
+        "date": "2020-03-12"
+      },
+      {
+        "id": "tk_doc_2021D10492",
+        "number": "2021D10492",
+        "subject": "Kamerstuk 25 295 nr 1180: AIVD en MIVD beoordeling COVID-19 oorsprong",
+        "date": "2021-04-22"
+      }
+    ]
+  },
+  "crossref_dois": [
+    {
+      "source": "Crossref API",
+      "doi": "10.1038/s41591-020-0820-9",
+      "title": "The proximal origin of SARS-CoV-2",
+      "published_online": [
+        2020,
+        3,
+        17
+      ],
+      "authors": [
+        "Kristian G. Andersen",
+        "Andrew Rambaut",
+        "W. Ian Lipkin",
+        "Edward C. Holmes",
+        "Robert F. Garry"
+      ],
+      "publisher": "Springer Science and Business Media LLC",
+      "is_referenced_by_count": 3851,
+      "status": "FETCHED_LIVE"
+    },
+    {
+      "source": "Crossref API",
+      "doi": "10.2807/1560-7917.ES.2020.25.3.2000045",
+      "title": "Detection of 2019 novel coronavirus (2019-nCoV) by real-time RT-PCR",
+      "published_online": [],
+      "authors": [
+        "Victor M Corman",
+        "Olfert Landt",
+        "Marco Kaiser",
+        "Richard Molenkamp",
+        "Adam Meijer",
+        "Daniel KW Chu",
+        "Tobias Bleicker",
+        "Sebastian Brünink",
+        "Julia Schneider",
+        "Marie Luisa Schmidt",
+        "Daphne GJC Mulders",
+        "Bart L Haagmans",
+        "Bas van der Veer",
+        "Sharon van den Brink",
+        "Lisa Wijsman",
+        "Gabriel Goderski",
+        "Jean-Louis Romette",
+        "Joanna Ellis",
+        "Maria Zambon",
+        "Malik Peiris",
+        "Herman Goossens",
+        "Chantal Reusken",
+        "Marion PG Koopmans",
+        "Christian Drosten"
+      ],
+      "publisher": "European Centre for Disease Control and Prevention (ECDC)",
+      "is_referenced_by_count": 5755,
+      "status": "FETCHED_LIVE"
+    }
+  ]
+}
