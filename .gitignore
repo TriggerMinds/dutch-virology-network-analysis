@@ -1,0 +1,28 @@
+# Source data — PDF is large and must be obtained separately
+data/2026.07.24_Tonys-Diary-Package.pdf
+
+# Generated data artifacts (reproducible from raw_data.json)
+data/raw_data.json
+data/network_data.db
+data/graph.json
+data/nl_*.json
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
