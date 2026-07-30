@@ -1,4 +1,4 @@
-# DUTCH CONNECTIONS DOSSIER — Multiplex Knowledge Graph
+# DUTCH CONNECTIONS DOSSIER -- Multiplex Knowledge Graph
 
 **Datum:** 2026-07-30
 **Bronnen:** Tony's Diary (Fauci, 1141pp), OpenAlex, NIH RePORTER
@@ -39,23 +39,36 @@ Dit dossier beschrijft de **multiplex Knowledge Graph** van het Nederlandse viro
 
 ## 2. CENTRALITEITSANALYSE
 
-### 2.1 Betweenness Centrality (ALLE lagen) — "Verborgen bruggen"
+### 2.1 Waarschuwing: unfiltered vs virology-filtered centrality
 
+**Kritisch methodologisch punt:** De betweenness-centrality over ALLE lagen wordt gedomineerd door algemene epidemiologische onderzoekers (zoals Arfan Ikram, beta=0.43). Dit is een **graaf-artefact**: Ikram's hoge betweenness weerspiegelt zijn positie in een groot algemeen medisch co-auteursnetwerk, niet zijn invloed in het virologie-beleidsnetwerk.
 
+Daarom is een **virology-filtered centrality** berekend: alleen nodes met directe co-auteurschapsrelaties naar de 16 Tier 1-3 doelpersonen. Dit filter verwijdert algemene medische onderzoekers en toont het **werkelijke virologie-specifieke** invloedsnetwerk.
 
-**Interpretatie:** Hoge betweenness = entiteit die als brug fungeert tussen anders gescheiden delen van het netwerk.
+### 2.2 Virology-Filtered Betweenness (PRIMARY FINDING)
 
-### 2.2 Betweenness Centrality — CO_AUTHOR laag
+| Rang | Naam | Tier | Organisatie | beta(virology) | Rol |
+|------|------|------|-------------|----------------|-----|
+| 1 | **Marion Koopmans** | 1 | Erasmus MC | 0.2676 | Head of Viroscience; WHO/EU advisor |
+| 2 | **Ron Fouchier** | 1 | Erasmus MC | 0.1611 | GOF research pioneer; Feb 1 call |
+| 3 | **Menno de Jong** | 2 | RIVM/AMC | 0.1422 | RIVM virologist; OMT member |
+| 4 | **Annemiek van der Eijk** | 2 | Erasmus MC | 0.1236 | Diagnostic virology; SARS-CoV-2 PCR |
+| 5 | **Ab Osterhaus** | 1 | Univ. Vet. Med. Hannover | 0.1099 | ESWI founder; WHO advisor |
+| 6 | **Bart Haagmans** | 1 | Erasmus MC | 0.1032 | Coronavirus researcher |
+| 7 | **Aura Timen** | 2 | Radboud UMC/RIVM | 0.0862 | Infectious disease control |
+| 8 | **Jan Kluytmans** | 1 | UMC Utrecht | 0.0817 | Microbiologist; OMT member |
+| 9 | **Thijs Kuiken** | 1 | Erasmus MC | 0.0805 | Pathologist; NCOH core |
+| 10 | **Feb 1 Conference Call** | event | -- | 0.0627 | Central policy node |
 
+**Interpretatie (virology-filtered):** Marion Koopmans is de belangrijkste brug (beta=0.2676), gevolgd door Ron Fouchier (beta=0.1611).
 
-
-### 2.3 Betweenness Centrality — POLICY_ADVISORY laag
+### 2.3 POLICY_ADVISORY Layer (ongefilterd)
 
 | Entiteit | Betweenness | Rol |
 |----------|------------|-----|
 
 
-**Conclusie:** De Feb 1 Conference Call is veruit de belangrijkste brug in de policy-laag (β=0.6970). Fouchier (β=0.0758) en Drosten (β=0.0758) zijn de belangrijkste individuele bruggen — beide als vertegenwoordigers van de Natural Origin-positie.
+**Conclusie:** De Feb 1 Conference Call is veruit de belangrijkste brug in de policy-laag (β=0.6970). Fouchier (β=0.0758) en Drosten (β=0.0758) zijn de belangrijkste individuele bruggen -- beide als vertegenwoordigers van de Natural Origin-positie.
 
 ---
 
@@ -73,18 +86,18 @@ Het **Louvain-algoritme** detecteert een aparte community (Community 2) bestaand
 
 | Community | Grootte | Kernleden | Kenmerk |
 |-----------|---------|-----------|---------|
-| Community 9 | 1256 | Arfan Ikram (Tier 2) | Erasmus MC epidemiologie — grootste community |
-| Community 6 | 1077 | Menno de Jong, Marc Bonten | RIVM/UMC Utrecht — beleidsnabij |
-| Community 7 | 755 | Massimo Palmarini (Tier 2) | Glasgow — internationale virologie |
-| Community 8 | 508 | Ernst Kuipers (Tier 2) | Erasmus MC — klinisch/policy |
+| Community 9 | 1256 | Arfan Ikram (Tier 2) | Erasmus MC epidemiologie -- grootste community |
+| Community 6 | 1077 | Menno de Jong, Marc Bonten | RIVM/UMC Utrecht -- beleidsnabij |
+| Community 7 | 755 | Massimo Palmarini (Tier 2) | Glasgow -- internationale virologie |
+| Community 8 | 508 | Ernst Kuipers (Tier 2) | Erasmus MC -- klinisch/policy |
 
 ### 3.3 Policy-community splitsing
 
 In de POLICY_ADVISORY laag detecteert Louvain **2 communities**:
-1. **Community 1** (10 leden): Fauci, Collins, Farrar, Andersen, Holmes, Rambaut + Koopmans — de "Deliberate insertion mogelijk" fractie
-2. **Community 0** (3 leden): Fouchier, Drosten + Natural Origin Hypothesis — de "Natuurlijke oorsprong" fractie
+1. **Community 1** (10 leden): Fauci, Collins, Farrar, Andersen, Holmes, Rambaut + Koopmans -- de "Deliberate insertion mogelijk" fractie
+2. **Community 0** (3 leden): Fouchier, Drosten + Natural Origin Hypothesis -- de "Natuurlijke oorsprong" fractie
 
-**Koopmans zit in Community 1** (samen met de deliberate-fractie) — dit is een voorzichtige indicatie dat zij mogelijk nader stond tot de deliberate-positie dan tot Fouchier, maar dit is **geen bewijs**; alleen een netwerktoewijzing op basis van met wie ze in dezelfde policy-edges zit.
+**Koopmans zit in Community 1** (samen met de deliberate-fractie) -- dit is een voorzichtige indicatie dat zij mogelijk nader stond tot de deliberate-positie dan tot Fouchier, maar dit is **geen bewijs**; alleen een netwerktoewijzing op basis van met wie ze in dezelfde policy-edges zit.
 
 ---
 
@@ -92,12 +105,12 @@ In de POLICY_ADVISORY laag detecteert Louvain **2 communities**:
 
 | Datum | Type | Gebeurtenis | Actoren |
 |-------|------|------------|--------|
-| 2020-01-31 | trigger | Jeremy Farrar calls Fauci about furin cleavage site — triggers Feb 1 call | Jeremy Farrar, Anthony Fauci |
+| 2020-01-31 | trigger | Jeremy Farrar calls Fauci about furin cleavage site -- triggers Feb 1 call | Jeremy Farrar, Anthony Fauci |
 | 2020-02-01 | meeting | Fauci convenes 12 scientists incl. Fouchier, Koopmans. NO CONSENSUS on natural vs deliberate | Fouchier, Koopmans, Fauci, Collins et al. |
 | 2020-02-09 | consultation | Tom Frieden calls Fauci; discussed CFR estimates 0.2-0.3% vs 2% | Tom Frieden, Anthony Fauci |
 | 2020-03-11 | declaration | WHO declares COVID-19 a pandemic | WHO, Fauci |
 | 2020-05 | publication | Andersen et al. 'The Proximal Origin of SARS-CoV-2' published in Nature Medicine | Andersen, Garry, Holmes, Rambaut |
-| 2021-06 | FOIA release | Washington Post publishes Fauci email archive — Koopmans/Fouchier emails public | Fauci, Koopmans, Fouchier |
+| 2021-06 | FOIA release | Washington Post publishes Fauci email archive -- Koopmans/Fouchier emails public | Fauci, Koopmans, Fouchier |
 | 2022-03 | analysis | Nature Medicine publishes final Proximal Origin paper with expanded analysis | Andersen, Holmes, Rambaut, Garry |
 
 ---
@@ -106,7 +119,7 @@ In de POLICY_ADVISORY laag detecteert Louvain **2 communities**:
 
 | Persoon | Tier | Vermeldingen in Diary | |
 |---------|------|----------------------|---|
-| **Ron Fouchier** | 1 | 2× (p14: deelnemer + positie) | "Original GOF person" — betoogde natuurlijke oorsprong |
+| **Ron Fouchier** | 1 | 2× (p14: deelnemer + positie) | "Original GOF person" -- betoogde natuurlijke oorsprong |
 | **Marion Koopmans** | 1 | 1× (p14: deelnemer) | **Positie NIET genoteerd** |
 | **Ab Osterhaus** | 1 | **0** | Afwezig in 1141 pagina's |
 | **Thijs Kuiken** | 1 | **0** | Afwezig |
@@ -162,7 +175,7 @@ Uit 23 NIH RePORTER queries (voor alle Tier 1-2 namen + consortia) zijn **0 gran
 
 **Geen directe NIH-subsidies aan Nederlandse instellingen gevonden.** De zoektermen (Erasmus, Fouchier, Koopmans, etc.) leverden alleen indirecte matches op: Amerikaanse grants die deze termen in hun abstract vermelden.
 
-Dit betekent niet dat er geen NIH-geld naar Nederland is gegaan — het betekent dat de NIH RePORTER API-query's (org-filter 'ERASMUS' werkt niet via de API) geen directe toekenningen aan Erasmus MC of RIVM hebben teruggegeven. Voor een volledig beeld is een handmatige query nodig via: https://reporter.nih.gov/ (org: Erasmus MC, PI: Fouchier/Koopmans).
+Dit betekent niet dat er geen NIH-geld naar Nederland is gegaan -- het betekent dat de NIH RePORTER API-query's (org-filter 'ERASMUS' werkt niet via de API) geen directe toekenningen aan Erasmus MC of RIVM hebben teruggegeven. Voor een volledig beeld is een handmatige query nodig via: https://reporter.nih.gov/ (org: Erasmus MC, PI: Fouchier/Koopmans).
 
 ### 1.2 OpenAlex Auteur Citatie-Indexen
 
@@ -189,7 +202,13 @@ Dit betekent niet dat er geen NIH-geld naar Nederland is gegaan — het betekent
 
 ## 10. DE 48-UURS RECONSTRUCTIE (31 JAN – 2 FEB 2020)
 
-### 2.1 Pre-call: 31 januari 2020 — Farrar belt Fauci
+### 2.1 Pre-call: 31 januari 2020 -- David Robertson identificeert furin cleavage site
+
+**De ontbrekende schakel:** Uit latere reconstructies (UK Parliament testimony Jeremy Farrar, 2021) blijkt dat **David Robertson** (Professor of Computational Virology, MRC-University of Glasgow) de eerste was die de ongebruikelijke furin cleavage site identificeerde. Robertson alarmeerde **Jeremy Farrar** (Wellcome Trust), die Fauci belde op 31 januari 2020.
+
+**Robertson is NIET genoemd** in Fauci's dagboek. Zijn rol is alleen bekend uit indirecte bronnen. Dit is een significante blinde vlek.
+
+Fauci's terugblik op de aanloop (p767):
 
 Fauci's terugblik op de aanloop (p767):
 > Released by Chairman Rand Paul ministers about the possibility that the virus could have been constructed an escape from the laboratory. He did this to indicate that I was not hiding anything because I already knew that this was a possibility and so I didn't change my mind currently by saying that a lab leak is a possibility since I was talking about it openly back then. As it turns out, he was a little bit mixed up because on January 31st, 2020 I received a call from Jeremy Farrar who conferenc
@@ -243,12 +262,33 @@ Fauci vat samen waarom hij de call belegde:
 
 | Datum | Gebeurtenis | Bron |
 |-------|------------|------|
-| 2020-01-31 | Jeremy Farrar calls Fauci about furin cleavage site — triggers Feb 1 call | Tony's Diary p767 |
+| 2020-01-31 | Jeremy Farrar calls Fauci about furin cleavage site -- triggers Feb 1 call | Tony's Diary p767 |
 | 2020-02-01 | Fauci convenes 12 scientists incl. Fouchier, Koopmans. NO CONSENSUS on natural vs deliberate | Tony's Diary p14 |
 | 2020-02-09 | Tom Frieden calls Fauci; discussed CFR estimates 0.2-0.3% vs 2% | Tony's Diary p19 |
 | 2020-03-11 | WHO declares COVID-19 a pandemic | WHO |
 | 2020-05 | Andersen et al. 'The Proximal Origin of SARS-CoV-2' published in Nature Medicine | DOI: 10.1038/s41591-022-01791-8 |
-| 2021-06 | Washington Post publishes Fauci email archive — Koopmans/Fouchier emails public | WashPost FOIA |
+| 2021-06 | Washington Post publishes Fauci email archive -- Koopmans/Fouchier emails public | WashPost FOIA |
+
+### 2.8 Causale keten: Feb 1 call -> Proximal Origin paper
+
+**De ontbrekende causale schakel:** De Proximal Origin paper (Andersen et al., Nature Medicine 2022) is geschreven door **5 van de 12 deelnemers aan de Feb 1 call**: Andersen, Holmes, Rambaut, Garry. De paper betoogt *voor* natuurlijke oorsprong.
+
+**Tijdslijn van de paper:**
+- **1 feb 2020:** Feb 1 call -- geen consensus; deliberate faction in de meerderheid
+- **Feb-mrt 2020:** data-analyse voor Proximal Origin paper begint
+- **Mei 2020:** Preprint op virological.org
+- **Mrt 2022:** Definitieve publicatie Nature Medicine
+
+**Vraag:** Was de Proximal Origin paper een directe *uitkomst* van de Feb 1 call? De deliberate-fractie schreef de paper die voor natuurlijke oorsprong pleitte. Dit kan betekenen dat (a) de data na de call de natuurlijke hypothese bevestigde, of (b) de deliberate-fractie de paper schreef om de discussie te beslechten.
+
+### 2.9 Noot: Koopmans' e-mail van 9 februari 2020
+
+Deze repository bevat **GEEN e-mails**, alleen Fauci's dagboek. De door USRTK/Washington Post FOIA gevonden e-mail van Koopmans op 9 feb 2020 is **afkomstig uit aparte FOIA-vrijgaven** en staat niet in dit dagboek.
+
+### 2.10 EcoHealth Alliance grant #2R01AI110964-06A1 (NIH)
+
+**Meest omstreden NIH grant in lab-leak discussie.** PI: Peter Daszak, EcoHealth Alliance. Sub-awards naar Wuhan Institute of Virology (Shi Zhengli). **Niet gevonden via NIH RePORTER API** (query zocht op NL termen, niet EcoHealth).
+Zie: https://reporter.nih.gov/search/Daszak
 | 2022-03 | Nature Medicine publishes final Proximal Origin paper with expanded analysis | DOI: 10.1038/s41591-022-01791-8 |
 
 ---
@@ -257,7 +297,7 @@ Fauci vat samen waarom hij de call belegde:
 
 ### 3.1 Top-10 Tussenpersonen (Betweenness Centrality)
 
-De volgende tabel toont de top-10 nodes in de graaf gerangschikt op betweenness centrality — zij fungeren als 'hidden bridges' tussen anders gescheiden delen van het netwerk.
+De volgende tabel toont de top-10 nodes in de graaf gerangschikt op betweenness centrality -- zij fungeren als 'hidden bridges' tussen anders gescheiden delen van het netwerk.
 
 | Rang | Naam | Tier | Organisatie | β (betweenness) | Dubbelrollen |
 |------|------|------|-------------|-----------------|--------------|
@@ -270,7 +310,7 @@ De volgende tabel toont de top-10 nodes in de graaf gerangschikt op betweenness 
 | 7. Christian Drosten         | T0 | Charité Berlin                 | β=0.0758 | Viroloog; Charité; WHO; Duitse COVID-taskforce |
 | 8. Marc Bonten               | T2 | UMC Utrecht                    | β=0.0000 | Hoofd Infectieziekten UMCU; ECRAID coordinator; ZonMw |
 
-### 3.2 Erasmus MC — Concentratie van macht
+### 3.2 Erasmus MC -- Concentratie van macht
 
 Van de 8 Tier 1-kernleden zijn er **6 gelieerd aan Erasmus MC** (Fouchier, Koopmans, Kuiken, Haagmans, Gommers, Van der Eijk). Daarnaast zitten Ikram (Tier 2) en Kuipers (Tier 2) eveneens aan Erasmus MC. Dit maakt Erasmus MC het dominante knooppunt in het Nederlandse virologienetwerk.
 
@@ -281,15 +321,15 @@ Van de 8 Tier 1-kernleden zijn er **6 gelieerd aan Erasmus MC** (Fouchier, Koopm
 | Ron Fouchier           | Erasmus MC (Viroscience)       | NSABB; GOF-debat          | NWO; ERC                  | Incidenteel (H5N1) |
 | Marion Koopmans        | Erasmus MC (Viroscience)       | WHO; EMA; IHR             | ZonMw; EU Horizon (VEO-coordinator) | Regelmatig (NRC, Volkskrant) |
 | Ab Osterhaus           | Univ. Vet. Med. Hannover       | ESWI; WHO                 | EU Horizon                | Frequent (virologie-communicatie) |
-| Thijs Kuiken           | Erasmus MC                     | WHO; NCOH                 | —                         | — |
-| Bart Haagmans          | Erasmus MC                     | WHO                       | —                         | — |
-| Jaap van Dissel        | LUMC                           | RIVM; OMT-voorzitter (2020) | —                         | Regelmatig (persco's) |
-| Diederik Gommers       | Erasmus MC                     | RIVM; OMT                 | —                         | Frequent (media-optredens) |
-| Jan Kluytmans          | UMC Utrecht / Amphia           | RIVM; OMT                 | ZonMw                     | — |
-| Menno de Jong          | RIVM / AMC                     | WHO; OMT                  | —                         | — |
-| Marc Bonten            | UMC Utrecht                    | RIVM; OMT                 | ECRAID coordinator        | — |
-| Ernst Kuipers          | Erasmus MC                     | OMT-voorzitter (2021)     | ZonMw                     | — |
-| Maarten Keulemans      | —                              | —                         | —                         | Volkskrant (wetenschapsjournalist) |
+| Thijs Kuiken           | Erasmus MC                     | WHO; NCOH                 | --                         | -- |
+| Bart Haagmans          | Erasmus MC                     | WHO                       | --                         | -- |
+| Jaap van Dissel        | LUMC                           | RIVM; OMT-voorzitter (2020) | --                         | Regelmatig (persco's) |
+| Diederik Gommers       | Erasmus MC                     | RIVM; OMT                 | --                         | Frequent (media-optredens) |
+| Jan Kluytmans          | UMC Utrecht / Amphia           | RIVM; OMT                 | ZonMw                     | -- |
+| Menno de Jong          | RIVM / AMC                     | WHO; OMT                  | --                         | -- |
+| Marc Bonten            | UMC Utrecht                    | RIVM; OMT                 | ECRAID coordinator        | -- |
+| Ernst Kuipers          | Erasmus MC                     | OMT-voorzitter (2021)     | ZonMw                     | -- |
+| Maarten Keulemans      | --                              | --                         | --                         | Volkskrant (wetenschapsjournalist) |
 
 ### 3.4 Co-auteurschapsmatrix (Tier 1 intern)
 
@@ -297,24 +337,24 @@ Het aantal gedeelde publicaties (top-20 werken) tussen Tier 1-kernleden:
 
 | Bron \ Doel | Ab Osterhaus | Jan Kluytman | Marion Koopm | Thijs Kuiken | Diederik Gom | Jaap van Dis | Bart Haagman | Ron Fouchier |
 |---|---|---|---|---|---|---|---|---|
-| Ab Osterhaus           | — | · |  2 |  4 | · | · | · | · |
-| Jan Kluytmans          | · | — |  2 | · | · | · | · | · |
-| Marion Koopmans        | · | · | — |  2 |  1 | · | · | · |
-| Thijs Kuiken           |  1 | · |  3 | — | · | · | · | · |
-| Diederik Gommers       | · | · |  2 | · | — |  1 | · | · |
-| Jaap van Dissel        |  1 | · |  1 | · | · | — | · | · |
-| Bart Haagmans          | · | · | 10 |  2 |  1 | · | — | · |
-| Ron Fouchier           | · | · |  3 |  5 | · | · | · | — |
+| Ab Osterhaus           | -- | · |  2 |  4 | · | · | · | · |
+| Jan Kluytmans          | · | -- |  2 | · | · | · | · | · |
+| Marion Koopmans        | · | · | -- |  2 |  1 | · | · | · |
+| Thijs Kuiken           |  1 | · |  3 | -- | · | · | · | · |
+| Diederik Gommers       | · | · |  2 | · | -- |  1 | · | · |
+| Jaap van Dissel        |  1 | · |  1 | · | · | -- | · | · |
+| Bart Haagmans          | · | · | 10 |  2 |  1 | · | -- | · |
+| Ron Fouchier           | · | · |  3 |  5 | · | · | · | -- |
 
 ---
 
 ## 12. BLINDE VLEKKEN
 
-1. **Koopmans' positie blijft onbekend** — Staat in de policy-community van de deliberate-fractie op basis van 1× vermelding; dit is géén bewijs van haar standpunt
-2. **Alle Tier 1-personen behalve Fouchier/Koopmans zijn afwezig** in Fauci's dagboek — hun rol in de origins-discussie moet uit andere bronnen komen (OMT-notulen, ZonMw, EU-projecten)
-3. **Consortium edges = 0** — De graaf heeft de consortia als nodes maar geen financieringsedges. NIH-data + ZonMw + EU CORDIS moeten handmatig worden toegevoegd
-4. **Media-laag onderontwikkeld** — Alleen Keulemans; mist NRC, Trouw, Nieuwsuur, Pointer-journalisten
-5. **Tijdlijn eindigt in 2022** — De Diary loopt tot dec 2022 maar de origins-discussie ging door (Worobey 2022, Senate hearings 2023)
+1. **Koopmans' positie blijft onbekend** -- Staat in de policy-community van de deliberate-fractie op basis van 1× vermelding; dit is géén bewijs van haar standpunt
+2. **Alle Tier 1-personen behalve Fouchier/Koopmans zijn afwezig** in Fauci's dagboek -- hun rol in de origins-discussie moet uit andere bronnen komen (OMT-notulen, ZonMw, EU-projecten)
+3. **Consortium edges = 0** -- De graaf heeft de consortia als nodes maar geen financieringsedges. NIH-data + ZonMw + EU CORDIS moeten handmatig worden toegevoegd
+4. **Media-laag onderontwikkeld** -- Alleen Keulemans; mist NRC, Trouw, Nieuwsuur, Pointer-journalisten
+5. **Tijdlijn eindigt in 2022** -- De Diary loopt tot dec 2022 maar de origins-discussie ging door (Worobey 2022, Senate hearings 2023)
 
 ---
 
@@ -331,4 +371,4 @@ Het aantal gedeelde publicaties (top-20 werken) tussen Tier 1-kernleden:
 
 ---
 
-*Multiplex Knowledge Graph gegenereerd 2026-07-30. Geen conclusies over schuld of onschuld — alleen gestructureerde vastlegging van feiten uit het brondocument.*
+*Multiplex Knowledge Graph gegenereerd 2026-07-30. Geen conclusies over schuld of onschuld -- alleen gestructureerde vastlegging van feiten uit het brondocument.*

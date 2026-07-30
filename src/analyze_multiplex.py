@@ -1,141 +1,150 @@
-import os
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
 """
-analyze_multiplex.py — STAP 4: Netwerkanalyse van de multiplex graaf.
-Centraliteitsmaten: Betweenness, Eigenvector, Degree.
-Community Detection: Louvain-algoritme per laag + over alle lagen.
+analyze_multiplex.py -- STAP 4 (audit-fixed): Netwerkanalyse met virologie-topic filtering.
+Centraliteit wordt berekend:
+  (a) over ALLE nodes (algemeen)
+  (b) over VIROLOGY-FILTERED nodes (alleen personen/orgs met infectieziekte-relevantie)
+  (c) per laag (CO_AUTHOR, POLICY_ADVISORY, MEDIA_NARRATIVE) -- gesplitst.
 """
 import json, sqlite3, networkx as nx
-import community as community_louvain
 from collections import defaultdict
 
-DB_PATH = os.path.join(ROOT, "data", "network_data.db")
-OUT_STATS = os.path.join(ROOT, "data", "centrality_results.json")
+DB_PATH = r"C:\Users\gewoo\Desktop\New folder (4)\data\network_data.db"
+OUT_STATS = r"C:\Users\gewoo\Desktop\New folder (4)\data\centrality_results.json"
 
 conn = sqlite3.connect(DB_PATH)
 conn.row_factory = sqlite3.Row
 c = conn.cursor()
 
-print("=" * 60)
-print("MULTIPLEX NETWERKANALYSE")
-print("=" * 60)
+# ── Virology-relevant persons (Tier 1-3 + international virologists) ────
+VIROLOGY_NAMES = set()
+for r in c.execute("SELECT name FROM nodes WHERE tier IN (1,2,3)"):
+    VIROLOGY_NAMES.add(r["name"])
+# Add Feb 1 call participants and key policy nodes
+for name in ["Anthony Fauci", "Francis Collins", "Jeremy Farrar", "Kristian Andersen",
+             "Edward Holmes", "Andrew Rambaut", "Christian Drosten", "Robert Garry",
+             "Patrick Vallance", "Mike Ferguson", "Shi Zhengli", "Yoshi Kawaoka",
+             "Peter Daszak", "Feb 1 Conference Call", "Deliberate Insertion Hypothesis",
+             "Natural Origin Hypothesis", "Proximal Origin Paper"]:
+    VIROLOGY_NAMES.add(name)
 
-# ── Bouw laag-specifieke grafen ──────────────────────────────────────────
-layers = ["CO_AUTHOR", "POLICY_ADVISORY", "CONSORTIUM_FUNDING", "MEDIA_NARRATIVE"]
-graphs = {}
-all_G = nx.Graph()
+# ── Build graphs ─────────────────────────────────────────────────────────
+layers = ["CO_AUTHOR", "POLICY_ADVISORY", "MEDIA_NARRATIVE", "CONSORTIUM_FUNDING"]
 
-for layer in layers:
+def build_graph(layer=None):
     G = nx.Graph()
-    edges = c.execute("""
-        SELECT n1.name AS sname, n2.name AS tname, e.layer_type, e.date, e.description
-        FROM edges e
-        JOIN nodes n1 ON e.source_id = n1.id
-        JOIN nodes n2 ON e.target_id = n2.id
-        WHERE e.layer_type = ?
-    """, (layer,)).fetchall()
-    for e in edges:
-        G.add_edge(e["sname"], e["tname"], layer=layer)
-        all_G.add_edge(e["sname"], e["tname"], layer=layer)
-    graphs[layer] = G
-    print(f"\n  {layer:25s}: {G.number_of_nodes():5d} nodes, {G.number_of_edges():5d} edges")
+    query = """SELECT n1.name AS s, n2.name AS t, e.layer_type, e.date, e.description
+               FROM edges e JOIN nodes n1 ON e.source_id=n1.id JOIN nodes n2 ON e.target_id=n2.id"""
+    if layer:
+        query += f" WHERE e.layer_type='{layer}'"
+    for r in conn.execute(query):
+        G.add_edge(r["s"], r["t"], layer=r["layer_type"], date=r["date"], desc=r["description"])
+    return G
 
-print(f"\n  {'ALL LAYERS':25s}: {all_G.number_of_nodes():5d} nodes, {all_G.number_of_edges():5d} edges")
+all_G = build_graph()
+layer_graphs = {l: build_graph(l) for l in layers}
 
-# ── 1. CENTRALITY METRICS ────────────────────────────────────────────────
-print(f"\n{'='*50}")
-print(f"1. CENTRALITEITSANALYSE")
-print(f"{'='*50}")
+# ── Virology-filtered graph ──────────────────────────────────────────────
+def filter_virology(G):
+    """Keep only virology-core nodes: Tier 1-3 persons + their direct policy/event context.
+    This removes general medical researchers (e.g., Arfan Ikram's non-virology co-authors)."""
+    tier_nodes = set()
+    for r in conn.execute("SELECT name FROM nodes WHERE tier IN (1,2,3)"):
+        tier_nodes.add(r["name"])
+    # Also include key policy/event/position nodes
+    for name in ["Anthony Fauci", "Francis Collins", "Jeremy Farrar", "Kristian Andersen",
+                 "Edward Holmes", "Andrew Rambaut", "Christian Drosten", "Robert Garry",
+                 "Patrick Vallance", "Mike Ferguson", "Shi Zhengli", "Yoshi Kawaoka",
+                 "Peter Daszak", "Feb 1 Conference Call", "Deliberate Insertion Hypothesis",
+                 "Natural Origin Hypothesis", "Proximal Origin Paper", "EcoHealth Alliance",
+                 "Wuhan Institute of Virology", "Wellcome Trust", "NIAID", "NIH", "WHO"]:
+        tier_nodes.add(name)
+    # Keep: Tier nodes + their direct co-authors who are also virology-linked
+    # (connected via CO_AUTHOR to at least 2 different Tier 1-2 nodes)
+    existing_tier = [n for n in tier_nodes if G.has_node(n)]
+    keep = set(existing_tier)
+    for n in existing_tier:
+        for neighbor in G.neighbors(n):
+            # Always keep policy/event nodes
+            e_data = G.get_edge_data(n, neighbor)
+            if e_data and e_data.get("layer") in ("POLICY_ADVISORY", "MEDIA_NARRATIVE", "CONSORTIUM_FUNDING"):
+                keep.add(neighbor)
+            # Keep co-authors linked to multiple Tier nodes
+            elif e_data and e_data.get("layer") == "CO_AUTHOR":
+                # Count links to different Tier nodes
+                t_count = sum(1 for tn in existing_tier if tn != n and G.has_edge(tn, neighbor))
+                if t_count >= 2:
+                    keep.add(neighbor)
+    H = G.subgraph(keep).copy()
+    return H
+
+all_viro_G = filter_virology(all_G)
+layer_viro_G = {}
+for l, G in layer_graphs.items():
+    if G.number_of_nodes() > 0:
+        layer_viro_G[l] = filter_virology(G)
+    else:
+        layer_viro_G[l] = G
+
+print("=" * 60)
+print("MULTIPLEX NETWERKANALYSE (AUDIT-FIXED)")
+print("=" * 60)
+
+print(f"\n  Full graph:               {all_G.number_of_nodes():6d} nodes, {all_G.number_of_edges():6d} edges")
+print(f"  Virology-filtered:        {all_viro_G.number_of_nodes():6d} nodes, {all_viro_G.number_of_edges():6d} edges")
+for l in layers:
+    print(f"  {l:25s}: full={layer_graphs[l].number_of_nodes():5d}n/{layer_graphs[l].number_of_edges():5d}e  "
+          f"viro={layer_viro_G[l].number_of_nodes():5d}n/{layer_viro_G[l].number_of_edges():5d}e")
+
+# ── Centrality computation ────────────────────────────────────────────────
+def compute_centrality(G_label, G):
+    if G.number_of_nodes() < 3:
+        return {}
+    bc = nx.betweenness_centrality(G, k=min(100, G.number_of_nodes()))
+    dc = nx.degree_centrality(G)
+    ec = {}
+    try:
+        comps = [G.subgraph(c) for c in sorted(nx.connected_components(G), key=len, reverse=True)]
+        if comps and comps[0].number_of_nodes() > 1:
+            ec = nx.eigenvector_centrality_numpy(comps[0], max_iter=1000)
+    except:
+        pass
+    return {"betweenness": bc, "degree": dc, "eigenvector": ec}
 
 results = {}
+for label, G in [("ALL_full", all_G), ("ALL_virology", all_viro_G)]:
+    results[label] = compute_centrality(label, G)
+    bc = results[label].get("betweenness", {})
+    if bc:
+        print(f"\n  [{label}] Top-10 Betweenness:")
+        for n, s in sorted(bc.items(), key=lambda x: -x[1])[:10]:
+            r = c.execute("SELECT tier, organization FROM nodes WHERE name=?", (n,)).fetchone()
+            tier = r["tier"] if r else "?"
+            org = (r["organization"] or "?")[:30] if r else "?"
+            print(f"    between={s:.4f}  T{tier} {n:35s} {org}")
 
-for label, G in list(graphs.items()) + [("ALL", all_G)]:
-    if G.number_of_nodes() < 3:
-        continue
-    # Betweenness centrality
-    betweenness = nx.betweenness_centrality(G, k=min(50, G.number_of_nodes()))
-    # Degree centrality
-    degree = nx.degree_centrality(G)
-    # Eigenvector centrality (only for largest connected component)
-    components = list(nx.connected_components(G))
-    if components:
-        largest = G.subgraph(max(components, key=len))
-        eigenvector = nx.eigenvector_centrality_numpy(largest, max_iter=1000) if largest.number_of_nodes() > 1 else {}
-    else:
-        eigenvector = {}
+# Per-layer centrality
+for l in layers:
+    for variant, G_l in [("full", layer_graphs[l]), ("virology", layer_viro_G[l])]:
+        label = f"{l}_{variant}"
+        results[label] = compute_centrality(label, G_l)
 
-    # Top results per metric
-    top_between = sorted(betweenness.items(), key=lambda x: -x[1])[:10]
-    top_degree = sorted(degree.items(), key=lambda x: -x[1])[:10]
-    top_eigen = sorted(eigenvector.items(), key=lambda x: -x[1])[:10]
-
-    results[label] = {
-        "betweenness_top": [{"node": n, "score": round(s, 4)} for n, s in top_between],
-        "degree_top": [{"node": n, "score": round(s, 4)} for n, s in top_degree],
-        "eigenvector_top": [{"node": n, "score": round(s, 4)} for n, s in top_eigen],
-    }
-
-    print(f"\n  [{label}] Top-10 Betweenness Centrality:")
-    for n, s in top_between[:5]:
-        tier_info = c.execute("SELECT tier, organization FROM nodes WHERE name=?", (n,)).fetchone()
-        org = (tier_info["organization"] or "?") if tier_info else "?"
-        print(f"    {n:30s} | between={s:.4f} | {org[:30]}")
-
-# ── 2. LOUVAIN COMMUNITY DETECTION ──────────────────────────────────────
-print(f"\n{'='*50}")
-print(f"2. COMMUNITY DETECTION (LOUVAIN)")
-print(f"{'='*50}")
-
-for label, G in list(graphs.items()) + [("ALL", all_G)]:
-    if G.number_of_nodes() < 5:
-        continue
-    partition = community_louvain.best_partition(G)
-    communities = defaultdict(list)
-    for node, comm_id in partition.items():
-        communities[comm_id].append(node)
-    print(f"\n  [{label}] {len(communities)} communities detected:")
-    for comm_id, members in sorted(communities.items(), key=lambda x: -len(x[1]))[:5]:
-        # Identify Tier 1-2 members in this community
-        tier_nodes = []
-        for m in members:
-            r = c.execute("SELECT tier, organization FROM nodes WHERE name=?", (m,)).fetchone()
-            if r and r["tier"] in (1, 2):
-                tier_nodes.append((m, r["tier"], r["organization"] or ""))
-        print(f"    Community {comm_id}: {len(members)} members")
-        for tn in tier_nodes[:5]:
-            print(f"      T{tn[1]} {tn[0]:30s} | {tn[2][:30]}")
-
-# ── 3. MEDIA LAYER SPECIFIC ──────────────────────────────────────────────
-print(f"\n{'='*50}")
-print(f"3. MEDIA NARRATIVE LAYER")
-print(f"{'='*50}")
-media_G = graphs.get("MEDIA_NARRATIVE")
-if media_G and media_G.number_of_nodes() > 0:
-    print(f"  Nodes: {media_G.number_of_nodes()}, Edges: {media_G.number_of_edges()}")
-    between_m = nx.betweenness_centrality(media_G)
-    for n, s in sorted(between_m.items(), key=lambda x: -x[1])[:10]:
-        print(f"    {n:30s} | between={s:.4f}")
-
-# ── WRITE RESULTS ─────────────────────────────────────────────────────────
+# ── Save ─────────────────────────────────────────────────────────────────
 with open(OUT_STATS, "w", encoding="utf-8") as f:
     json.dump(results, f, ensure_ascii=False, indent=1)
-print(f"\n  Results written to {OUT_STATS}")
+print(f"\n  Saved to {OUT_STATS}")
 
-# ── SUMMARY ──────────────────────────────────────────────────────────────
+# ── Viro-specific summary ────────────────────────────────────────────────
 print(f"\n{'='*50}")
-print(f"NETWERKANALYSE SAMENVATTING")
+print(f"VIROLOGY-FILTERED TOP-10 (PRIMARY FINDING)")
 print(f"{'='*50}")
-all_G = graphs.get("ALL", all_G)
-if all_G.number_of_nodes() > 0:
-    ab = nx.betweenness_centrality(all_G, k=min(50, all_G.number_of_nodes()))
-    print(f"\n  Top-5 tussenpersonen (betweenness — 'verborgen bruggen'):")
-    for n, s in sorted(ab.items(), key=lambda x: -x[1])[:5]:
+bc_v = results.get("ALL_virology", {}).get("betweenness", {})
+if bc_v:
+    print(f"\n  (Filtered: alleen nodes met connectie naar Tier 1-3 virologen)")
+    for i, (n, s) in enumerate(sorted(bc_v.items(), key=lambda x: -x[1])[:10], 1):
         r = c.execute("SELECT tier, organization FROM nodes WHERE name=?", (n,)).fetchone()
-        org = r["organization"] if r else ""
-        tier = r["tier"] if r else 0
-        print(f"    T{tier} {n:35s} | β={s:.4f} | {org[:30]}")
+        tier = r["tier"] if r else "?"
+        org = (r["organization"] or "?")[:30] if r else "?"
+        print(f"  {i:2d}. between={s:.4f}  T{tier} {n:35s} {org}")
 
-print(f"\n[DONE]")
+print("\n[DONE]")
 conn.close()
