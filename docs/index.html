@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutch Virology Network — Multiplex Knowledge Graph</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.6/vis-network.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.6/dist/vis-network.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1a2e; color: #e0e0e0; overflow: hidden; height: 100vh; }
+#app { display: flex; height: 100vh; }
+#sidebar { width: 380px; min-width: 380px; background: #16213e; border-right: 1px solid #0f3460; display: flex; flex-direction: column; overflow: hidden; }
+#sidebar-header { padding: 16px 20px; background: #0f3460; border-bottom: 2px solid #e94560; }
+#sidebar-header h1 { font-size: 15px; color: #fff; line-height: 1.3; }
+#sidebar-header h1 small { display: block; font-size: 11px; color: #8a8ab5; font-weight: 400; margin-top: 2px; }
+#search-section { padding: 12px 16px; background: #1a1a3e; border-bottom: 1px solid #0f3460; }
+#search-input { width: 100%; padding: 8px 12px; border: 1px solid #0f3460; border-radius: 4px; background: #0d1b3e; color: #e0e0e0; font-size: 13px; outline: none; }
+#search-input:focus { border-color: #e94560; }
+#search-results { max-height: 200px; overflow-y: auto; display: none; background: #0d1b3e; border: 1px solid #0f3460; border-top: none; border-radius: 0 0 4px 4px; }
+.search-result-item { padding: 6px 10px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #1a1a3e; }
+.search-result-item:hover { background: #1a1a4e; }
+.search-result-item .sr-tier { float: right; font-size: 10px; color: #8a8ab5; }
+#controls { padding: 8px 16px; background: #1a1a3e; border-bottom: 1px solid #0f3460; display: flex; gap: 6px; flex-wrap: wrap; }
+.layer-btn { padding: 4px 10px; border: 1px solid #0f3460; border-radius: 3px; background: transparent; color: #8a8ab5; font-size: 11px; cursor: pointer; transition: all 0.2s; }
+.layer-btn:hover { border-color: #e94560; }
+.layer-btn.active { background: #e94560; color: #fff; border-color: #e94560; }
+#stats { padding: 6px 16px; font-size: 11px; color: #6a6a95; border-bottom: 1px solid #0f3460; display: flex; gap: 12px; }
+#inspect-panel { flex: 1; padding: 12px 16px; overflow-y: auto; font-size: 13px; }
+#inspect-panel h2 { font-size: 18px; color: #e94560; margin-bottom: 4px; }
+#inspect-panel .meta { color: #8a8ab5; font-size: 12px; margin-bottom: 8px; }
+#inspect-panel .section { margin-top: 10px; }
+#inspect-panel .section h3 { font-size: 12px; color: #e94560; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+#inspect-panel .edge-item { padding: 3px 6px; margin: 2px 0; background: #0d1b3e; border-radius: 3px; font-size: 12px; cursor: pointer; }
+#inspect-panel .edge-item:hover { background: #1a2a5e; }
+#inspect-panel .evidence-item { padding: 4px 6px; margin: 3px 0; background: #0d1b3e; border-left: 3px solid #e94560; font-size: 11px; font-style: italic; color: #b0b0d0; }
+#inspect-panel .hint { color: #6a6a95; font-size: 12px; text-align: center; padding: 40px 0; }
+#graph-container { flex: 1; position: relative; background: #1a1a2e; }
+#graph-container canvas { display: block; }
+#legend { position: absolute; bottom: 20px; left: 20px; background: rgba(22, 33, 62, 0.9); padding: 8px 12px; border-radius: 4px; border: 1px solid #0f3460; font-size: 11px; color: #8a8ab5; }
+.legend-item { display: flex; align-items: center; gap: 6px; margin: 2px 0; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+#sidebar-footer { padding: 8px 16px; font-size: 10px; color: #4a4a75; border-top: 1px solid #0f3460; text-align: center; }
+#sidebar-footer a { color: #8a8ab5; }
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <h1>Dutch Virology Network <small>Multiplex Knowledge Graph · 5,401 nodes · 3 layers</small></h1>
+    </div>
+    <div id="search-section">
+      <input type="text" id="search-input" placeholder="Search 5,401 nodes (name, org, tier)..." autocomplete="off">
+      <div id="search-results"></div>
+    </div>
+    <div id="controls">
+      <button class="layer-btn active" data-layer="CO_AUTHOR">📄 Co-Author</button>
+      <button class="layer-btn active" data-layer="POLICY_ADVISORY">🏛 Policy</button>
+      <button class="layer-btn active" data-layer="MEDIA_NARRATIVE">📰 Media</button>
+      <button class="layer-btn active" data-layer="all">🔵 All</button>
+    </div>
+    <div id="stats">
+      <span id="stat-nodes">100 nodes</span>
+      <span id="stat-edges">188 edges</span>
+      <span id="stat-search">5,401 searchable</span>
+    </div>
+    <div id="inspect-panel">
+      <div class="hint">🔍 Click a node to inspect<br>or search above</div>
+    </div>
+    <div id="sidebar-footer">
+      <a href="https://github.com/TriggerMinds/dutch-virology-network-analysis" target="_blank">GitHub</a> · 
+      <a href="llm-context.md" target="_blank">AI Context</a> · 
+      Data: Tony's Diary + OpenAlex + NIH
+    </div>
+  </div>
+
+  <!-- Graph -->
+  <div id="graph-container">
+    <div id="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:#e74c3c"></span> Tier 1 — Core</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#3498db"></span> Tier 2 — Bridge</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#2ecc71"></span> Tier 3 — Media</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#f39c12"></span> Key Event/Position</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#95a5a6"></span> Other</div>
+      <div class="legend-item" style="margin-top:4px;font-size:10px;">Edge: <span style="color:#5dade2">Co-Author</span> · <span style="color:#e74c3c">Policy</span> · <span style="color:#2ecc71">Media</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+// ── Cached DOM ──────────────────────────────────────────────────────────
+const container = document.getElementById('graph-container');
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+const inspectPanel = document.getElementById('inspect-panel');
+const statNodes = document.getElementById('stat-nodes');
+const statEdges = document.getElementById('stat-edges');
+const statSearch = document.getElementById('stat-search');
+
+// ── Data ────────────────────────────────────────────────────────────────
+const allNodes = VIS_DATA.fullIndex; // 5401
+const timeline = VIS_DATA.timeline || [];
+
+// Build lookup maps
+const nodeLookup = {};
+allNodes.forEach(n => { nodeLookup[n.id] = n; });
+
+// ── Build vis-network ──────────────────────────────────────────────────
+function buildNetwork(showLayers) {
+  if (!showLayers) showLayers = { CO_AUTHOR: true, POLICY_ADVISORY: true, MEDIA_NARRATIVE: true };
+
+  const filteredEdges = VIS_DATA.edges.filter(e => {
+    if (e.layer === 'CO_AUTHOR') return showLayers.CO_AUTHOR;
+    if (e.layer === 'POLICY_ADVISORY') return showLayers.POLICY_ADVISORY;
+    if (e.layer === 'MEDIA_NARRATIVE') return showLayers.MEDIA_NARRATIVE;
+    return true;
+  });
+
+  const connectedNodeIds = new Set();
+  filteredEdges.forEach(e => { connectedNodeIds.add(e.from); connectedNodeIds.add(e.to); });
+  const filteredNodes = VIS_DATA.nodes.filter(n => connectedNodeIds.has(n.id));
+
+  // Also always include Tier 1 nodes and key nodes
+  VIS_DATA.nodes.forEach(n => {
+    if ((n.full_data.tier === 1 || n.full_data.tier === 2 || n.full_data.tier === 3) && !connectedNodeIds.has(n.id)) {
+      if (n.full_data.tier <= 2) {
+        filteredNodes.push(n);
+        connectedNodeIds.add(n.id);
+      }
+    }
+  });
+
+  const nodes = new vis.DataSet(filteredNodes);
+  const edges = new vis.DataSet(filteredEdges);
+
+  statNodes.textContent = filteredNodes.length + ' nodes';
+  statEdges.textContent = filteredEdges.length + ' edges';
+  statSearch.textContent = allNodes.length + ' searchable';
+
+  const options = {
+    physics: { stabilization: { iterations: 150 }, solver: 'forceAtlas2Based', forceAtlas2Based: { gravitationalConstant: -40, centralGravity: 0.005, springLength: 120, springConstant: 0.02 } },
+    interaction: { hover: true, tooltipDelay: 200, navigationButtons: false, zoomView: true, dragView: true },
+    edges: { smooth: { type: 'continuous' }, width: 1.5 },
+    nodes: { shape: 'dot', borderWidth: 1, font: { size: 10, color: '#c0c0e0' }, scaling: { min: 8, max: 30 } },
+    layout: { improvedLayout: true }
+  };
+
+  if (window.network) window.network.destroy();
+  window.network = new vis.Network(container, { nodes, edges }, options);
+
+  window.network.on('click', function(params) {
+    if (params.nodes.length > 0) {
+      showNodeInfo(params.nodes[0]);
+    } else {
+      showDefaultInfo();
+    }
+  });
+
+  window.network.on('hoverNode', function(params) {
+    document.body.style.cursor = 'pointer';
+  });
+  window.network.on('blurNode', function() {
+    document.body.style.cursor = 'default';
+  });
+}
+
+// ── Node Info Panel ─────────────────────────────────────────────────────
+function showNodeInfo(nodeIdx) {
+  const n = VIS_DATA.nodes.find(x => x.id === nodeIdx);
+  if (!n) return;
+  const d = n.full_data;
+  const lookup = nodeLookup[d.id];
+
+  let html = `<h2>${d.id}</h2>`;
+  html += `<div class="meta">`;
+  if (d.org) html += `${d.org} · `;
+  html += `Tier ${d.tier} · ${d.role || ''}</div>`;
+
+  // Centrality
+  html += `<div class="section"><h3>Centrality</h3>`;
+  html += `<div style="display:flex;gap:16px;font-size:12px;">`;
+  html += `<span>Betweenness: <strong>${d.betweenness}</strong></span>`;
+  html += `<span>Eigenvector: <strong>${d.eigenvector}</strong></span>`;
+  html += `<span>Degree: <strong>${d.degree}</strong></span>`;
+  html += `</div></div>`;
+
+  // Connected edges
+  const nodeEdges = VIS_DATA.edges.filter(e => e.from === nodeIdx || e.to === nodeIdx);
+  if (nodeEdges.length > 0) {
+    html += `<div class="section"><h3>Connections (${nodeEdges.length})</h3>`;
+    const shown = nodeEdges.slice(0, 20);
+    shown.forEach(e => {
+      const otherIdx = e.from === nodeIdx ? e.to : e.from;
+      const other = VIS_DATA.nodes.find(x => x.id === otherIdx);
+      if (other) {
+        const layerLabel = { CO_AUTHOR: '📄', POLICY_ADVISORY: '🏛', MEDIA_NARRATIVE: '📰', CONSORTIUM_FUNDING: '💰' }[e.layer] || '';
+        html += `<div class="edge-item" onclick="focusNode(${otherIdx})">${layerLabel} ${e.layer} → <strong>${other.full_data.id}</strong></div>`;
+      }
+    });
+    if (nodeEdges.length > 20) html += `<div style="color:#6a6a95;font-size:11px;">... and ${nodeEdges.length - 20} more</div>`;
+    html += `</div>`;
+  }
+
+  // Evidence
+  if (d.evidence && d.evidence.length > 0) {
+    html += `<div class="section"><h3>Evidence Quotes</h3>`;
+    d.evidence.slice(0, 3).forEach(eq => {
+      html += `<div class="evidence-item">"${eq.quote}" <span style="color:#6a6a95;font-size:10px;">— ${eq.source} p${eq.page}</span></div>`;
+    });
+    html += `</div>`;
+  }
+
+  // Lookup data
+  if (lookup && lookup.betweenness !== undefined && nodeEdges.length === 0) {
+    html += `<div class="section"><h3>Stats (full graph)</h3>`;
+    html += `<span style="font-size:12px;">Betweenness: ${lookup.betweenness}</span>`;
+    html += `</div>`;
+  }
+
+  inspectPanel.innerHTML = html;
+}
+
+function showDefaultInfo() {
+  let html = `<div class="hint">🔍 Click a node to inspect</div>`;
+
+  // Show timeline
+  if (timeline.length > 0) {
+    html += `<div class="section" style="margin-top:12px;"><h3>Timeline</h3>`;
+    timeline.slice(0, 6).forEach(t => {
+      html += `<div style="padding:3px 6px;margin:2px 0;background:#0d1b3e;border-radius:3px;font-size:11px;">
+        <span style="color:#e94560;">${t.date}</span> ${t.type}: ${t.desc}
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  inspectPanel.innerHTML = html;
+}
+
+function focusNode(nodeIdx) {
+  if (window.network) {
+    window.network.focus(nodeIdx, { scale: 1.5, animation: { duration: 500, easingFunction: 'easeInOutQuad' } });
+    window.network.selectNodes([nodeIdx]);
+    showNodeInfo(nodeIdx);
+  }
+}
+
+// ── Search ──────────────────────────────────────────────────────────────
+searchInput.addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  if (q.length < 1) { searchResults.style.display = 'none'; return; }
+
+  const scored = allNodes.map(n => {
+    let score = 0;
+    if (n.id.toLowerCase().includes(q)) score += 10;
+    if (n.label && n.label.toLowerCase().includes(q)) score += 8;
+    if (n.org && n.org.toLowerCase().includes(q)) score += 5;
+    if (n.role && n.role.toLowerCase().includes(q)) score += 3;
+    if (n.tier > 0) score += 1;
+    return { node: n, score };
+  }).filter(x => x.score > 0).sort((a, b) => b.score - a.score).slice(0, 15);
+
+  if (scored.length === 0) { searchResults.style.display = 'none'; return; }
+
+  searchResults.style.display = 'block';
+  searchResults.innerHTML = scored.map(s => {
+    const n = s.node;
+    const tierLabel = n.tier > 0 ? `T${n.tier}` : '';
+    const idx = VIS_DATA.nodes.findIndex(vn => vn.full_data.id === n.id);
+    return `<div class="search-result-item" onclick="selectSearch('${n.id.replace(/'/g, "\\'")}', ${idx})">
+      <strong>${n.id}</strong> ${n.org ? '— ' + n.org : ''}
+      <span class="sr-tier">${tierLabel} · β=${n.betweenness || 0}</span>
+    </div>`;
+  }).join('');
+});
+
+function selectSearch(name, idx) {
+  searchInput.value = name;
+  searchResults.style.display = 'none';
+  if (idx >= 0 && window.network) {
+    window.network.focus(idx, { scale: 1.8, animation: { duration: 500, easingFunction: 'easeInOutQuad' } });
+    window.network.selectNodes([idx]);
+    showNodeInfo(idx);
+  } else {
+    // Node not in visible set — try to find by full name
+    const fullNode = allNodes.find(n => n.id === name);
+    if (fullNode) {
+      inspectPanel.innerHTML = `<h2>${name}</h2>
+        <div class="meta">${fullNode.org || ''} · Tier ${fullNode.tier} · ${fullNode.role || ''}</div>
+        <div class="section"><h3>Stats</h3>
+        <span style="font-size:12px;">Betweenness: ${fullNode.betweenness || 'N/A'}</span></div>
+        <div style="color:#e94560;margin-top:8px;font-size:12px;">⚠ Node not in visible network (layer filter or too low centrality). Toggle layers or zoom out.</div>`;
+    }
+  }
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#search-section')) {
+    searchResults.style.display = 'none';
+  }
+});
+
+// ── Layer Controls ──────────────────────────────────────────────────────
+let currentLayers = { CO_AUTHOR: true, POLICY_ADVISORY: true, MEDIA_NARRATIVE: true };
+
+document.querySelectorAll('.layer-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const layer = this.dataset.layer;
+    if (layer === 'all') {
+      const allActive = !document.querySelector('.layer-btn.active[data-layer="all"]');
+      document.querySelectorAll('.layer-btn').forEach(b => b.classList.remove('active'));
+      if (allActive) {
+        document.querySelectorAll('.layer-btn').forEach(b => b.classList.add('active'));
+        currentLayers = { CO_AUTHOR: true, POLICY_ADVISORY: true, MEDIA_NARRATIVE: true };
+      } else {
+        this.classList.add('active');
+        currentLayers = { CO_AUTHOR: false, POLICY_ADVISORY: false, MEDIA_NARRATIVE: false };
+      }
+    } else {
+      currentLayers[layer] = !currentLayers[layer];
+      this.classList.toggle('active');
+      const anyActive = Object.values(currentLayers).some(v => v);
+      document.querySelector('[data-layer="all"]').classList.toggle('active', anyActive === false);
+    }
+    buildNetwork(currentLayers);
+  });
+});
+
+// ── Init ────────────────────────────────────────────────────────────────
+buildNetwork(currentLayers);
+
+</script>
+</body>
+</html>
