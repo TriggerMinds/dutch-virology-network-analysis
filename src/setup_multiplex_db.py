@@ -150,6 +150,13 @@ def setup_db():
             period TEXT,
             source_url TEXT
         );
+        CREATE TABLE domain2_clinical_forensics (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            researcher_name TEXT,
+            forensic_topic TEXT,
+            primary_dataset_ref TEXT,
+            sha256_hash TEXT
+        );
     """)
     return conn
 
@@ -333,6 +340,35 @@ def main():
     for row in tech_data:
         c.execute("INSERT INTO technical_capabilities (researcher_name, genetic_feature, publication_evidence, method_type) VALUES (?,?,?,?)", row)
     print(f"  Technical capabilities: {len(tech_data)} entries")
+
+    # Domain 2: Clinical & Plasmid Forensics ───────────────────────────────
+    print("[domain2] Seeding clinical forensics data...")
+    domain2_data = [
+        ("Kevin McKernan", "mRNA Plasmid DNA Contamination",
+         "Sequencing analysis of Pfizer/BioNTech BNT162b2 (NCT04368728); detected plasmid DNA fragments including SV40 promoter/enhancer in vaccine vials",
+         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"),
+        ("Robert Malone", "mRNA Lipid Nanoparticle Technology",
+         "Original inventor of mRNA vaccine platform (US6334859B1); statements on LNPs and alternative splicing",
+         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"),
+        ("Theo Schetters", "Immunological Response to Spike Protein",
+         "Publications on aberrant immune responses to SARS-CoV-2 spike protein; original antigenic sin hypothesis",
+         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"),
+        ("Sonia Elijah", "PHMPT Document Archive",
+         "FOIA/PHMPT document collection and analysis; primary source identification for FDA regulatory data",
+         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"),
+        ("Ronald Meester", "Oversterfte Statistical Model",
+         "Eindverslag onderzoek oversterfte 2021-2023; CBS/RIVM data discrepancy analysis; 45,000 excess deaths model",
+         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"),
+        ("Wouter Aukema", "EudraVigilance MedDRA Signal Detection",
+         "EudraVigilance data analysis; MedDRA LLT disproportionality signals for COVID-19 vaccines; PRR/ROR methodology",
+         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"),
+        ("Marc Jacobs", "CBS Oversterfte Validatie",
+         "Co-author Eindverslag oversterfte; statistical validation of CBS mortality data discrepancies",
+         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"),
+    ]
+    for row in domain2_data:
+        c.execute("INSERT INTO domain2_clinical_forensics (researcher_name, forensic_topic, primary_dataset_ref, sha256_hash) VALUES (?,?,?,?)", row)
+    print(f"  domain2_clinical_forensics: {len(domain2_data)} entries")
 
     # 7. Media narrative edges ─────────────────────────────────────────────
     ensure_node(conn, "Maarten Keulemans", "person", 3, "de Volkskrant", "science journalist")

@@ -209,7 +209,94 @@ De volledige multiplex graaf is geexporteerd naar `data/graph.json` (node-link f
 **Dual-pillar UI tabs toegevoegd aan web-app:** P1 Origins / P2 Regulering.
 
 ---
-## 12. OUTPUTBESTANDEN
+
+## 16. ONDERZOEKSTEAM-DYNAMICA & MATRIX VAN EXPERTISE VS. ONDERZOEKSOBJECT
+
+### 16.1 Fauci Diary Mentions per Team Dynamica Lid
+
+De volgende tabel toont welke van de 15 TEAMDYNAMICA-leden genoemd worden in Fauci's
+contemporaine dagboek (1.141 pagina's) — de enige directe contemporaine bron over de
+Feb 1 2020 teleconferentie en de daaraan voorafgaande gebeurtenissen.
+
+| Teamlid | Diary mentions | Pagina('s) | Context |
+|---------|---------------|------------|---------|
+| **Steven Quay** | **2** | p792, p1012 | Geciteerd als GOF-expert en lab-origin voorstander; CEO Atossa Therapeutics |
+| **Ralph Baric** | **1** | p786 | GOF-onderzoek met coronaviruses aan UNC Chapel Hill |
+| Robert Malone | 0 | — | — |
+| Kevin McKernan | 0 | — | — |
+| Aseem Malhotra | 0 | — | — |
+| Theo Schetters | 0 | — | — |
+| Yuri Deigin | 0 | — | — |
+| Sonia Elijah | 0 | — | — |
+| Aaron Siri | 0 | — | — |
+| Jan Hommel | 0 | — | — |
+| Els van Veen | 0 | — | — |
+| Wouter Aukema | 0 | — | — |
+| Ronald Meester | 0 | — | — |
+| Marc Jacobs | 0 | — | — |
+| Maurice de Hond | 0 | — | — |
+
+**Bevinding:** Van de 15 teamleden worden alleen Steven Quay en Ralph Baric genoemd.
+Quay (2x) vanwege zijn GOF/lab-origin stellingname. Baric (1x) vanwege zijn
+coronavirus reverse genetics publicaties. De overige 13 analisten — inclusief de
+mRNA-contaminatie-, oversterfte- en EudraVigilance-experts — worden niet genoemd.
+
+### 16.2 De Asymmetrie: Onderzoekers vs. Onderzoeksobjecten
+
+Een cruciaal methodologisch inzicht is het onderscheid tussen twee groepen:
+
+**Groep A — De Onderzoekers (TEAMDYNAMICA-leden):**
+Document- en data-analisten, clinici, journalisten. Geen hands-on wet-lab
+reverse genetics ervaring met BsmBI/BsaI of furin cleavage site constructie.
+Het team constateert dit zelf: "Het team heeft nog steeds geen lid met
+hands-on laboratoriumervaring in het daadwerkelijk uitvoeren van reverse
+genetics of gain-of-function experimenten met coronavirussen."
+
+**Groep B — De Onderzoeksobjecten (Knowledge Graph nodes):**
+Wet-lab wetenschappers met bewezen BsmBI/BsaI reverse genetics patenten:
+
+| Naam | Patent(en) | Techniek | Jaar |
+|------|-----------|----------|------|
+| **Ron Fouchier** | US6849435B2, US20140234358A1 | BsmBI/BsaI reverse genetics; H5N1 ferret GOF | 1999, 2012 |
+| **Ab Osterhaus** | WO2006131370A2 | SARS-CoV reverse genetics | 2005 |
+| **Yoshi Kawaoka** | WO2014170750A1, US6849435B2 | Mutant influenza; ferret transmission | 2013 |
+| **Ralph Baric** | — (peer-reviewed) | Coronavirus reverse genetics; DEFUSE | 2018+ |
+
+**Kernpunt:** De personen met de daadwerkelijke laboratoriumexpertise om te
+beoordelen of de furin cleavage site synthetisch of natuurlijk is (Fouchier,
+Osterhaus, Kawaoka, Baric) zijn objecten van onderzoek, geen leden van het
+onderzoeksteam. Zij worden geanalyseerd via documenten en data — maar hun
+eigen technische oordeel (Fouchier: natuurlijk, Baric: via NIH-samenwerking
+met WIV) is niet als primaire bron in het team aanwezig.
+
+### 16.3 De BsmBI/BsaI Octrooistamboom (US6849435B2)
+
+De methodologische basis voor reverse genetics van zowel influenza- als
+coronavirussen ligt in het patent US6849435B2 (Fouchier, Osterhaus, Kawaoka,
+1999). Dit patent beschrijft het gebruik van type IIS restrictie-enzymen
+(BsmBI, BsaI) voor het kloneren van virale genomen uit cDNA. De techniek
+is later toegepast op SARS-CoV (WO2006131370A2, 2005) en vormt de
+methodologische basis voor de discussie over de furin cleavage site in
+SARS-CoV-2.
+
+De stamboom:
+```
+US6849435B2 (Fouchier/Osterhaus/Kawaoka, 1999)
+  └── BsmBI/BsaI reverse genetics systeem
+       ├── Toegepast op influenza A (H5N1 ferret, 2012)
+       ├── Toegepast op SARS-CoV (WO2006131370A2, 2005)
+       ├── Toegepast op MERS-CoV (Fouchier, 2012)
+       └── Relevant voor SARS-CoV-2 furin cleavage site
+            └── Feb 1 2020 call: natuurlijk vs. synthetisch debat
+```
+
+De octrooihouders (Fouchier, Osterhaus, Kawaoka) hebben direct of indirect
+commercieel belang (Viroscience B.V.) bij de instandhouding van de reverse
+genetics infrastructuur. Dit is geen aantijging van kwade opzet, maar een
+constatering van belangen die in een volledige forensische analyse moeten
+worden meegewogen.
+
+## 17. OUTPUTBESTANDEN
 
 | Bestand | Grootte | Beschrijving |
 |---------|---------|-------------|
