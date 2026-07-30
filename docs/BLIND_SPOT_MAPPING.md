@@ -127,4 +127,21 @@ Elk datapunt in `network_data.db` en `graph.json` moet worden gelezen met de vol
 
 ---
 
+## 6. Geïntegreerde Forensische Dossiers & Datasets (Juli 2026 Audit)
+
+De volgende aanvullende dossiers en datasets zijn formeel verankerd in de repository:
+
+- **WOO-Afwijzingen & Zwartlakking Analyse:** [WOO_REFUSAL_ANALYSIS.md](file:///c:/Users/gewoo/Desktop/New%20folder%20(4)/docs/WOO_REFUSAL_ANALYSIS.md)  
+  *Dataset:* `data/processed/woo_refusal_matrix.json` & CSV (Art. 5.2 beleidsopvattingen 68.5%, Art. 5.1 sub c bedrijfsvertrouwelijkheid 42.0%).
+- **ECRAID Foundation & OMT Dubbelrollen:** [ECRAID_FORENSIC_DOSSIER.md](file:///c:/Users/gewoo/Desktop/New%20folder%20(4)/docs/ECRAID_FORENSIC_DOSSIER.md)  
+  *Dataset:* `data/processed/ecraid_forensic_matrix.json` & CSV (Marc Bonten CEO €20M GA#965313, Koopmans POS-Disease X lead).
+- **Nederlandse Inlichtingenpositie (AIVD/MIVD):** [NL_INTELLIGENCE_ORIGINS.md](file:///c:/Users/gewoo/Desktop/New%20folder%20(4)/docs/NL_INTELLIGENCE_ORIGINS.md)  
+  *Status:* `UNRECORDED_NEUTRAL` (Kamerstuk 25 295 nr 1180, AIVD Jaarverslag 2020).
+- **Media-Narratief & 107-Dagen Lag:** [MEDIA_NARRATIVE_NL.md](file:///c:/Users/gewoo/Desktop/New%20folder%20(4)/docs/MEDIA_NARRATIVE_NL.md)  
+  *Status:* 25+ geëncodeerde artikelen (Volkskrant, NRC, NOS, Nieuwsuur).
+- **Volledige Geldstromen Matrix:** `data/processed/dutch_funding_matrix.json` & CSV  
+  *Totaal:* €49,9M EU Horizon 2020 + €17,7M ZonMw + $3,7M NIH + Viroscience B.V. KVK #24416174 audit.
+
+---
+
 *Mapping generated 2026-07-30. Dit is een living document — voeg nieuwe blind spots toe zodra ze worden geïdentificeerd.*

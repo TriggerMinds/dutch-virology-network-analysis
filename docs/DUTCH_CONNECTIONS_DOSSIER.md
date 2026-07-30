@@ -309,4 +309,13 @@ worden meegewogen.
 
 ---
 
+## 18. GEÏNTEGREERDE FORENSISCHE DOSSIERS (JULI 2026 REINFORCEMENT)
+
+- [WOO-Afwijzingen & Zwartlakking Analyse](file:///c:/Users/gewoo/Desktop/New%20folder%20(4)/docs/WOO_REFUSAL_ANALYSIS.md) — Systematische audit van weigeringsgronden (Art. 5.2 beleidsopvattingen 68.5%, Art. 5.1 sub c bedrijfsgegevens 42.0%).
+- [ECRAID Foundation & OMT Dubbelrollen](file:///c:/Users/gewoo/Desktop/New%20folder%20(4)/docs/ECRAID_FORENSIC_DOSSIER.md) — Governance doorlichting Marc Bonten (CEO €20M GA#965313) & Marion Koopmans (POS-Disease X).
+- [Nederlandse Inlichtingenpositie (AIVD/MIVD)](file:///c:/Users/gewoo/Desktop/New%20folder%20(4)/docs/NL_INTELLIGENCE_ORIGINS.md) — Audit van AIVD/MIVD-jaarverslagen en Kamerstuk 25 295 nr 1180.
+- [Nederlandse Media-Narratief Analyse](file:///c:/Users/gewoo/Desktop/New%20folder%20(4)/docs/MEDIA_NARRATIVE_NL.md) — Coderingsanalyse van 25+ media-artikelen & 107-dagen Narrative Lag.
+
+---
+
 *Multiplex Knowledge Graph gegenereerd 2026-07-30. Geen conclusies over schuld of onschuld — alleen gestructureerde vastlegging van feiten uit het brondocument.*
