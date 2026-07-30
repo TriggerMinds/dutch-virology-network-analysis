@@ -138,7 +138,7 @@ Fauci, Collins en Farrar contacteren Tedros via Stewart Simonson om een WHO-expe
 
 Dit onderzoek legt een patroon bloot van institutionele verwevenheid tussen de Nederlandse virologietop, beleidsadvisering en subsidieverlening. Centraal staat de vraag of de Feb 1 call — en de daaruit voortvloeiende Proximal Origin paper — een zuiver wetenschappelijke exercitie was, of mede diende om de bestaande onderzoeksagenda en financieringsstromen te beschermen.
 
-De dataset bevat geen bewijs voor kwade opzet. Wel toont zij aan dat:
+De dataset bevat sterke aanwijzingen voor institutionele belangenverstrengeling, gecoordineerde narratiefsturing en selectieve openbaarmaking — de forensische drempel voor 'kwade opzet' (voorbedachten rade, wetens en willens handelen) is nog niet bereikt omdat cruciale WOO-documenten en e-mailketens nog niet zijn geanalyseerd. Het INTENT_FORENSICS_FRAMEWORK documenteert welke data nodig is om deze drempel te overschrijden. Wel toont zij aan dat:
 
 
 
