@@ -3,9 +3,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 """
-auto_downloader.py — Haalt externe data op voor waarheidsvinding:
-A. NIH RePORTER API → NIH grants met Nederlandse connecties
-B. OpenAlex API → Publicaties/co-auteurs: Fouchier, Koopmans, Fauci, Farrar
+auto_downloader.py -- Haalt externe data op voor waarheidsvinding:
+A. NIH RePORTER API -> NIH grants met Nederlandse connecties
+B. OpenAlex API -> Publicaties/co-auteurs: Fouchier, Koopmans, Fauci, Farrar
 C. FOIA / openbare documenten (directe links)
 
 Output: downloads/nih_funding_netherlands.json, downloads/openalex_coauthorships.json
@@ -84,7 +84,7 @@ with open(nih_path, "w", encoding="utf-8") as f:
     json.dump(nih_results, f, ensure_ascii=False, indent=1)
 print(f"  Saved {len(nih_results)} grants to {nih_path}")
 
-# ─── B. OpenAlex API — Co-authorships ───────────────────────────────────
+# ─── B. OpenAlex API -- Co-authorships ───────────────────────────────────
 print("\n=== B. OpenAlex: Co-authorship networks ===")
 TARGET_AUTHORS = [
     ("Ron Fouchier", "https://api.openalex.org/authors?search=Ron+Fouchier&per_page=5"),
