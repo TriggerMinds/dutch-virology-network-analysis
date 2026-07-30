@@ -53,8 +53,10 @@ for r in c.execute("SELECT entity_name, exact_quote, document_name, page_number 
 
 # Load BIG registration mapping
 big_map = {}
-for r in c.execute("SELECT name, big_registration FROM nodes WHERE big_registration IS NOT NULL AND big_registration != ''"):
-    big_map[r["name"]] = r["big_registration"]
+node_cols = [row[1] for row in c.execute("PRAGMA table_info(nodes);").fetchall()]
+if "big_registration" in node_cols:
+    for r in c.execute("SELECT name, big_registration FROM nodes WHERE big_registration IS NOT NULL AND big_registration != ''"):
+        big_map[r["name"]] = r["big_registration"]
 
 # Curated metadata dictionary for Rich Inspector Card
 DOI_MAP = {
