@@ -602,9 +602,11 @@
     }
   };
 
+  var currentSearchResults = [];
+  
   searchInput.addEventListener('input', function() {
     var q = this.value.toLowerCase().trim();
-    if (q.length < 1) { searchResults.style.display = 'none'; return; }
+    if (q.length < 1) { searchResults.style.display = 'none'; currentSearchResults = []; return; }
     var scored = allNodes.map(function(n) {
       var score = 0;
       if (n.id.toLowerCase().indexOf(q) !== -1) score += 10;
@@ -614,6 +616,8 @@
       return { node: n, score: score };
     }).filter(function(x) { return x.score > 0; }).sort(function(a, b) { return b.score - a.score; }).slice(0, 20);
 
+    currentSearchResults = scored;
+
     if (scored.length === 0) { searchResults.style.display = 'none'; return; }
     searchResults.style.display = 'block';
     searchResults.innerHTML = scored.map(function(s) {
@@ -622,6 +626,15 @@
              '<strong style="color:#fff;">' + n.id + '</strong> <span style="color:var(--text-secondary)">' + (n.org ? '• '+n.org : '') + '</span>' +
              ' <span class="sr-tier">T' + (n.tier || 0) + '</span></div>';
     }).join('');
+  });
+
+  searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (currentSearchResults && currentSearchResults.length > 0) {
+        window.selectSearch(currentSearchResults[0].node.id);
+      }
+    }
   });
 
   document.addEventListener('click', function(e) {
