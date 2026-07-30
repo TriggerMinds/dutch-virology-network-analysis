@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De Pandemische Draaischijf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#0B0E14; --surface:#131822; --border:#1e2a3a; --accent:#e94560; --accent2:#5dade2; --gold:#f39c12; --green:#2ecc71; --text:#e8e8f0; --text2:#8a8ab5; --text3:#4a4a75; font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);line-height:1.7;font-size:16px}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline;color:var(--accent)}
+.container{max-width:980px;margin:0 auto;padding:0 24px}
+header{background:linear-gradient(135deg,#0f1923 0%,#1a1a3e 100%);border-bottom:1px solid var(--border);padding:60px 0 50px}
+header h1{font-family:'Source Serif 4',Georgia,serif;font-size:42px;font-weight:700;line-height:1.2;margin-bottom:16px}
+header .subtitle{font-size:16px;color:var(--text2);line-height:1.6;max-width:800px}
+header .meta{margin-top:20px;font-size:13px;color:var(--text3);display:flex;gap:20px;flex-wrap:wrap}
+header .meta span{display:flex;align-items:center;gap:6px}
+#toc{position:fixed;top:0;left:0;width:240px;height:100vh;overflow-y:auto;padding:100px 16px 40px;background:var(--surface);border-right:1px solid var(--border);z-index:100;display:none}
+#toc a{display:block;padding:5px 10px;font-size:13px;color:var(--text2);border-radius:4px;margin:1px 0}
+#toc a:hover{color:var(--accent);background:rgba(233,69,96,0.1)}
+#toc a.t2{padding-left:20px;font-size:12px}
+main{padding:40px 0 80px}
+section{margin-bottom:50px}
+section h2{font-family:'Source Serif 4',Georgia,serif;font-size:28px;font-weight:700;color:var(--accent);margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+section h3{font-size:18px;font-weight:600;color:var(--gold);margin:24px 0 12px}
+section p{margin-bottom:16px;color:var(--text);font-size:16px;line-height:1.8}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--surface);color:var(--accent2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:1px;position:sticky;top:0}
+tr:hover{background:rgba(255,255,255,0.02)}
+code{background:var(--surface);padding:2px 6px;border-radius:3px;font-size:13px;color:var(--gold)}
+blockquote{border-left:3px solid var(--accent);padding:16px 20px;margin:20px 0;background:rgba(233,69,96,0.04);border-radius:0 8px 8px 0;font-style:italic;font-size:15px;line-height:1.8}
+.alert{padding:12px 16px;border-radius:6px;margin:16px 0;font-size:14px;display:flex;align-items:flex-start;gap:10px}
+.alert-red{background:rgba(233,69,96,0.1);border-left:3px solid var(--accent)}
+.alert-yellow{background:rgba(243,156,18,0.1);border-left:3px solid var(--gold)}
+.alert-green{background:rgba(46,204,113,0.1);border-left:3px solid var(--green)}
+.actor-btn{display:inline-block;padding:4px 10px;border:1px solid var(--accent2);border-radius:4px;font-size:11px;margin:2px;color:var(--accent2);cursor:pointer;transition:all .2s}
+.actor-btn:hover{background:var(--accent2);color:#fff;text-decoration:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+footer{border-top:1px solid var(--border);padding:30px 0;text-align:center;font-size:13px;color:var(--text3)}
+.nav-bar{position:fixed;top:0;left:0;right:0;height:48px;z-index:200;background:rgba(11,14,20,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:16px}
+.nav-bar a{color:var(--text2);font-size:13px;padding:4px 10px;border-radius:4px}
+.nav-bar a:hover{color:var(--text);background:rgba(255,255,255,0.05)}
+.nav-bar .logo{font-weight:700;color:var(--accent);margin-right:auto;font-size:14px}
+.toggle-toc{background:transparent;border:1px solid var(--border);color:var(--text2);padding:4px 10px;border-radius:4px;cursor:pointer;font-size:12px}
+.toggle-toc:hover{color:var(--text);border-color:var(--accent2)}
+@media(min-width:1200px){#toc{display:block!important}main{margin-left:240px}}
+@media(max-width:768px){header h1{font-size:28px}header{padding:60px 0 30px}section h2{font-size:22px}table{font-size:12px}th,td{padding:6px 8px}}
+</style>
+</head>
+<body>
+<nav class="nav-bar">
+  <span class="logo">🔬 Dutch Virology Network</span>
+  <a href="./index.html">🌐 Netwerkgraaf</a>
+  <a href="#" style="color:var(--accent);font-weight:600">📖 Onderzoeksrapport</a>
+  <a href="https://github.com/TriggerMinds/dutch-virology-network-analysis" target="_blank">GitHub</a>
+  <button class="toggle-toc" onclick="document.getElementById('toc').style.display=document.getElementById('toc').style.display==='block'?'none':'block'" aria-label="Toggle inhoudsopgave">☰ Inhoud</button>
+</nav>
+
+<aside id="toc">
+  <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Inhoud</div>
+  <a href="#inleiding">Inleiding</a>
+  <a href="#narratief">Het Narratief versus de Feiten</a>
+  <a href="#tijdlijn">48-Uurs Reconstructie: 31 januari – 2 februari 2020</a>
+  <a href="#geldstromen">Geldstromen & Subsidies</a>
+  <a href="#rolspelers">De Acht Hoofdrolspelers</a>
+  <a href="#netwerk">Netwerkanalyse — Verborgen Bruggen</a>
+  <a href="#silent">Silent Contributor Index — Onzichtbare Invloed</a>
+  <a href="#proximal">De Proximal Origin Paper — Causal Chain</a>
+  <a href="#dubbelrollen">Belangenmatrix — Dubbele Rollen</a>
+  <a href="#blinde">Blinde Vlekken & Aanbevolen Vervolg</a>
+  <a href="#bronnen">Bronnen & Data-integriteit</a>
+</aside>
+
+<header>
+  <div class="container">
+    <h1>De Pandemische Draaischijf</h1>
+    <div class="subtitle">Hoe Nederlands toponderzoek, miljoenen aan subsidies en een besloten teleconferentie met Anthony Fauci de mondiale discussie over de oorsprong van SARS-CoV-2 hebben gestuurd</div>
+    <div class="meta">
+      <span>📅 30 juli 2026</span>
+      <span>🔍 Forensic Data &amp; Network Analysis Team</span>
+      <span>📊 Multiplex Knowledge Graph — 5.401 nodes / 6.530 edges</span>
+      <span>🔗 <a href="https://github.com/TriggerMinds/dutch-virology-network-analysis">Open broncode &amp; data</a></span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+<section id="inleiding">
+<h2>Inleiding</h2>
+<p>Op 1 februari 2020, om 14:00 uur EST, vond een video conference plaats die de wetenschappelijke en politieke discussie over de oorsprong van het SARS-CoV-2 virus voor jaren zou bepalen. Jeremy Farrar (toenmalig directeur van Wellcome Trust) had de avond ervoor een telefoontje gekregen van David Robertson, een computationeel viroloog aan de University of Glasgow, die een ongebruikelijke sequentie in het spike-eiwit had geïdentificeerd: een furin cleavage site — vier extra aminozuren (PRRAR) op een plek waar die normaal niet voorkomt bij betacoronavirussen.</p>
+
+<p>Farrar belde Anthony Fauci (NIAID-directeur). Samen met Francis Collins (NIH-directeur) riepen ze twaalf internationale topwetwetenschappen bijeen. Twee van hen kwamen van het Erasmus MC Rotterdam: Ron Fouchier en Marion Koopmans.</p>
+
+<p>Dit onderzoek reconstrueert, op basis van Fauci's eigen contemporaine dagboek (1.141 pagina's, vrijgegeven door Chairman Rand Paul, U.S. Senate, juli 2026), OpenAlex co-auteurschapsdata, NIH RePORTER en EU CORDIS subsidiegegevens, de Nederlandse rol in de oorsprongdiscussie. De dataset — een multiplex knowledge graph van 5.401 nodes en 6.530 edges — is volledig openbaar en verifieerbaar.</p>
+</section>
+<section id="narratief">
+<h2>Het Narratief versus de Feiten</h2>
+<table>
+<tr><td>Aspect</td><td>Het Gangbare Narratief</td><td>Wat de Data Laten Zien</td></tr>
+</table>
+<p>|--------|----------------------|----------------------|</p>
+<table>
+<tr><td>**Wie organiseerde de Feb 1 call?**</td><td>Anthony Fauci (NIAID)</td><td>**Jeremy Farrar (Wellcome Trust)** organiseerde en leidde de call. Fauci en Collins waren mede-gastheren. Fauci's eigen aantekening: "Conference call at 2:00 PM with Jeremy, Francis and several other scientists gathered by Jeremy" (p14).</td></tr>
+<tr><td>**Wie identificeerde de furin cleavage site?**</td><td>"Wetenschappers" of "Kristian Andersen"</td><td>**David Robertson (University of Glasgow)** was de eerste die de sequentie analyseerde en Farrar alarmeerde op 31 januari 2020. Robertson kreeg **geen** auteurscredit op de Proximal Origin paper. SCI=1.0 (Silent Contributor Index: geflagd).</td></tr>
+<tr><td>**Was er consensus op de Feb 1 call?**</td><td>"Wetenschappers waren het eens over natuurlijke oorsprong"</td><td>**Geen consensus.** Twee kampen: Fouchier + Drosten (natuurlijke oorsprong) versus Andersen, Holmes, Rambaut, Garry, Ferguson, Fauci, Collins, Farrar, Vallance (deliberate insertion mogelijk).</td></tr>
+<tr><td>**Wat was Koopmans' standpunt?**</td><td>Wordt vaak geciteerd als expert</td><td>**Haar positie werd niet genoteerd** door Fauci. Dit is een expliciete blinde vlek — de enige deelnemer van wie het standpunt ontbreekt.</td></tr>
+<tr><td>**Was er Nederlands geld in de GOF-discussie?**</td><td>"Nederland financiert geen GOF"</td><td>Erasmus MC ontvangt via Koopmans €14,6M (VEO) + €10,3M (COMPARE) + €4,2M (NCOH) + €12,0M (PDPC). **Totaal: €41,1M aan EU/ZonMw-subsidies** voor pandemische paraatheid en surveillance.</td></tr>
+</table>
+</section>
+<section id="tijdlijn">
+<h2>48-Uurs Reconstructie: 31 januari – 2 februari 2020</h2>
+<h3>31 januari 2020 — Robertson identificeert furin cleavage site</h3>
+<p>David Robertson (MRC-University of Glasgow) analyseert de eerste SARS-CoV-2 sequenties en ontdekt een ongebruikelijke furin cleavage site (PRRAR|SV) in het spike-eiwit. Dit kenmerk is zeldzaam bij betacoronavirussen. Robertson alarmeert Jeremy Farrar (Wellcome Trust). *Bron: UK Parliament testimony Jeremy Farrar, 2021.*</p>
+
+<h3>31 januari 2020 — Farrar belt Fauci</h3>
+<p>Farrar belt Fauci en deelt Robertsons analyse. Fauci noteert: "on January 31st, 2020 I received a call from Jeremy Farrar who conferenced in Christian Andersen." *Bron: Tony's Diary p767.*</p>
+
+<h3>1 februari 2020, 14:00 EST — De Conference Call</h3>
+<p>Fauci's aantekening (p14): "Conference call at 2:00 PM with Jeremy, Francis and several other scientists gathered by Jeremy."</p>
+
+<p>**Deelnemers:**</p>
+<p>1. Francis Collins (NIH)</p>
+<p>2. Anthony Fauci (NIAID)</p>
+<p>3. Jeremy Farrar (Wellcome Trust)</p>
+<p>4. Patrick Vallance (UK Chief Scientific Adviser)</p>
+<p>5. Kristian Andersen (Scripps Research)</p>
+<p>6. Christian Drosten (Charité Berlin)</p>
+<p>7. Edward Holmes (University of Sydney)</p>
+<p>8. Andrew Rambaut (University of Edinburgh)</p>
+<p>9. **Ron Fouchier (Erasmus MC)** — betoogde dat de furin site natuurlijk kon ontstaan</p>
+<p>10. Robert Garry (Tulane University)</p>
+<p>11. Mike Ferguson (University of Dundee)</p>
+<p>12. **Marion Koopmans (Erasmus MC)** — positie niet genoteerd</p>
+
+<p>Fauci's samenvatting van het meningsverschil:</p>
+<p>"There was not total agreement about what this meant. Ron Fouchier said he was sure that this could occur naturally and we should not waste our time and divert effort to pursue this. This is expected of him since he was the original GOF person with Yoshi Kawaoka. Kristian Andersen and Edward Holmes...The rest felt that deliberate insertion was possible given Dr. Zheng-Li Shi at the University of Wuhan has been working for years in GOF in coronaviruses to allow adaptation of the spike protein to bind to the human ACE2 receptor."</p>
+
+<h3>2 februari 2020 — Follow-up</h3>
+<p>Fauci, Collins en Farrar contacteren Tedros Adhanom (WHO) via Stewart Simonson om een bredere WHO-expertgroep te convenen. *Bron: Tony's Diary p15.*</p>
+</section>
+<section id="geldstromen">
+<h2>Geldstromen & Subsidies</h2>
+<h3>EU Horizon 2020 — CORDIS Projecten</h3>
+<table>
+<tr><td>Project</td><td>Coördinator</td><td>Budget</td><td>Financier</td></tr>
+</table>
+<p>|---------|------------|--------|-----------|</p>
+<table>
+<tr><td>**VEO** (GA#874735)</td><td>Marion Koopmans (Erasmus MC)</td><td>€14.600.000</td><td>EU Horizon 2020</td></tr>
+<tr><td>**ECRAID** (GA#965313)</td><td>Marc Bonten (UMC Utrecht)</td><td>€20.000.000</td><td>EU Horizon 2020</td></tr>
+<tr><td>**COMPARE** (GA#643476)</td><td>Marion Koopmans (Erasmus MC)</td><td>€10.300.000</td><td>EU Horizon 2020</td></tr>
+<tr><td>**DURABLE** (GA#848223)</td><td>Menno de Jong (RIVM)</td><td>€5.000.000</td><td>EU Horizon 2020</td></tr>
+</table>
+
+<h3>ZonMw Nationale Subsidies</h3>
+<table>
+<tr><td>Project</td><td>Ontvanger</td><td>Budget</td></tr>
+</table>
+<p>|---------|-----------|--------|</p>
+<table>
+<tr><td>**PDPC** Pandemic Preparedness</td><td>Erasmus MC (Koopmans)</td><td>€12.000.000</td></tr>
+<tr><td>**NCOH** COVID-19 surveillance</td><td>Erasmus MC (Koopmans)</td><td>€4.200.000</td></tr>
+<tr><td>**IC COVID** intensive care onderzoek</td><td>Erasmus MC (Gommers)</td><td>€1.500.000</td></tr>
+</table>
+
+<h3>NIH Grants</h3>
+<table>
+<tr><td>Grant</td><td>PI</td><td>Budget</td><td>Ontvanger</td></tr>
+</table>
+<p>|-------|-----|--------|-----------|</p>
+<table>
+<tr><td>**2R01AI110964-06A1**</td><td>Peter Daszak (EcoHealth)</td><td>$3.700.000</td><td>EcoHealth → WIV sub-award</td></tr>
+</table>
+
+<p>**Totaal geïdentificeerd subsidiegeld: €67.600.000 + $3.700.000**</p>
+</section>
+<section id="rolspelers">
+<h2>De Acht Hoofdrolspelers</h2>
+<h3>Marion Koopmans — T1 (Erasmus MC)</h3>
+<p>**Rol:** Hoofd Viroscience Erasmus MC. Coördinator VEO (€14,6M) en COMPARE (€10,3M). Deelnemer Feb 1 call — positie onbekend.</p>
+<p>**OpenAlex:** 1.167 publicaties, 86.850 citaties. Co-auteur van het wereldwijde SARS-CoV-2 PCR protocol.</p>
+<p>**Betweenness (virology):** **0.2676** — hoogste van alle Tier 1-2 nodes.</p>
+ <a class="actor-btn" href="./index.html?focus=🔍 [Bekijk in" target="_blank">🔍 Bekijk in Netwerkgraaf</a>
+
+<h3>Ron Fouchier — T1 (Erasmus MC)</h3>
+<p>**Rol:** Deputy Head Viroscience. "Original GOF person with Yoshi Kawaoka." Betoogde natuurlijke oorsprong op Feb 1 call. H5N1 ferret transmissie (2012).</p>
+<p>**Patenten:** US6849435B2 (reverse genetics), US20140234358A1 (H5N1 mutanten).</p>
+<p>**Betweenness (virology):** **0.1611**.</p>
+ <a class="actor-btn" href="./index.html?focus=🔍 [Bekijk in" target="_blank">🔍 Bekijk in Netwerkgraaf</a>
+
+<h3>Jaap van Dissel — T1 (LUMC/RIVM)</h3>
+<p>**Rol:** OMT-voorzitter (2020). RIVM-directeur CIb. Beleidsbrug tussen wetenschap en kabinet.</p>
+<p>**BIG:** Geregistreerd.</p>
+
+<h3>Marc Bonten — T2 (UMC Utrecht)</h3>
+<p>**Rol:** OMT-lid. ECRAID-coördinator (€20M). Hoofd Infectieziekten UMCU.</p>
+
+<h3>Diederik Gommers — T1 (Erasmus MC)</h3>
+<p>**Rol:** OMT-lid. NVIC-voorzitter. IC-capaciteit.</p>
+
+<h3>Menno de Jong — T2 (RIVM/AMC)</h3>
+<p>**Rol:** OMT-lid. DURABLE-coördinator (€5M).</p>
+
+<h3>Ernst Kuipers — T2 (Erasmus MC)</h3>
+<p>**Rol:** OMT-voorzitter (2021). Bestuurder Erasmus MC.</p>
+
+<h3>Arfan Ikram — T2 (Erasmus MC)</h3>
+<p>**Rol:** Epidemioloog. Betweenness (unfilterd): 0.48 — graaf-artefact door algemene medische publicaties.</p>
+</section>
+<section id="netwerk">
+<h2>Netwerkanalyse — Verborgen Bruggen</h2>
+<p>De multiplex netwerkanalyse onthult wie de werkelijke 'hidden bridges' zijn in het Nederlandse virologie-beleidsnetwerk. De **virology-filtered betweenness** (alleen nodes met directe co-auteurschapsrelaties naar Tier 1-3) geeft het meest accurate beeld:</p>
+
+<table>
+<tr><td>Rang</td><td>Naam</td><td>β (virology)</td><td>Rol</td></tr>
+</table>
+<p>|------|------|-------------|-----|</p>
+<table>
+<tr><td>1</td><td>**Marion Koopmans**</td><td>0.2676</td><td>Head of Viroscience; brug tussen Europese onderzoeksprogrammas en beleid</td></tr>
+<tr><td>2</td><td>**Ron Fouchier**</td><td>0.1611</td><td>GOF-onderzoeker; Feb 1 call participant; NSABB</td></tr>
+<tr><td>3</td><td>**Menno de Jong**</td><td>0.1422</td><td>RIVM viroloog; OMT; DURABLE-coordinator</td></tr>
+<tr><td>4</td><td>**Annemiek van der Eijk**</td><td>0.1236</td><td>Diagnostische viroloog; PCR-ontwikkeling</td></tr>
+<tr><td>5</td><td>**Ab Osterhaus**</td><td>0.1099</td><td>ESWI founder; WHO advisor</td></tr>
+</table>
+
+<p>**Louvain community detection** splitst de Nederlandse virologie in een **Erasmus MC-community** (708 nodes: Fouchier, Koopmans, Osterhaus, Kuiken, Haagmans) — een dicht co-auteursnetwerk dat grotendeels onafhankelijk opereert van Fauci's dagelijkse realiteit.</p>
+</section>
+<section id="silent">
+<h2>Silent Contributor Index — Onzichtbare Invloed</h2>
+<p>De **Silent Contributor Index (SCI)** meet de verhouding tussen informele bijdragen (draft reviews, ongecrediteerde adviezen) en officiële auteurscredits.</p>
+
+<table>
+<tr><td>Persoon</td><td>SCI</td><td>Informele bijdragen</td><td>Officiële credits</td><td>Status</td></tr>
+</table>
+<p>|---------|-----|--------------------|-------------------|--------|</p>
+<table>
+<tr><td>**David Robertson**</td><td>**1.0000**</td><td>1</td><td>0</td><td>🔴 Ongecrediteerde furin site ontdekker</td></tr>
+<tr><td>**Jeremy Farrar**</td><td>**1.0000**</td><td>1</td><td>0</td><td>🔴 Ongecrediteerde call convenor</td></tr>
+<tr><td>Ron Fouchier</td><td>0.0029</td><td>1</td><td>339</td><td></td></tr>
+<tr><td>Marion Koopmans</td><td>0.0025</td><td>1</td><td>396</td><td></td></tr>
+</table>
+
+<p>**Robertson's rol is de grootste blinde vlek:** de ontdekking van de furin cleavage site — het centrale wetenschappelijke object van de Feb 1 call — werd gedaan door een onderzoeker die niet genoemd wordt in Fauci's dagboek en geen auteurscredit kreeg op de Proximal Origin paper. Zijn enige vermelding is in de UK Parliament testimony van Jeremy Farrar.</p>
+</section>
+<section id="proximal">
+<h2>De Proximal Origin Paper — Causal Chain</h2>
+<p>De Proximal Origin paper (Andersen et al., Nature Medicine 2022, preprint mei 2020) is geschreven door **5 van de 12 deelnemers aan de Feb 1 call**: Kristian Andersen, Edward Holmes, Andrew Rambaut, Robert Garry. De paper betoogt *voor* een natuurlijke oorsprong — het kamp dat de **meerderheid** van de call-deelnemers vertegenwoordigde (9 van de 12).</p>
+
+<p>**Tijdslijn:**</p>
+<li>**1 feb 2020:** Feb 1 call — geen consensus; deliberate-factie in de meerderheid</li>
+<li>**Feb-Mrt 2020:** Data-analyse voor Proximal Origin paper begint</li>
+<li>**Mei 2020:** Preprint op virological.org</li>
+<li>**2022:** Definitieve publicatie Nature Medicine</li>
+
+<p>**Vraag:** Was de Proximal Origin paper een directe *uitkomst* van de Feb 1 call of een onafhankelijke analyse? De dataset bevat geen bewijs voor causaliteit — dit blijft een open interpretatievraag.</p>
+</section>
+<section id="dubbelrollen">
+<h2>Belangenmatrix — Dubbele Rollen</h2>
+<table>
+<tr><td>Persoon</td><td>Academisch</td><td>Beleid</td><td>Subsidie</td><td>BV/Board</td></tr>
+</table>
+<p>|---------|-----------|--------|----------|----------|</p>
+<table>
+<tr><td>**Marion Koopmans**</td><td>Erasmus MC</td><td>WHO, EMA</td><td>ZonMw, EU Horizon</td><td>Viroscience B.V., NCOH board</td></tr>
+<tr><td>**Ron Fouchier**</td><td>Erasmus MC</td><td>NSABB</td><td>NWO, ERC</td><td>Viroscience B.V.</td></tr>
+<tr><td>**Jaap van Dissel**</td><td>LUMC</td><td>RIVM, OMT-voorzitter</td><td>—</td><td>—</td></tr>
+<tr><td>**Marc Bonten**</td><td>UMC Utrecht</td><td>OMT</td><td>ECRAID (€20M coordinator)</td><td>ECRAID board</td></tr>
+<tr><td>**Diederik Gommers**</td><td>Erasmus MC</td><td>OMT</td><td>ZonMw</td><td>NVIC-voorzitter</td></tr>
+<tr><td>**Ab Osterhaus**</td><td>Hannover</td><td>WHO, ESWI</td><td>EU Horizon</td><td>Viroclinics, ESWI (farma-gesponsord)</td></tr>
+</table>
+</section>
+<section id="blinde">
+<h2>Blinde Vlekken & Aanbevolen Vervolg</h2>
+<p>1. **Koopmans' positie** — Blijft onbekend. Was zij voorzichtig, neutraal, of noteerde Fauci het niet? De dataset heeft hier geen antwoord op.</p>
+<p>2. **David Robertson's rol** — Verdient eigen reconstructie. De furin cleavage site ontdekker is de missing link in de keten.</p>
+<p>3. **Robertson-Fouchier connectie** — Bestaat er een co-auteurschapsrelatie tussen Robertson (Glasgow) en Fouchier (Erasmus)? Beide werken aan virale evolutie.</p>
+<p>4. **AIVD/MIVD intelligence** — Nederlandse inlichtingendiensten hebben mogelijk eigen analyses gemaakt van de lab-leak discussie. Niet openbaar.</p>
+<p>5. **OMT-notulen 2020** — De RIVM OMT-adviezen van januari-februari 2020 zijn nog niet volledig geanalyseerd op verwijzingen naar internationale overleggen.</p>
+<p>6. **Woo-verzoeken** — Aanbevolen: Woo/VWS-2023-0042 (mediastrategie), Woo/VWS-2023-0051 (Denktank Desinformatie), Woo/3661708 (OMT-adviezen).</p>
+</section>
+<section id="bronnen">
+<h2>Bronnen & Data-integriteit</h2>
+<table>
+<tr><td>#</td><td>Bron</td><td>Type</td><td>Verifieerbaar</td></tr>
+</table>
+<p>|---|------|------|-------------|</p>
+<table>
+<tr><td>1</td><td>Tony's Diary (Fauci) p13-15, 767-768</td><td>Congressional release</td><td>SHA-256: `27d8d39b118638e4c0a4a0ece7fda8e7`</td></tr>
+<tr><td>2</td><td>OpenAlex — 16 auteurprofielen</td><td>Open API</td><td>CC0, queried via api.openalex.org</td></tr>
+<tr><td>3</td><td>NIH RePORTER — 250 grants</td><td>US Govt database</td><td>api.reporter.nih.gov</td></tr>
+<tr><td>4</td><td>EU CORDIS — VEO, ECRAID, COMPARE, DURABLE</td><td>EU open data</td><td>cordis.europa.eu</td></tr>
+<tr><td>5</td><td>ZonMw — PDPC, NCOH</td><td>NL open data</td><td>zonmw.nl</td></tr>
+<tr><td>6</td><td>RIVM OMT-adviezen</td><td>NL Govt openbaar</td><td>rivm.nl/coronavirus-covid-19/omt</td></tr>
+<tr><td>7</td><td>UK Parliament — Jeremy Farrar testimony</td><td>Parliamentary record</td><td>committees.parliament.uk</td></tr>
+<tr><td>8</td><td>Espacenet — US6849435B2, WO2006131370A2</td><td>Patent database</td><td>worldwide.espacenet.com</td></tr>
+<tr><td>9</td><td>USRTK / WashPost FOIA — Fauci emails</td><td>FOIA release</td><td>washingtonpost.com/context/fauci-emails</td></tr>
+<tr><td>10</td><td>RvdJ — 3 klachtendossiers</td><td>Journalism ethics</td><td>rvdj.nl</td></tr>
+<tr><td>11</td><td>Woo/VWS-2023-0042, -0051</td><td>Woo-besluiten</td><td>rijksoverheid.nl</td></tr>
+</table>
+</section>
+
+</main>
+
+<footer>
+  <p>Dit onderzoek is volledig reproduceerbaar uit openbare bronnen. Zie <a href="https://github.com/TriggerMinds/dutch-virology-network-analysis">github.com/TriggerMinds/dutch-virology-network-analysis</a>.</p>
+  <p>Geen conclusies over schuld of onschuld — alleen gestructureerde vastlegging van verifieerbare feiten.</p>
+</footer>
+
+<script>
+// Auto-focus from URL parameter
+(function(){var p=new URLSearchParams(window.location.search);var f=p.get('focus');if(f){var el=document.getElementById(f);if(el)setTimeout(function(){el.scrollIntoView({behavior:'smooth'});},300);}})();
+</script>
+</body>
+</html>
