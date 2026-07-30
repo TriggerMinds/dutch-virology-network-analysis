@@ -348,24 +348,26 @@
   var nodeLookup = {};
   allNodes.forEach(function(n) { nodeLookup[n.id] = n; });
   var timeline = VIS_DATA.timeline || [];
-  var fullNodeList = VIS_DATA.nodes || [];
-  var fullEdgeList = VIS_DATA.edges || [];
+  var fullNodeList = VIS_DATA.nodes || (VIS_DATA.visible && VIS_DATA.visible.nodes) || [];
+  var fullEdgeList = VIS_DATA.edges || (VIS_DATA.visible && VIS_DATA.visible.edges) || [];
 
   // Override colors for premium look
   fullNodeList.forEach(n => {
     if (n.color) {
-      if (n.color.background === '#e74c3c') n.color = { background: colorMap.t1, border: colorMap.t1 };
-      if (n.color.background === '#3498db') n.color = { background: colorMap.t2, border: colorMap.t2 };
-      if (n.color.background === '#2ecc71') n.color = { background: colorMap.t3, border: colorMap.t3 };
-      if (n.color.background === '#f39c12') n.color = { background: colorMap.event, border: colorMap.event };
+      let c = (typeof n.color === 'string') ? n.color : n.color.background;
+      if (c === '#e74c3c') n.color = { background: colorMap.t1, border: colorMap.t1 };
+      else if (c === '#3498db') n.color = { background: colorMap.t2, border: colorMap.t2 };
+      else if (c === '#2ecc71') n.color = { background: colorMap.t3, border: colorMap.t3 };
+      else if (c === '#f39c12') n.color = { background: colorMap.event, border: colorMap.event };
     }
   });
   
   fullEdgeList.forEach(e => {
-    if (e.color && e.color.color) {
-      if (e.color.color === '#e74c3c') e.color.color = 'rgba(248, 81, 73, 0.4)';
-      if (e.color.color === '#3498db') e.color.color = 'rgba(88, 166, 255, 0.4)';
-      if (e.color.color === '#2ecc71') e.color.color = 'rgba(46, 160, 67, 0.4)';
+    let c = (typeof e.color === 'string') ? e.color : (e.color && e.color.color);
+    if (c) {
+      if (c === '#e74c3c') e.color = { color: 'rgba(248, 81, 73, 0.4)' };
+      else if (c === '#3498db') e.color = { color: 'rgba(88, 166, 255, 0.4)' };
+      else if (c === '#2ecc71') e.color = { color: 'rgba(46, 160, 67, 0.4)' };
     }
   });
 
