@@ -1,0 +1,98 @@
+[
+  {
+    "id": "eu_veo_874735",
+    "project_name": "VEO (Versatile Emerging infectious disease Observatory)",
+    "grant_id": "GA#874735",
+    "funder": "EU Horizon 2020",
+    "recipient": "Erasmus MC (Viroscience / PDPC)",
+    "pi_name": "Marion Koopmans",
+    "amount_euro": 14600000.0,
+    "fiscal_year": 2019,
+    "source_doc": "EU CORDIS GA#874735",
+    "notes": "Global interactive observatory for emerging infectious diseases."
+  },
+  {
+    "id": "eu_ecraid_965313",
+    "project_name": "ECRAID (European Clinical Research Alliance for Infectious Diseases)",
+    "grant_id": "GA#965313",
+    "funder": "EU Horizon 2020",
+    "recipient": "UMC Utrecht",
+    "pi_name": "Marc Bonten",
+    "amount_euro": 20000000.0,
+    "fiscal_year": 2020,
+    "source_doc": "EU CORDIS GA#965313",
+    "notes": "European clinical research infrastructure for pan-European trials."
+  },
+  {
+    "id": "eu_compare_643476",
+    "project_name": "COMPARE (COllaborative Management Platform for detection and Analyses of RE-emerging threats)",
+    "grant_id": "GA#643476",
+    "funder": "EU Horizon 2020",
+    "recipient": "Erasmus MC",
+    "pi_name": "Marion Koopmans",
+    "amount_euro": 10300000.0,
+    "fiscal_year": 2015,
+    "source_doc": "EU CORDIS GA#643476",
+    "notes": "Metagenomics and global analytical platform for early spillover detection."
+  },
+  {
+    "id": "eu_durable_848223",
+    "project_name": "DURABLE (Delivering a Unified Research Alliance of Biomedical and Life Sciences Expertise)",
+    "grant_id": "GA#848223",
+    "funder": "EU Horizon 2020",
+    "recipient": "RIVM / AMC",
+    "pi_name": "Menno de Jong",
+    "amount_euro": 5000000.0,
+    "fiscal_year": 2020,
+    "source_doc": "EU CORDIS GA#848223",
+    "notes": "EU pan-epidemic response network."
+  },
+  {
+    "id": "zonmw_pdpc",
+    "project_name": "PDPC (Pandemic & Disaster Preparedness Center)",
+    "grant_id": "PDPC-2020-01",
+    "funder": "ZonMw / NWO / Erasmus MC / TU Delft",
+    "recipient": "Erasmus MC / TU Delft",
+    "pi_name": "Marion Koopmans",
+    "amount_euro": 12000000.0,
+    "fiscal_year": 2020,
+    "source_doc": "ZonMw / Erasmus MC Press Release 2020",
+    "notes": "Interdisciplinary disaster preparedness center."
+  },
+  {
+    "id": "zonmw_ncoh",
+    "project_name": "NCOH (National Centre for One Health)",
+    "grant_id": "NCOH-2016-01",
+    "funder": "ZonMw / Partner Institutions",
+    "recipient": "Erasmus MC / UU / LUMC / WUR",
+    "pi_name": "Marion Koopmans",
+    "amount_euro": 4200000.0,
+    "fiscal_year": 2016,
+    "source_doc": "NCOH Annual Report",
+    "notes": "Dutch One Health research consortium."
+  },
+  {
+    "id": "zonmw_ic_covid",
+    "project_name": "IC COVID National Care & Research Protocol",
+    "grant_id": "ZonMw-10430012010001",
+    "funder": "ZonMw",
+    "recipient": "Erasmus MC",
+    "pi_name": "Diederik Gommers",
+    "amount_euro": 1500000.0,
+    "fiscal_year": 2020,
+    "source_doc": "ZonMw Subsidie-register 2020",
+    "notes": "National intensive care COVID research protocol."
+  },
+  {
+    "id": "nih_ecohealth_wiv",
+    "project_name": "Predicting Virus Emergence from Wildlife (EcoHealth / WIV Sub-award)",
+    "grant_id": "2R01AI110964-06A1",
+    "funder": "NIH / NIAID",
+    "recipient": "EcoHealth Alliance -> Wuhan Institute of Virology",
+    "pi_name": "Peter Daszak / Shi Zhengli",
+    "amount_euro": 3396330.0,
+    "fiscal_year": 2019,
+    "source_doc": "NIH RePORTER Grant #2R01AI110964",
+    "notes": "US NIH funding for bat coronavirus sampling and reverse genetics in Wuhan."
+  }
+]

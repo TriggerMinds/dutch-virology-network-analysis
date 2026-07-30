@@ -293,14 +293,13 @@ print("  AVG-GDPR-en-Wederhoor.md")
 print(f"\n[wiki] 7 pages generated in {WIKI_OUT}")
 
 # ── Auto-push to GitHub Wiki repo if requested or by default ──────────────
+import tempfile
 wiki_repo_url = "https://github.com/TriggerMinds/dutch-virology-network-analysis.wiki.git"
-temp_wiki_dir = os.path.join(ROOT, "temp_wiki_auto_sync")
 
 try:
     print(f"\n[wiki] Syncing directly to GitHub Wiki repository ({wiki_repo_url})...")
-    if os.path.exists(temp_wiki_dir):
-        shutil.rmtree(temp_wiki_dir, ignore_errors=True)
-        
+    temp_wiki_dir = tempfile.mkdtemp(prefix="wiki_sync_")
+    
     subprocess.check_call(["git", "clone", wiki_repo_url, temp_wiki_dir])
     
     for f in os.listdir(WIKI_OUT):
