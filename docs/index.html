@@ -377,9 +377,9 @@
     fullEdgeList.forEach(function(e, ei) {
       var src = fullNodeList[e.from];
       var tgt = fullNodeList[e.to];
-      if (!src || !tgt || !src.full_data || !tgt.full_data) return;
-      var sname = src.full_data.id;
-      var tname = tgt.full_data.id;
+      if (!src || !tgt) return;
+      var sname = src.id;
+      var tname = tgt.id;
       if (!edgeIndex[sname]) edgeIndex[sname] = [];
       edgeIndex[sname].push({ target: tname, layer: e.layer, color: e.color, dashes: e.dashes, title: e.title, edgeIdx: ei });
       if (!edgeIndex[tname]) edgeIndex[tname] = [];
@@ -398,7 +398,7 @@
     if (nodeIdMap[fullId] !== undefined) return nodeIdMap[fullId];
     var srcIdx = -1;
     for (var i = 0; i < fullNodeList.length; i++) {
-      if (fullNodeList[i].full_data && fullNodeList[i].full_data.id === fullId) { srcIdx = i; break; }
+      if (fullNodeList[i].id === fullId) { srcIdx = i; break; }
     }
     if (srcIdx < 0) return -1;
     var srcNode = fullNodeList[srcIdx];
@@ -406,17 +406,17 @@
     activeNodes.push({
       id: newIdx, label: srcNode.label, title: srcNode.title,
       group: srcNode.group, value: srcNode.value || 15,
-      color: srcNode.color, physics: true, full_data: srcNode.full_data
+      color: srcNode.color, physics: true, full_data: srcNode
     });
     nodeIdMap[fullId] = newIdx;
     
     for (var j = 0; j < fullEdgeList.length; j++) {
       var e = fullEdgeList[j];
       var s = fullNodeList[e.from], t = fullNodeList[e.to];
-      if (!s || !t || !s.full_data || !t.full_data) continue;
+      if (!s || !t) continue;
       var otherId = null;
-      if (s.full_data.id === fullId) otherId = t.full_data.id;
-      else if (t.full_data.id === fullId) otherId = s.full_data.id;
+      if (s.id === fullId) otherId = t.id;
+      else if (t.id === fullId) otherId = s.id;
       if (!otherId) continue;
       
       var otherIdx = -1;
@@ -424,7 +424,7 @@
         otherIdx = nodeIdMap[otherId];
       } else {
         for (var k = 0; k < fullNodeList.length; k++) {
-          if (fullNodeList[k].full_data && fullNodeList[k].full_data.id === otherId) {
+          if (fullNodeList[k].id === otherId) {
             otherIdx = ensureNode(otherId); break;
           }
         }
@@ -444,20 +444,19 @@
   function buildInitialGraph() {
     activeNodes = []; activeEdges = []; nodeIdMap = {};
     fullNodeList.forEach(function(node) {
-      if (!node.full_data) return;
       var nid = activeNodes.length;
       activeNodes.push({
         id: nid, label: node.label, title: node.title,
         group: node.group, value: node.value || 15,
-        color: node.color, physics: true, full_data: node.full_data
+        color: node.color, physics: true, full_data: node
       });
-      nodeIdMap[node.full_data.id] = nid;
+      nodeIdMap[node.id] = nid;
     });
 
     fullEdgeList.forEach(function(e) {
       var src = fullNodeList[e.from], tgt = fullNodeList[e.to];
-      if (!src || !tgt || !src.full_data || !tgt.full_data) return;
-      var si = nodeIdMap[src.full_data.id], ti = nodeIdMap[tgt.full_data.id];
+      if (!src || !tgt) return;
+      var si = nodeIdMap[src.id], ti = nodeIdMap[tgt.id];
       if (si === undefined || ti === undefined) return;
       var dup = activeEdges.some(function(ae) { return (ae.from === si && ae.to === ti) || (ae.from === ti && ae.to === si); });
       if (!dup) {
