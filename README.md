@@ -22,6 +22,7 @@ This repository contains a **multiplex knowledge graph**, a **multi-lingual docu
 
 | Document | Description & Key Findings |
 |----------|----------------------------|
+| **[OPERATIONAL_INVESTIGATIVE_MANUAL.md](docs/OPERATIONAL_INVESTIGATIVE_MANUAL.md)** | **Operational Manual & Promptbook**: Complete hands-on guide with terminal commands, SQLite FTS5 queries, redaction delta scripts, and AI research prompts for truth-seeking. |
 | **[EU_MEMBER_STATES_FORENSIC_DOSSIER.md](docs/EU_MEMBER_STATES_FORENSIC_DOSSIER.md)** | **Cross-Border EU Forensic Audit**: Analyzes Germany (RKI-Protokolle leaks), Italy (Procura di Bergamo inchiesta #3274/2020 WG), France (Sénat Rapport n° 199 mask dissimulation), Spain (Caso Koldo procurement corruption), Belgium (Chambre des représentants), and EU Parliament (COVI Committee & Von der Leyen SMS audit). |
 | **[MASTER_UNTURNED_STONES_AUDIT.md](docs/MASTER_UNTURNED_STONES_AUDIT.md)** | **Master Unturned Stones Audit**: Evaluates all missing files, 68.5% WOO redactions (Art. 5.2), AIVD circular evidence loop, 20.800+ unexplained excess mortality gap, and the top 7 highest-leverage WOO/FOIA targets. |
 | **[DUTCH_ANOMALIES_FORENSIC_AUDIT.md](docs/DUTCH_ANOMALIES_FORENSIC_AUDIT.md)** | **Dutch Specific Forensic Audit**: Documents the 6 core Dutch anomalies (Corman-Drosten PCR fast-track <48h without Wuhan sample, OMT double-hats & €67,6M+ funding concentration, Viroscience B.V. private spin-off, 107-day media narrative lag). |

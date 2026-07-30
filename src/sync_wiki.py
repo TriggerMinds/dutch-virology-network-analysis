@@ -67,6 +67,7 @@ copy_doc_to_wiki("BLIND_SPOT_MAPPING.md", "Blind-Spot-Mapping")
 copy_doc_to_wiki("DUTCH_ANOMALIES_FORENSIC_AUDIT.md", "Nederlandse-Anomalieen-en-Belangen")
 copy_doc_to_wiki("MASTER_UNTURNED_STONES_AUDIT.md", "Master-Unturned-Stones-Audit")
 copy_doc_to_wiki("EU_MEMBER_STATES_FORENSIC_DOSSIER.md", "Europese-Parlementaire-Onderzoeken")
+copy_doc_to_wiki("OPERATIONAL_INVESTIGATIVE_MANUAL.md", "Operationele-Handleiding-en-Prompts")
 
 # ── 2. De-Pandemische-Draaischijf.md ──────────────────────────────────────
 md_path = os.path.join(ROOT, "docs", "wiki", "De-Pandemische-Draaischijf.md")
