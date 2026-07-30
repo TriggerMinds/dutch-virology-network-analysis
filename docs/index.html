@@ -499,10 +499,16 @@
     
     network = new vis.Network(container, { nodes: nodes, edges: edges }, options);
     
-    network.once("stabilizationIterationsDone", function() {
-      loader.style.opacity = '0';
-      setTimeout(() => loader.style.display = 'none', 500);
-    });
+    const hideLoader = () => {
+      if (loader.style.opacity !== '0') {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 500);
+      }
+    };
+    
+    network.once("stabilizationIterationsDone", hideLoader);
+    network.once("afterDrawing", hideLoader);
+    setTimeout(hideLoader, 4000); // Fail-safe fallback
 
     network.on('click', function(params) { 
       if (params.nodes.length > 0) showNodeInfo(params.nodes[0]); 
