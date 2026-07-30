@@ -44,6 +44,14 @@ conn = sqlite3.connect(DB_PATH)
 conn.row_factory = sqlite3.Row
 c = conn.cursor()
 
+# Load evidence
+evidence_map = {}
+for r in c.execute("SELECT entity_name, exact_quote, document_name, page_number FROM evidence_quotes ORDER BY entity_name"):
+    en = r["entity_name"]
+    if en not in evidence_map:
+        evidence_map[en] = []
+    evidence_map[en].append({"quote": (r["exact_quote"] or "")[:300], "source": r["document_name"] or "", "page": str(r["page_number"] or "")})
+
 # Tier 1-3 seed nodes
 ALWAYS_INCLUDE = set()
 for r in c.execute("SELECT name FROM nodes WHERE tier IN (1,2,3)"):
@@ -112,6 +120,9 @@ for nid, attrs, scr in priority[:MAX_VISIBLE]:
     
     idx = len(nodes_out)
     node_map[nid] = idx
+    between = round(bc.get(nid, 0), 4)
+    eigenv = round(ec.get(nid, 0), 4)
+    degree = G.degree(nid)
     nodes_out.append({
         "id": nid,
         "label": (attrs.get("label") or nid)[:30],
@@ -121,9 +132,12 @@ for nid, attrs, scr in priority[:MAX_VISIBLE]:
         "group": group_name,
         "color": color,
         "year": extract_year(nid, attrs),
-        "centrality": {"betweenness": round(bc.get(nid, 0), 4),
-                       "eigenvector": round(ec.get(nid, 0), 4),
-                       "degree": G.degree(nid)}
+        "centrality": {"betweenness": between, "eigenvector": eigenv, "degree": degree},
+        "full_data": {
+            "id": nid, "org": attrs.get("org") or "", "tier": tier, "role": attrs.get("role") or "",
+            "betweenness": between, "eigenvector": eigenv, "degree": degree,
+            "evidence": evidence_map.get(nid, [])
+        }
     })
 
 # Build edges between visible nodes
@@ -137,25 +151,34 @@ for u, v, e_attrs in G.edges(data=True):
             layer = e_attrs.get("layer", "unknown")
             lc = {"CO_AUTHOR": "#5dade2", "POLICY_ADVISORY": "#e74c3c",
                   "MEDIA_NARRATIVE": "#2ecc71", "CONSORTIUM_FUNDING": "#f39c12"}
+            weight = e_attrs.get("weight") or 1
+            if isinstance(weight, str): weight = 1
+            try: weight = int(weight)
+            except: weight = 1
             edges_out.append({
                 "source": node_map[u],
                 "target": node_map[v],
                 "layer": layer,
                 "color": lc.get(layer, "#95a5a6"),
                 "year": edge_year(e_attrs),
-                "desc": (e_attrs.get("desc") or e_attrs.get("description") or "")[:100]
+                "desc": (e_attrs.get("desc") or e_attrs.get("description") or "")[:100],
+                "weight": min(weight, 10)
             })
 
 # Build full search index (all 5401 nodes)
 full_index = []
 for nid, attrs in all_nodes:
+    between = round(bc.get(nid, 0), 4)
     full_index.append({
         "id": nid,
         "label": (attrs.get("label") or nid)[:50],
         "org": attrs.get("org") or "",
         "tier": attrs.get("tier") or 0,
         "role": attrs.get("role") or "",
-        "centrality": round(bc.get(nid, 0), 4)
+        "centrality": between,
+        "betweenness": between,
+        "degree": G.degree(nid),
+        "evidence": evidence_map.get(nid, [])
     })
 
 # ── Write async data.json ────────────────────────────────────────────────
