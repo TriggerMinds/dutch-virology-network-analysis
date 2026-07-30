@@ -1,6 +1,8 @@
 # ── Source PDF — must be obtained separately ──────────────────────────────
 data/2026.07.24_Tonys-Diary-Package.pdf
 2026.07.24_Tonys-Diary-Package.pdf
+data/raw/*.pdf
+data/raw/*/*.pdf
 
 # ── Generated data artifacts (reproducible via pipeline) ─────────────────
 data/raw_data.json
@@ -9,6 +11,12 @@ data/graph.json
 data/centrality_results.json
 data/nl_*.json
 data/downloads/
+
+# ── Temporary / Scraping Output ──────────────────────────────────────────
+.playwright-mcp/
+temp_wiki/
+wiki_output/
+release_v4.0.zip
 
 # ── Environment ──────────────────────────────────────────────────────────
 .env

@@ -104,13 +104,13 @@ Het **Leiden/Louvain-algoritme** detecteert een aparte community (Community 0) b
 | Community 3 | 369 | Annemiek van der Eijk, Aura Timen |
 | Community 7 | 298 | Jan Kluytmans |
 
-### 3.3 Policy-community splitsing
+### 3.3 Policy-community splitsing & Koopmans Audit
 
 In de POLICY_ADVISORY laag detecteert Louvain de volgende communities:
-2. **Community 1** (10 leden): Andrew Rambaut, Anthony Fauci, Deliberate Insertion Hypothesis, Edward Holmes, Feb 1 Conference Call, Francis Collins, Jeremy Farrar, Kristian Andersen, Marion Koopmans, Robert Garry
-1. **Community 0** (3 leden): Christian Drosten, Natural Origin Hypothesis, Ron Fouchier
+1. **Community 1** (10 leden): Andrew Rambaut, Anthony Fauci, Deliberate Insertion Hypothesis, Edward Holmes, Feb 1 Conference Call, Francis Collins, Jeremy Farrar, Kristian Andersen, Marion Koopmans, Robert Garry
+2. **Community 0** (3 leden): Christian Drosten, Natural Origin Hypothesis, Ron Fouchier
 
-**Koopmans zit in Community 1** (samen met de deliberate-fractie) — dit is een voorzichtige indicatie dat zij mogelijk nader stond tot de deliberate-positie dan Fouchier (die in Community 0 zit), maar dit is **geen bewijs**; alleen een netwerktoewijzing op basis van met wie ze in dezelfde policy-edges zit.
+> **Forensische Audit Update (juli 2026):** De plaatsing van Koopmans in Community 1 is puur een netwerk-topologische toewijzing door deling van de Feb 1 call-node. Uit de directe textuele extractie van *Tony's Diary* (p. 14-15) blijkt dat haar individuele standpunt of bijdrage op de teleconferentie van 1 februari 2020 **niet is vastgelegd** in het contemporaine verslag. Haar formele status is derhalve geclassificeerd als **`UNKNOWN` (Blind Spot)**.
 
 ---
 
@@ -119,7 +119,7 @@ In de POLICY_ADVISORY laag detecteert Louvain de volgende communities:
 | Datum | Type | Gebeurtenis | Actoren |
 |-------|------|------------|--------|
 | 2020-01-31 | trigger | Jeremy Farrar calls Fauci about furin cleavage site — triggers Feb 1 call | Jeremy Farrar, Anthony Fauci |
-| 2020-02-01 | meeting | Fauci convenes 12 scientists incl. Fouchier, Koopmans. NO CONSENSUS on natural vs deliberate | Fouchier, Koopmans, Fauci, Collins et al. |
+| 2020-02-01 | meeting | Fauci convenes 12 scientists incl. Fouchier, Koopmans. NO CONSENSUS. Fouchier/Drosten defend natural origin. Koopmans position UNRECORDED (UNKNOWN). | Fouchier, Koopmans, Fauci, Collins et al. |
 | 2020-02-09 | consultation | Tom Frieden calls Fauci; discussed CFR estimates 0.2-0.3% vs 2% | Tom Frieden, Anthony Fauci |
 | 2020-03-11 | declaration | WHO declares COVID-19 a pandemic | WHO, Fauci |
 | 2020-05 | publication | Andersen et al. 'The Proximal Origin of SARS-CoV-2' published in Nature Medicine | Andersen, Garry, Holmes, Rambaut |
@@ -130,10 +130,10 @@ In de POLICY_ADVISORY laag detecteert Louvain de volgende communities:
 
 ## 5. NEDERLANDSE VIROLOGEN IN FAUCI'S DAGBOEK
 
-| Persoon | Tier | Vermeldingen in Diary | |
-|---------|------|----------------------|---|
+| Persoon | Tier | Vermeldingen in Diary | Details / Standpunt Status |
+|---------|------|----------------------|---------------------------|
 | **Ron Fouchier** | 1 | 2× (p14: deelnemer + positie) | "Original GOF person" — betoogde natuurlijke oorsprong |
-| **Marion Koopmans** | 1 | 1× (p14: deelnemer) | **Positie NIET genoteerd** |
+| **Marion Koopmans** | 1 | 1× (p14: deelnemer) | **Aanwezigheid bevestigd; Standpunt UNRECORDED (`UNKNOWN`)** |
 | **Ab Osterhaus** | 1 | **0** | Afwezig in 1141 pagina's |
 | **Thijs Kuiken** | 1 | **0** | Afwezig |
 | **Bart Haagmans** | 1 | **0** | Afwezig |

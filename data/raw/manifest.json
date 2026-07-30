@@ -1,0 +1,14 @@
+[
+  {
+    "id": "fauci_diary_2026_07_24",
+    "title": "Tony's Diary Package (Fauci Diary Release)",
+    "relative_path": "data/raw/fauci_diary/2026.07.24_Tonys-Diary-Package.pdf",
+    "source_origin": "Rand Paul Release / U.S. Senate Release July 2026 (local raw package)",
+    "acquisition_date": "2026-07-30T20:41:45.313342",
+    "sha256": "27d8d39b118638e4c0a4a0ece7fda8e7e6772ea70a920aacfdcca70f198cd57e",
+    "size_bytes": 69276172,
+    "page_count": 1141,
+    "status": "local",
+    "notes": "Primary contemporary diary document for Anthony Fauci, covering Jan 2020 onwards."
+  }
+]

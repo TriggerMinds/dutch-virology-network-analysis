@@ -27,6 +27,15 @@
 
 **Correctie:** De OpenAlex fetch haalde alleen de **top-10 meest geciteerde werken** per auteur (±157 unieke co-auteurs voor Fouchier). Dit is een selectiebias naar oudere, veel-geciteerde publicaties (vooral MERS/Influenza). Het netwerk van **COVID-19-specifieke co-auteurschappen** (2020) is hiermee **ondervertegenwoordigd**. Fouchier heeft 636 totale werken — de overige 626 zijn niet meegenomen.
 
+### 1.4 Status Koopmans' positie op de teleconferentie van 1 februari 2020 (GEAUDITEERD)
+
+**Foutieve aanname/onduidelijkheid vooraf:** Was Marion Koopmans aanwezig op de teleconferentie van 1 februari 2020 en wat was haar standpunt over de furin cleavage site en de lab-origin hypothese?
+
+**Auditresultaat (juli 2026):**
+- **Aanwezigheid:** Bevestigd op pagina 14 van *Tony's Diary* (`M.P.G. Koopmans, Head of Department of ViroScience, Erasmus Medical Center, NL`).
+- **Standpunt/Citaat:** **Niet genoteerd.** Fauci vat de standpunten op de call expliciet samen voor Ron Fouchier ("sure that this could occur naturally"), Christian Drosten ("was with Ron"), en "the rest" (voorstanders van verder onderzoek naar deliberate insertion). Koopmans wordt in de lopende tekst niet geciteerd of genoemd als spreker.
+- **Formele status:** Overeenkomstig TEAMDYNAMICA-regels is haar positie op de call geclassificeerd als **`UNKNOWN`** in de database (`koopmans_feb1_audit`) en de multiplex graph (`data/graph.json`).
+
 ---
 
 ## 2. Ontbrekende perspectieven & argumenten
