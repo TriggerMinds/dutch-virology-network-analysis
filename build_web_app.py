@@ -68,35 +68,61 @@ for r in c.execute("SELECT date, event_type, description, actors_involved FROM t
         "actors": (r["actors_involved"] or "")[:100]
     })
 
+# Build always-include set BEFORE closing connection
+ALWAYS_INCLUDE = set()
+for r in c.execute("SELECT name FROM nodes WHERE tier IN (1,2,3)"):
+    ALWAYS_INCLUDE.add(r["name"])
+
 conn.close()
 
 # Build vis.js data
 print("[build] Preparing vis.js data...")
-MAX_NODES = 100  # initial visible nodes
+for name in ["Feb 1 Conference Call", "Deliberate Insertion Hypothesis",
+             "Natural Origin Hypothesis", "Proximal Origin Paper",
+             "Anthony Fauci", "Francis Collins", "Jeremy Farrar",
+             "Kristian Andersen", "Edward Holmes", "Andrew Rambaut",
+             "Christian Drosten", "Robert Garry", "Shi Zhengli",
+             "Peter Daszak", "Erasmus MC"]:
+    ALWAYS_INCLUDE.add(name)
 
-# Sort by combined centrality for priority
+# Sort remaining by centrality for priority
 all_nodes = list(G.nodes(data=True))
 node_priority = []
 for nid, attrs in all_nodes:
+    if nid in ALWAYS_INCLUDE:
+        continue  # will be added unconditionally
     deg = G.degree(nid)
     b = bc.get(nid, 0)
     e = ec.get(nid, 0)
     tier = attrs.get("tier", 99)
     score = b * 10 + e * 5 + deg * 0.01
-    # Boost tier 1-3 nodes
     if tier in (1, 2, 3):
         score += 10
     node_priority.append((nid, attrs, score, b, e, deg))
 
 node_priority.sort(key=lambda x: -x[2])
 
-# Gather seed + high-priority nodes
-seen = set()
+# Gather all nodes: always-include + top centrality fillers up to 150
 vis_nodes = []
 vis_edges = []
-node_map = {}  # id → index
+node_map = {}
 
-for nid, attrs, score, b, e, deg in node_priority[:MAX_NODES]:
+# First pass: always-include nodes
+all_candidates = []
+for nid in ALWAYS_INCLUDE:
+    if not G.has_node(nid):
+        continue
+    attrs = G.nodes[nid]
+    deg = G.degree(nid)
+    b = bc.get(nid, 0)
+    e = ec.get(nid, 0)
+    all_candidates.append((nid, attrs, 999, b, e, deg))
+
+# Add top centrality nodes up to 300 total
+all_candidates.extend(node_priority)
+all_candidates = all_candidates[:300]
+
+for nid, attrs, score, b, e, deg in all_candidates:
     tier = attrs.get("tier", 0)
     color_map = {1: "#e74c3c", 2: "#3498db", 3: "#2ecc71", 0: "#95a5a6"}
     if tier == 0:
