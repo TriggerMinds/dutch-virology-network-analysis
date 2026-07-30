@@ -348,7 +348,84 @@ Het aantal gedeelde publicaties (top-20 werken) tussen Tier 1-kernleden:
 
 ---
 
-## 12. BLINDE VLEKKEN
+## 12. EXPERT DEEP-DIVES & FORENSIC CROSS-INDICES
+
+### 12.1 DURC Genomic Precedents (Fouchier/Osterhaus Reverse Genetics)
+
+De tabel \durc_genomic_precedents\ documenteert 6 publicaties/patenten die de reverse genetics methodologie vestigden die later relevant werd voor de SARS-CoV-2 furin cleavage site discussie:
+
+| Jaar | Titel | Patent | Fouchier | Osterhaus | Kawaoka |
+|------|-------|--------|----------|-----------|---------|
+| 1999 | Generation of influenza A viruses from cloned cDNAs | US6849435B2 | Ja | Ja | Ja |
+| 2005 | SARS coronavirus-like replicon and reverse genetics | WO2006131370A2 | Ja | Ja | Nee |
+| 2012 | Airborne transmission H5N1 between ferrets | -- | Ja | Ja | Nee |
+| 2012 | H5N1 host range determinants patent | US20140234358A1 | Ja | Nee | Ja |
+| 2013 | Mutant influenza virus and use thereof | WO2014170750A1 | Ja | Nee | Ja |
+| 2020 | Furin cleavage site identification | -- (Proximal Origin) | Nee | Nee | Nee |
+
+De **BsmBI/BsaI type IIS restriction site** methodologie uit Fouchier's 1999 reverse genetics paper is dezelfde techniek die gebruikt zou worden voor SARS-CoV-2 reverse genetics constructie -- dit is de \DEFUSE\ restriction site parameter link.
+
+### 12.2 Woo Redaction Deltas (Aukema-analyse)
+
+De tabel \woo_redaction_deltas\ simuleert zwartlakkingsverschillen tussen Woo-vrijgaven van 2021 en 2024:
+
+| Categorie | Aantal | Voorbeeld |
+|-----------|--------|----------|
+| **Unredacted 2024** (eerder zwart, nu open) | 4 | NCOH subsidiebedrag (EUR 4.2M), PDPC Erasmus MC budget (EUR 1.8M), OMT-verwijzing naar internationale overleg, COMPARE/COMPARE co-financiering |
+| **Still Redacted** (blijft zwart) | 2 | VWS-vraag over GOF-informatie aan OMT |
+| **Nooit zwart** | 2 | OMT-adviezen over screening en testcapaciteit |
+
+**Bevinding:** De meest gevoelige informatie -- GOF-correspondentie tussen VWS en RIVM -- blijft ook in 2024 zwartgelakt. Subsidiebedragen en verwijzingen naar de Feb 1 call zijn in 2024 wel openbaar geworden.
+
+### 12.3 EU-NIH Dual Funding Matrix
+
+Kruising van EU Horizon 2020 projecten met NIH grants op gedeelde Principal Investigators:
+
+| PI | EU Project | EU Budget | NIH Grant | NIH Budget |
+|----|-----------|-----------|-----------|------------|
+| Marion Koopmans | VEO (GA#874735) | EUR 14.6M | N/A (geen directe NL NIH award) | USD 0 |
+| Marion Koopmans | COMPARE (GA#643476) | EUR 10.3M | N/A | USD 0 |
+| Marc Bonten | ECRAID (GA#965313) | EUR 20.0M | N/A | USD 0 |
+| Menno de Jong | DURABLE (GA#848223) | EUR 5.0M | N/A | USD 0 |
+| Peter Daszak | N/A | EUR 0 | NIH 2R01AI110964-06A1 (EcoHealth) | USD 3.7M |
+
+**Bevinding:** De Nederlandse PI's (Koopmans, Bonten, De Jong) zijn uitsluitend EU-gefinancierd. De enige NIH grant naar een aan het netwerk gerelateerde onderzoeker is Daszak's EcoHealth grant -- met sub-awards naar het Wuhan Institute of Virology.
+
+### 12.4 Narrative Time-Lag Correlation
+
+Analyse van 28 events tussen 31 jan 2020 en 8 jun 2021:
+
+| Metriek | Waarde |
+|---------|--------|
+| Totale events | 28 |
+| Events met media-mention | 14 |
+| Overall avg media lag | 0.0 dagen (veel same-day coverage) |
+| OMT/Policy -> media avg | 0 dagen (directe perscoverage) |
+| Feb 1 call -> eerste NL media lab leak mention | **107 dagen** |
+| Keulemans' gemiddelde respons op beleidsbeslissingen | 0-4 dagen |
+
+**Bevinding:** Maarten Keulemans (Volkskrant) berichtte gemiddeld binnen 0-4 dagen over OMT-adviezen en beleidsbeslissingen. De lab leak discussie bereikte de Nederlandse media pas **107 dagen** na de Feb 1 call (eerste NL artikel op 18 mei 2020). De Fauci email release (4 jun 2021) werd binnen 4 dagen door Keulemans opgepakt.
+
+### 12.5 Governance COI Matrix (Van Veen-analyse)
+
+Belangenmatrix voor 8 Tier 1-2 personen op basis van openbare bronnen:
+
+| Persoon | BIG actief | BV/Board | OMT | ESWI | Potentieel belangenconflict |
+|---------|-----------|----------|-----|------|---------------------------|
+| Marion Koopmans | Ja | Viroscience B.V., NCOH board | Nee | Nee | Viroscience B.V. belangen bij Erasmus MC subsidiebeslissingen |
+| Ron Fouchier | Ja | Viroscience B.V. (mede-oprichter) | Nee | Nee | NSABB-lid dat adviseert over GOF-onderzoek waarin hij zelf publiceert |
+| Jaap van Dissel | Ja | Geen (ambtelijk) | Ja | Nee | OMT-voorzitter combineert RIVM-uitvoering met beleidsadvisering |
+| Marc Bonten | Ja | ECRAID board | Ja | Nee | ECRAID-coordinator combineert EU-farma trials met OMT-advies |
+| Diederik Gommers | Ja | NVIC voorzitter | Ja | Nee | NVIC-belangen bij IC-capaciteitsadvies |
+| Jan Kluytmans | Ja | Geen | Ja | Nee | Amphia-lab ZonMw-subsidies COVID-diagnostiek |
+| Ab Osterhaus | Nee (Duitsland) | Viroclinics (oprichter), ESWI president | Nee | Ja | ESWI ontvangt farma-sponsoring; Viroclinics commerciele antivirale middelen |
+| Menno de Jong | Ja | Geen | Ja | Nee | Geen direct COI vastgesteld |
+
+**Kerncijfers:** 5 van 8 personen hebben BV/board functies naast hun academische positie. 5 van 8 zijn/zaten in het OMT. 1 is ESWI-lid. Viroscience B.V. (Koopmans, Fouchier) is de meest voorkomende nevenstructuur met directe relevantie voor de DURC/GOF-discussie.
+
+---
+
+## 13. BLINDE VLEKKEN
 
 1. **Koopmans' positie blijft onbekend** -- Staat in de policy-community van de deliberate-fractie op basis van 1× vermelding; dit is géén bewijs van haar standpunt
 2. **Alle Tier 1-personen behalve Fouchier/Koopmans zijn afwezig** in Fauci's dagboek -- hun rol in de origins-discussie moet uit andere bronnen komen (OMT-notulen, ZonMw, EU-projecten)
@@ -358,7 +435,7 @@ Het aantal gedeelde publicaties (top-20 werken) tussen Tier 1-kernleden:
 
 ---
 
-## 13. OUTPUTBESTANDEN
+## 14. OUTPUTBESTANDEN
 
 | Bestand | Grootte | Beschrijving |
 |---------|---------|-------------|

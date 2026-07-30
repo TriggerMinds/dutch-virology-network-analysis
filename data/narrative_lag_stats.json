@@ -1,0 +1,121 @@
+{
+ "total_events": 28,
+ "total_with_media_mention": 14,
+ "narrative_lags": [
+  {
+   "event_date": "2020-02-12",
+   "media_date": "2020-02-12",
+   "event_type": "media",
+   "description": "Eerste Volkskrant artikel over 'nieuw coronavirus'",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2020-02-19",
+   "media_date": "2020-02-19",
+   "event_type": "media",
+   "description": "Keulemans (Volkskrant): 'Waarom Nederland nog niet test'",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2020-02-25",
+   "media_date": "2020-02-25",
+   "event_type": "media",
+   "description": "Keulemans: 'RIVM: coronavirus gaat zich verspreiden'",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2020-02-28",
+   "media_date": "2020-02-28",
+   "event_type": "media",
+   "description": "Landelijke media-aandacht piekt (alle kranten)",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2020-03-06",
+   "media_date": "2020-03-06",
+   "event_type": "media",
+   "description": "Keulemans: 'Waarom Nederland niet lockdown kiest'",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2020-03-12",
+   "media_date": "2020-03-12",
+   "event_type": "media",
+   "description": "Eerste grote persconferentie Rutte/de Jonge",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2020-03-15",
+   "media_date": "2020-03-15",
+   "event_type": "media",
+   "description": "Keulemans analyse over intelligent lockdown",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2020-03-17",
+   "media_date": "2020-03-17",
+   "event_type": "media",
+   "description": "Keulemans: 'Lockdown werkt - dit is waarom'",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2020-05-18",
+   "media_date": "2020-05-18",
+   "event_type": "media",
+   "description": "First public mention of lab leak theory in NL media",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2020-05-27",
+   "media_date": "2020-05-27",
+   "event_type": "media",
+   "description": "Keulemans: 'Wuhan lab leak theorie ontkracht'",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2021-01-15",
+   "media_date": "2021-01-15",
+   "event_type": "media",
+   "description": "Keulemans: 'Koopmans: we moeten wereldwijd brononderzoek doen'",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2021-05-25",
+   "media_date": "2021-05-25",
+   "event_type": "media",
+   "description": "Keulemans: 'VS start nieuw brononderzoek naar coronavirus'",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2021-06-04",
+   "media_date": "2021-06-04",
+   "event_type": "media",
+   "description": "Washington Post publishes Fauci emails",
+   "lag_days": 0
+  },
+  {
+   "event_date": "2021-06-08",
+   "media_date": "2021-06-08",
+   "event_type": "media",
+   "description": "Keulemans: 'Fauci-mails tonen vroege twijfel over natuurlijke oorsprong'",
+   "lag_days": 0
+  }
+ ],
+ "avg_lag_by_type": {
+  "media": {
+   "count": 14,
+   "avg_lag_days": 0.0,
+   "min_lag": 0,
+   "max_lag": 0
+  }
+ },
+ "overall_avg_lag_days": 0.0,
+ "overall_median_lag_days": 0,
+ "avg_omt_to_media_lag_days": 0,
+ "feb1_call_to_first_NL_media_lab_leak_days": {
+  "from_date": "2020-02-01",
+  "to_date": "2020-05-18",
+  "lag_days": 107,
+  "description": "First public mention of lab leak theory in NL media"
+ }
+}
